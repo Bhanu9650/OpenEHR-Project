@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <title>Simple Sign up from</title>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'register.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <form action="/pharmaregistrationsuccess" method = "POST">
+      <h1>Please Login to Meet New People out there :)</h1>
+     
+      <div class="formcontainer">
+      <div class="container">
+        
+        <labe for="uname"><strong>Pharmacist Name</strong></labe>
+        <input type="text" placeholder="Enter your Name" name="uname" requiredl>
+
+        <label for="mail"><strong>E-mail</strong></label>
+        <input type="text" placeholder="Enter E-mail" name="mail" required>
+
+        <label for="psw"><strong>Password</strong></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+
+        <label for="yoe"><strong>Year of Experience </strong></label>
+        <input type="text" placeholder="Enter Year of Experience" name="yoe" required>
+
+        <label for="add"><strong>Address </strong></label>
+        <input type="text" placeholder="Enter Address" name="add" required>
+
+        <label for="phn"><strong>Phone</strong></label>
+        <input type="text" placeholder="Enter Phone" name="phn" required>
+        
+        <label for="rn"><strong>Registration Number </strong></label>
+        <input type="text" placeholder="Enter Registration Number" name="rn" required>
+
+
+
+        
+      </div>
+      <button type="submit"><strong>SIGN UP</strong></button>
+
+
+      <div class="container" style="background-color: #eee">
+        <label style="padding-left: 15px">
+        <input type="checkbox"  checked="checked" name="remember"> Remember me
+        </label>
+      </div>
+    </form>
+  </body>
+</html>

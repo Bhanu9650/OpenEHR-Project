@@ -1,0 +1,9 @@
+Create a Db called chatroom 
+ --->create database chatroom
+
+Create Table called userdata 
+ --->create table userdata(id SERIAL PRIMARY KEY,uname varchar(100),email varchar(100) ,password varchar(250));
+
+ 
+# ALTER TABLE users ADD COLUMN id SERIAL PRIMARY KEY 
+

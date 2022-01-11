@@ -57,7 +57,7 @@ def pregister():
 
 
 #Renders the Welcome Page
-@app.route('/welcome', methods=["POST"])
+@app.route('/dashboard', methods=["POST"])
 def loginsucess():
 
     if request.method == "POST":
@@ -78,7 +78,14 @@ def loginsucess():
         for row in result:
             if len(row.email)!= 0:
                 roles = row.role          
-                return render_template('welcome.html',data = roles )
+                if roles == 'Doctor':
+                    return render_template('doctorDashboard.html',data = roles )
+
+                elif roles =='Patient':
+                    return render_template('patientDashboard.html',data = roles )
+                else:
+                    return render_template('pharmaDashboard.html',data = roles )
+                
         data = "Wrong credentials"
         return render_template('login.html',data = data)
         

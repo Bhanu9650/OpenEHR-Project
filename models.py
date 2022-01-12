@@ -2,8 +2,6 @@ from enum import unique
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-# 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 Github Token
-
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:abc123@localhost/eapr"
 
@@ -143,12 +141,12 @@ class allergyIntolerance(db.Model):
 
 class problemList(db.Model):
     __tablename__ = "problemDiagnosis"
-    problem_diag_id = db.Column(db.Integer, primary_key=True)
+    problem_id = db.Column(db.Integer, primary_key=True)
     prescription_id = db.Column(
         db.Integer, db.ForeignKey("prescription.prescription_id"), nullable=False
     )
 
     problem_diag_name = db.Column(db.String(100), nullable=False)
     body_site = db.Column(db.String(50), nullable=False)
-    date_time_onset = db.Column(db.DateTime, nullable=True)
+    datetime_onset = db.Column(db.DateTime, nullable=True)
     severity = db.Column(db.String(25), nullable=True)

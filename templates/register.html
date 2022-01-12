@@ -1,50 +1,91 @@
+<!-- user signup form -->
 <!DOCTYPE html>
-<html>
-  <title>Simple Sign up from</title>
+<html lang="pt-br">
+  <title>UserForm</title>
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/1ab94d0eba.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'register.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <style>
-      
-    </style>
+    
   </head>
   <body>
+    <nav id="iconi">
+      <a href="/"><i class="fas fa-home fa-4x" style="font-size:48px;color: #048654"></i></a> 
+      </nav>
     <form action="/patientregistrationsuccess" method = "POST">
-      <h1>Please Login to Meet New People out there :)</h1>
+      <h3 id="head">Please Login to Meet New People out there :)</h3>
      
-      <div class="formcontainer">
-      <div class="container">
-       
+      <main class="container">
+       <h2>Signup</h2>
+       <form action="">
+        <div class="input-field">
+        <input type="text" placeholder="Enter your name" name="uname" required>
+        <div class="underline"></div>  
+      </div>
 
-        <labe for="uname"><strong>Patient Name</strong></labe>
-        <input type="text" placeholder="Enter your Name" name="uname" requiredl>
-
-        <label for="mail"><strong>E-mail</strong></label>
+        <div class="input-field">
         <input type="text" placeholder="Enter E-mail" name="mail" required>
+        <div class="underline"></div>
+      </div>
 
-        <label for="psw"><strong>Password</strong></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
+      <div class="input-field">
+        <input type="password" placeholder="Enter Password" name="psw" id="password" required>
+        <span>
+          <i class="fas fa-eye" onclick="show()" aria-hidden="true" id="eye"></i> 
+  
+        </span>
+        <div class="underline"></div>
+      </div>
 
-        <label for="add"><strong>Address </strong></label>
+
+      <div class="input-field">
         <input type="text" placeholder="Enter Address" name="add" required>
+        <div class="underline"></div>
+      </div>
 
-        <label for="age"><strong>Age</strong></label>
-        <input type="text" placeholder="Enter Age" name="age" required>
 
-        <label for="gen"><strong>Gender</strong></label>
+      <div class="input-field">
+        <input type="number" placeholder="Enter Age" name="age" required>
+        <div class="underline"></div>
+      </div>
+
+
+      <div class="input-field">
         <input type="text" placeholder="Enter Gender" name="gen" required>
+        <div class="underline"></div>
+      </div>
 
-        <label for="phn"><strong>Phone</strong></label>
-        <input type="text" placeholder="Enter Phone" name="phn" required>
-        
+
+      <div class="input-field">
+        <input type="tel" placeholder="Enter Phone" name="phn" required>
+        <div class="underline"></div>
       </div>
-      <button type="submit"><strong>SIGN UP</strong></button>
-      <div class="container" style="background-color: #eee">
-        <label style="padding-left: 15px">
-        <input type="checkbox"  checked="checked" name="remember"> Remember me
-        </label>
-      </div>
+
+      <column>
+      <input type="submit" value="SignUp">
+      <input type="checkbox"  checked="checked" name="remember"> Remember me
+      </column>
     </form>
+
+    </main>
+      
+     
+    
   </body>
+  <script>
+    function show() {
+      var password = document.getElementById("password");
+      var icon = document.querySelector(".fas");
+
+      // ========== Checking type of password ===========
+      if (password.type === "password") {
+        password.type = "text";
+      } else {
+        password.type = "password";
+      }
+    }
+  </script>
 </html>

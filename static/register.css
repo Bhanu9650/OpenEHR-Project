@@ -1,19 +1,24 @@
-html, body {
-    display: flex;
-    justify-content: center;
-    font-family: Roboto, Arial, sans-serif;
-    font-size: 15px;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+body{
+        background: linear-gradient(45deg, #1a0000, #048654);
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        min-width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
     }
-form {
-    border: 5px solid #f1f1f1;
-    }
-input[type=text], input[type=password] {
+    
+
+input[type=text], input[type=password] ,input[type=number],input[type=tel]{
     width: 100%;
-    padding: 16px 8px;
+    padding: 8px 20px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid #1a0000;
     box-sizing: border-box;
+    border-radius: 15px;
     }
 .icon {
     font-size: 110px;
@@ -22,34 +27,92 @@ input[type=text], input[type=password] {
     color: #4286f4;
     }
 button {
-    background-color: #4286f4;
-    color: white;
-    padding: 14px 0;
-    margin: 10px 0;
-    border: none;
+    
+    background: linear-gradient(45deg, #1a0000, #048654);
+    padding: 10px 0;
+    margin: 2px 0;
+    border-radius: 10px;
     cursor: grab;
-    width: 48%;
+    width: 20%;
     }
-h1 {
-    text-align:center;
-    font-size:18;
+    span{
+        position: absolute;
+        right: 15px;
+        transform: translate(0,50%);
+        cursor: pointer;
+        top:7px;
+        
+      }
+form input[type="submit"] {
+      
+        padding: 0.4rem;
+        width: 100%;  
+        background: linear-gradient(45deg, #1a0000, #048654);
+        cursor: pointer;
+        
+        font-size: 0.9rem;
+        font-weight: 300;
+        border-radius: 10px;
+        transition: all 0.3s ease;
     }
+    
+form input[type="submit"]:hover {
+        letter-spacing: 0.5px;
+        background: linear-gradient(to right, #4776E6, #8e54e9);
+    }
+#iconi{
+        background-color: black;
+        border-radius: 15px;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+     
+    }
+#iconi:hover{
+        background-color: whitesmoke;
+    
+    }
+
 button:hover {
     opacity: 0.8;
     }
 .formcontainer {
     text-align: center;
-    margin: 24px 50px 12px;
+    margin: 10px 25px 12px;
+    
     }
+#head{
+        top: 40px;
+        position: absolute;
+        text-align: center;
+    }
+form{
+        display: flex;
+        flex-direction: column;
+    }
+    
 .container {
-    padding: 16px 0;
+    padding: 8px 0;
     text-align:left;
+    background-image: url("https://www.djollie.net/wp-content/uploads/2018/01/gradient-wallpaper-26050-26735-hd-wallpapers-1024x640.jpg");
+    min-width: 320px;
+    min-height: 40vh;
+    padding: 2rem;
+    box-shadow: 15px 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
     }
-span.psw {
-    float: right;
-    padding-top: 0;
-    padding-right: 15px;
+.input-field {
+        position: relative;
+        color: black;
+       
+    
     }
+    
+form .input-field:first-child {
+        margin-bottom: 1.5rem;
+    }
+    
+
     /* Change styles for span on extra small screens */
 @media screen and (max-width: 300px) {
     span.psw {
@@ -57,3 +120,4 @@ span.psw {
     float: none;
     }
 }
+

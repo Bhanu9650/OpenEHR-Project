@@ -11,7 +11,7 @@ body{
     }
     
 
-input[type=text], input[type=password] ,input[type=number],input[type=tel]{
+input[type=text], input[type=password] ,input[type=number],input[type=tel],input[type=time]{
     width: 100%;
     padding: 8px 20px;
     margin: 8px 0;
@@ -26,15 +26,15 @@ input[type=text], input[type=password] ,input[type=number],input[type=tel]{
     justify-content: center;
     color: #4286f4;
     }
-button {
-    
-    background: linear-gradient(45deg, #1a0000, #048654);
-    padding: 10px 0;
-    margin: 2px 0;
-    border-radius: 10px;
-    cursor: grab;
-    width: 20%;
-    }
+
+span{
+        position: absolute;
+        right: 15px;
+        transform: translate(0,50%);
+        cursor: pointer;
+        top:7px;
+        
+      }
 form input[type="submit"] {
       
         padding: 0.4rem;
@@ -74,8 +74,8 @@ button:hover {
     
     }
 #head{
-        top: 40px;
-        position: absolute;
+        top: 45px;
+        position: relative;
         text-align: center;
     }
 form{
@@ -99,14 +99,6 @@ form{
        
     
     }
-span{
-        position: absolute;
-        right: 15px;
-        transform: translate(0,50%);
-        cursor: pointer;
-        top:7px;
-        
-      }
     
 form .input-field:first-child {
         margin-bottom: 1.5rem;
@@ -120,3 +112,4 @@ form .input-field:first-child {
     float: none;
     }
 }
+

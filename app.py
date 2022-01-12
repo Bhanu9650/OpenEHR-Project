@@ -176,6 +176,51 @@ def registration2():
         return render_template('login.html')
 
 
+@app.route('/doctor/<doctor_id>', methods=["GET"])
+def doctorHomePage(doctor_id):
+    pass
+
+@app.route('/doctor/<doctor_id>/users', methods=["GET"])
+def doctorUsersPage(doctor_id):
+    pass
+    
+@app.route('/doctor/<doctor_id>/profile', methods=["GET"])
+def doctorProfilePage(doctor_id):
+    pass
+    
+@app.route('/doctor/<doctor_id>/prescribe', methods=["GET"])
+def doctorPrescribePage(doctor_id):
+    pass
+    
+@app.route('/doctor/<doctor_id>/prescribe/prescription', methods=["POST"])
+def doctorPrescriptionPage(doctor_id):
+    pass
+    
+@app.route('/doctor/<doctor_id>/prescribe/past_illness', methods=["POST"])
+def doctorPastIllnessPage(doctor_id):
+    pass
+
+@app.route('/doctor/<doctor_id>/prescribe/medication_summary', methods=["POST"])
+def doctorMedicalIllnessPage(doctor_id):
+    pass
+
+@app.route('/doctor/<doctor_id>/prescribe/diagnosis', methods=["POST"])
+def doctorDiagnosisPage(doctor_id):
+    pass
+    
+@app.route('/patient/<patient_id>', methods=["GET"])
+def patientHomePage(patient_id):
+    pass
+    
+@app.route('/patient/<patient_id>/profile', methods=["GET"])
+def patientProfilePage(patient_id):
+    pass 
+
+
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=4005)
     

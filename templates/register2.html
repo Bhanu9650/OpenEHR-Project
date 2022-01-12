@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <title>Doctor Signup</title>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'register2.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+  
+  </head>
+  <body>
+    <form action="/doctorregistrationsuccess" method = "POST">
+      <nav id="iconi">
+        <a href="/"><i class="fas fa-home fa-4x" style="font-size:48px;color: #048654"></i></a> 
+        </nav>
+      <h3 id="head">Only Authorised Doctors can Signin:)</h3>
+     
+     
+      <main class="container">
+
+       
+       <form action="">
+        <div class="input-field">
+        <input type="text" placeholder="Enter your name" name="uname" required>
+        <div class="underline"></div>  
+      </div>
+
+        <div class="input-field">
+        <input type="text" placeholder="Enter E-mail" name="mail" required>
+        <div class="underline"></div>
+      </div>
+
+      <div class="input-field">
+        <input type="password" placeholder="Enter Password" name="psw" id="password" required>
+        <span>
+          <i class="fas fa-eye" onclick="show()" aria-hidden="true" id="eye"></i> 
+  
+        </span>
+        <div class="underline"></div>
+      </div>
+
+      <div class="input-field">
+        <input type="text" placeholder="Enter Address" name="add" required>
+        <div class="underline"></div>
+      </div>
+
+        
+
+      <div class="input-field">
+        <input type="number" placeholder="Enter Year of Experience" name="yoe" required>
+        <div class="underline"></div>
+      </div>
+
+      <div class="input-field">
+        <input type="text" placeholder="Enter Speciality" name="spl" required>
+        <div class="underline"></div>
+      </div>
+
+      <div class="input-field">
+        <input type="tel" placeholder="Enter Phone" name="phn" required>
+        <div class="underline"></div>
+      </div>
+
+      <div class="input-field">
+        <input type="tel" placeholder="Enter Fees" name="fee" required>
+        <div class="underline"></div>
+      </div>
+
+
+      <div class="input-field">
+        <input type="text" placeholder="Enter Description" name="desc" required>
+        <div class="underline"></div>
+      </div>
+
+      <div class="input-field">
+        <input type="time" placeholder="Enter Availabity From " name="avf">
+        <br>
+        <div class="input-field"></div>
+      </div>
+        <br>
+
+        <div class="input-field">
+          
+        <input type="time" placeholder="Enter Availabity  To" name="avt" >
+        <br>
+        <br>
+        <div class="input-field"></div>
+      </div>
+      <column>
+        <input type="submit" value="SignUp">
+        <input type="checkbox"  checked="checked" name="remember"> Remember me
+        </column>
+      </form>
+  
+      </main>
+  </body>
+  <script>
+    function show() {
+      var password = document.getElementById("password");
+      var icon = document.querySelector(".fas");
+
+      // ========== Checking type of password ===========
+      if (password.type === "password") {
+        password.type = "text";
+      } else {
+        password.type = "password";
+      }
+    }
+  </script>
+</html>

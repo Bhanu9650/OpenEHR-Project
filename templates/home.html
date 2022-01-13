@@ -6,11 +6,14 @@
 
      <!--========== BOX ICONS ==========-->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home Page</title>
      <!--========== CSS ==========-->
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/team-section.css">
   </head>
   <body>
     <!--========== SCROLL TOP ==========-->
@@ -20,20 +23,14 @@
   <!--========== HEADER ==========-->
   <header class="l-header" id="header">
     <nav class="nav bd-container">
-        <a href="#" class="nav__logo">CMR</a>
-
-
-        
-
-
-
+        <a href="#" class="nav__logo">EAPR</a>
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
-                <li class="nav__item"><a href="#home" class="nav__link active-link">AboutUs</a></li>
-                <li class="nav__item"><a href="pharmasignup" class="nav__link">Pharmacists</a></li>
+                <li class="nav__item"><a href="patientsignup" class="nav__link">Patients</a></li>
                 <li class="nav__item"><a href="doctorsignup" class="nav__link">Doctors</a></li>
-                <li class="nav__item"><a href="patientsignup" class="nav__link">Users</a></li>
-                <li class="nav__item"><a href="#contact" class="nav__link">Contact us</a></li>
+                <li class="nav__item"><a href="pharmasignup" class="nav__link">Pharmacists</a></li>
+                <li class="nav__item"><a href="#contact" class="nav__link">About Us</a></li>
+                <li class="nav__item"><a href="signin" class="nav__link">Log-In</a></li>
 
 
                 <li><i class='bx bx-moon change-theme' id="theme-button"></i></li>
@@ -51,12 +48,13 @@
     <section class="home" id="home">
         <div class="home__container bd-container bd-grid">
             <div class="home__data">
-                <h1 class="home__title">Healthcare Website</h1>
-                <h2 class="home__subtitle">To avail the best facilities<br>Sign-in Now</h2>
-                <a href="signin" class="button">Sign-in</a>
+                <h1 class="home__title">Easy Access Patient Record</h1>
+                <h2 class="home__subtitle">To avail the best facilities<br>Sign-Up Now</h2>
+                <a href="doctorsignup" class="button">Doctors</a>
+                <a href="patientsignup" class="button ml-3">Patients</a>
             </div>
 
-            <img src="/static/home.gif" alt="" class="home__img">
+            <img style="border-radius: 20px;" src="/static/home.gif" alt="" class="home__img">
         </div>
     </section>
     
@@ -67,16 +65,23 @@
         <div class="contact__container bd-grid">
             <div class="contact__data">
                 <span class="section-subtitle contact__initial">Let's talk</span>
-                <h2 class="section-title contact__initial">Contact us</h2>
-                <p class="contact__description">If you want to ask any query or want to give suggestions , contact us and we will attend you quickly, with our 24/7 chat service.</p>
+                <h2 class="section-title contact__initial">About us</h2>
+                <p class="contact__description"><b>EAPR </b>stands for Easy Access Patient Record, the objective of this project to bring out transparency at each stage of the medical process be it a patient , doctor, pharmacist.
+                    Any patient, doctor or pharmacist can register here to avail the services. The services that we provide are :-<br>
+                    The patient can register through patient Sign-Up and check his/her prescription.<br>
+                    The Doctor can record and manage all his patients data like prescription, medication, illness history, allergies etc. <br>
+                    The pharmacist would be able to get  a digital format of prescription and can log the details of medicine prescribed by the doctor to patients.</p>
             </div>
 
-            <div class="contact__button">
+            <!-- <div class="contact__button">
                 <a href="#" class="button">Contact us now</a>
-            </div>
+            </div> -->
         </div>
     </section>
 </main>
+
+{%include "team-section.html" %}
+
 
 <!--========== FOOTER ==========-->
 <footer class="footer section bd-container">

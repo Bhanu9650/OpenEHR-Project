@@ -26,40 +26,66 @@
 		============================================ -->
         <link rel="stylesheet" href="../../static/doctorcss/style.css">
         <link rel="stylesheet" href="../../static/doctorcss/profile.css">
-        <link rel="stylesheet" href="../../static/doctorcss/profile2.css">
+        <link rel="stylesheet" href="../../static/css/style.css">
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" href="../../static/doctorcss/responsive.css">
+    <style>
+        .submenu-angle li:hover {
+        background-color: rgb(7, 22, 87) !important;
+      }
+    </style>
 </head>
 
 <body>
-        <div class="left-sidebar-pro">
-            <nav id="sidebar" class="">
-                <div class="sidebar-header">
-                    <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    <strong><img src="img/logo/logosn.png" alt="" /></strong>
-                </div>
-                <div class="nalika-profile">
-                    <div class="profile-dtl">
-                        <a href="#"><img src="img/notification/4.jpg" alt="" /></a>
-                        <h2>Lakian <span class="min-dtn">Das</span></h2>
-                    </div>
-                    
-                </div>
-                <div class="left-custom-menu-adp-wrap comment-scrollbar">
-                    <nav class="sidebar-nav left-sidebar-menu-pro">
-                        <ul class="metismenu" id="menu1">
-                            <li class="active">
-                                <!-- <a class="has-arrow" href="index.html">
-                                       <i class="icon nalika-home icon-wrap"></i>
-                                       <span class="mini-click-non">Ecommerce</span>
-                                    </a> -->
-                                <ul class="submenu-angle" aria-expanded="true">
+    <header class="l-header" id="header">
+        <nav class="nav bd-container">
+            <a href="/" class="nav__logo">EAPR</a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="" class="nav__link">Patient List</a></li>
+                    <li class="nav__item"><a href="" class="nav__link">Prescribe</a></li>
+                    <li class="nav__item"><a href="/" class="nav__link">Logout</a></li>
+    
+    
+                    <li><i class='bx bx-moon change-theme' id="theme-button"></i></li>
+                </ul>
+            </div>
+    
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+        </nav>
+    </header><br><br><br>
+    <div class="left-sidebar-pro">
+        <nav id="sidebar" class="" style="background-color: #152036">
+          <div class="sidebar-header" style="background-color: #152036">
+            <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+            <strong><img src="img/logo/logosn.png" alt="" /></strong>
+          </div>
+          <div class="nalika-profile" style="background-color: #152036">
+            <div class="profile-dtl">
+              <a href="#"><img src="/static/prescribe-img/demo.png" alt="" /></a>
+              <h2>Lakian <span class="min-dtn">Das</span></h2>
+            </div>
+    
+          </div>
+          <div class="left-custom-menu-adp-wrap comment-scrollbar">
+            <nav class="sidebar-nav left-sidebar-menu-pro">
+              <ul class="metismenu" id="menu1">
+                <li class="active">
+                  <!-- <a class="has-arrow" href="index.html">
+                                           <i class="icon nalika-home icon-wrap"></i>
+                                           <span class="mini-click-non">Ecommerce</span>
+                                        </a> -->
+                  <ul class="submenu-angle" aria-expanded="true" style="background-color: #152036">
                                     <!-- <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Dashboard v.1</span></a></li> -->
                                     
                                     <li><a title="Patient List" href="home.html"><span class="mini-sub-pro">Home</span></a></li>
                                     <li><a title="Patient Cart" href="patientlist.html"><span class="mini-sub-pro">Patient List</span></a></li>
-                                    <li><a title="Patient Cart" href="profil.html"><span class="mini-sub-pro">Profile</span></a></li>
+                                    <li><a title="Patient Cart" href="profile.html"><span class="mini-sub-pro">Profile</span></a></li>
+                                    <li><a title="Patient Cart" href="prescribe.html"><span class="mini-sub-pro">Prescribe</span></a></li>
                                 </ul>
                             </li> 
                         </ul>
@@ -69,46 +95,7 @@
         </div>
     <!-- Start Welcome area -->
     <div class="all-content-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="header-advance-area">
-            <div class="header-top-area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="header-top-wraper">
-                                <div class="row">
-                                    <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
-                                        <div class="menu-switcher-pro">
-                                            <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
-													<i class="icon nalika-menu-task"></i>
-												</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
-                                        <div class="header-top-menu tabl-d-n">
-                                            <div class="breadcome-heading">
-												<form role="search" class="">
-													<input type="text" placeholder="Search..." class="form-control">
-													<a href=""><i class="fa fa-search"></i></a>
-												</form>
-											</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <div class="product-cart-area mg-b-30">
             <div class="container-fluid">
                 <div class="row">
@@ -121,17 +108,13 @@
                                         <div class="product-status-wrap border-pdt-ct">
                                             <table>
                                                 <tr>
-                                                    <!-- <th></th> -->
-                                                    <th>Prescription ID</th>
                                                     <th>Patient ID</th>
                                                     <th>Patient Name</th>
                                                     <th>Age</th>
                                                     <th>Gender</th>
+                                                    <th>Registraion Date</th>
                                                 </tr>
                                                 <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
                                                     <td>
                                                         <p>1254</p>
                                                     </td>
@@ -145,14 +128,13 @@
                                                         <p>Male</p>
                                                     </td>
                                                     <td>
-                                                        <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        <p>12-11-2022</p>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary">Patient Summary</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
                                                     <td>
                                                         <p>321</p>
                                                     </td>
@@ -166,14 +148,13 @@
                                                         <p>Male</p>
                                                     </td>
                                                     <td>
-                                                        <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        <p>12-11-2022</p>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary">Patient Summary</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
                                                     <td>
                                                         <p>1254</p>
                                                     </td>
@@ -187,14 +168,13 @@
                                                         <p>Male</p>
                                                     </td>
                                                     <td>
-                                                        <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        <p>12-11-2022</p>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary">Patient Summary</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
                                                     <td>
                                                         <p>1254</p>
                                                     </td>
@@ -208,14 +188,13 @@
                                                         <p>Male</p>
                                                     </td>
                                                     <td>
-                                                        <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        <p>12-11-2022</p>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary">Patient Summary</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
                                                     <td>
                                                         <p>1254</p>
                                                     </td>
@@ -229,8 +208,10 @@
                                                         <p>Male</p>
                                                     </td>
                                                     <td>
-                                                        <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        <p>12-11-2022</p>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary">Patient Summary</button>
                                                     </td>
                                                 </tr>
                                             </table>

@@ -1,7 +1,7 @@
 from ctypes import addressof
 from os import uname
 import re
-from flask import Flask, app, request,jsonify
+from flask import Flask, app, request,jsonify, redirect, url_for
 from flask.templating import render_template
 from sqlalchemy.sql.functions import user
 from models import *
@@ -198,15 +198,57 @@ def doctorProfilePage(doctor_id):
     for doc in doctor.query.filter(doctor.doc_id == doctor_id)
     ])
     
+
 @app.route('/doctor/<doctor_id>/prescribe', methods=["GET"])
 def doctorPrescribePage(doctor_id):
-    pass
-    
-@app.route('/doctor/<doctor_id>/prescribe/prescription', methods=["POST"])
+    return render_template('doctorPrescribe.html')
+
+@app.route('/doctor/<doctor_id>/prescribe/prescription', methods=["GET", "POST"])
 def doctorPrescriptionPage(doctor_id):
-    pass
-    
-@app.route('/doctor/<doctor_id>/prescribe/past_illness', methods=["POST"])
+    if request.method == "GET":
+        return render_template('doctorPrescription.html')
+    elif request.method == "POST":
+        patient_id = request.form.get('patient_id')
+        medication_item = request.form.get('medication_item')
+        route = request.form.get('route')
+        dosage_instruction = request.form.get('dosage_instruction')
+        additional_instruction = request.form.get('additional_instruction')
+        reason = request.form.get('reason')
+
+        patient_detail = db.session.query(patient).filter_by(patient_id=patient_id).first()
+        if patient_detail is not None:
+            entry = prescription(patient_id=patient_id  , doctor_id = doctor_id, medication_item = medication_item, route=route,dosage_instruction=dosage_instruction, additional_instruction=additional_instruction, reason=reason)
+            db.session.add(entry)
+            db.session.commit()
+
+            db.session.flush()
+
+
+            prescription_id = entry.prescription_id
+            dose = request.form.get('dose')
+            dose_unit = request.form.get('dose_unit')
+            frequency_per_day = request.form.get('frequency_per_day')
+            status = request.form.get('status')
+            date_discontinued = request.form.get('date_discontinued')
+            date_written = request.form.get('date_written')
+
+            entry1 = doseDirection(prescription_id=prescription_id, dose=dose, dose_unit=dose_unit, frequency_per_day=frequency_per_day)
+            db.session.add(entry1)
+            db.session.commit()
+
+            entry2 = orderDetails(prescription_id=prescription_id, status=status, date_discontinued=date_discontinued, date_written=date_written)
+
+            db.session.add(entry2)
+            db.session.commit()
+
+            return redirect(url_for('doctorHomePage'))
+
+        else:
+            return render_template("doctorPrescription.html", data={"message":"Patient does not exist. Please check the Patient ID and try again."})
+
+
+
+@app.route('/doctor/<doctor_id>/prescribe/past_illness', methods=["GET"])
 def doctorPastIllnessPage(doctor_id):
     pass
 
@@ -216,7 +258,43 @@ def doctorMedicalIllnessPage(doctor_id):
 
 @app.route('/doctor/<doctor_id>/prescribe/diagnosis', methods=["POST"])
 def doctorDiagnosisPage(doctor_id):
-    pass
+    if request.method == "GET":
+        return render_template('doctorDiagnosis.html')
+    elif request.method == "POST":
+
+        patient_id = request.form.get('patient_id')
+        problem_diag_name = request.form.get('problem_diag_name')
+        body_site = request.form.get('body_site')
+        datetime_onset = request.form.get('datetime_onset')
+        severity = request.form.get('severity')
+
+        patient_detail = db.session.query(patient).filter_by(patient_id=patient_id).first()
+        if patient_detail is not None:
+            
+            prescription_id = entry.prescription_id
+            dose = request.form.get('dose')
+            dose_unit = request.form.get('dose_unit')
+            frequency_per_day = request.form.get('frequency_per_day')
+            status = request.form.get('status')
+            date_discontinued = request.form.get('date_discontinued')
+            date_written = request.form.get('date_written')
+
+            entry1 = doseDirection(prescription_id=prescription_id, dose=dose, dose_unit=dose_unit, frequency_per_day=frequency_per_day)
+            db.session.add(entry1)
+            db.session.commit()
+
+            entry2 = orderDetails(prescription_id=prescription_id, status=status, date_discontinued=date_discontinued, date_written=date_written)
+
+            db.session.add(entry2)
+            db.session.commit()
+
+            return redirect(url_for('doctorHomePage'))
+
+        else:
+            return render_template("doctorPrescription.html", data={"message":"Patient does not exist. Please check the Patient ID and try again."})
+
+
+    
     
 @app.route('/patient/<patient_id>', methods=["GET"])
 def patientHomePage(patient_id):
@@ -224,7 +302,6 @@ def patientHomePage(patient_id):
     
 @app.route('/patient/<patient_id>/profile', methods=["GET"])
 def patientProfilePage(patient_id):
-
     pass 
 if __name__ == "__main__":
     app.run(debug=True, port=4005)

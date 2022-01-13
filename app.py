@@ -1,14 +1,16 @@
 from ctypes import addressof
 from os import uname
 import re
-from flask import Flask, app, request
+from flask import Flask, app, request,jsonify
 from flask.templating import render_template
+from sqlalchemy.sql.functions import user
 from models import *
 from models import userdata
 import hashlib
 
 
 from sqlalchemy import func 
+import json
 
 
 
@@ -186,7 +188,20 @@ def doctorUsersPage(doctor_id):
     
 @app.route('/doctor/<doctor_id>/profile', methods=["GET"])
 def doctorProfilePage(doctor_id):
-    pass
+    doctor_profile = db.session.query(doctor).filter(doctor.doc_id == doctor_id)
+    doc_id = None
+    email = None
+    for row in doctor_profile:
+        doc_id = row.userid
+        break
+    usr_id = db.session.query(userdata).filter(userdata.userid == doc_id)
+    for row in usr_id:
+        email = row.email
+        break
+    
+    return jsonify([{'name':doc.dname,'phone':doc.phone,'address':doc.address,'speciality': doc.speciality,'description':doc.description,'email':email}
+    for doc in doctor.query.filter(doctor.doc_id == doctor_id)
+    ])
     
 @app.route('/doctor/<doctor_id>/prescribe', methods=["GET"])
 def doctorPrescribePage(doctor_id):
@@ -214,13 +229,8 @@ def patientHomePage(patient_id):
     
 @app.route('/patient/<patient_id>/profile', methods=["GET"])
 def patientProfilePage(patient_id):
+
     pass 
-
-
-
-
-
-
 if __name__ == "__main__":
     app.run(debug=True, port=4005)
     

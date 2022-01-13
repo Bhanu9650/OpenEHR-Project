@@ -10,7 +10,7 @@ db = SQLAlchemy(app)
 
 class userdata(db.Model):
     __tablename__ = "userdata"
-    userid = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True)
     role = db.Column(db.String(20), unique=False, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(250), unique=False, nullable=False)
@@ -19,45 +19,43 @@ class userdata(db.Model):
 class patient(db.Model):
     __tablename__ = "patient"
 
-    pid = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.Integer, db.ForeignKey("userdata.userid"))
-    doc_id = db.Column(db.Integer, db.ForeignKey("doctor.doc_id"), nullable=False)
+    _id = db.Column(db.Integer, primary_key=True)
+    patient_id = db.Column(db.Integer, db.ForeignKey("userdata.user_id"), unique=True)
+    # doctor_id = db.Column(db.Integer, db.ForeignKey("doctor.doctor_id"), nullable=True)
 
-    pname = db.Column(db.String(100), nullable=False)
+    patient_name = db.Column(db.String(100), nullable=False)
     date_of_reg = db.Column(db.DateTime, nullable=True)
-    address = db.Column(db.String(100), nullable=False)
+    address = db.Column(db.String(250), nullable=False)
     age = db.Column(db.Integer, nullable=False)
-    gender = db.Column(db.String(10), nullable=False)
-    symptoms = db.Column(db.String(100), nullable=True)
-    phone = db.Column(db.Integer, unique=True)
+    gender = db.Column(db.String(20), nullable=False)
+    symptoms = db.Column(db.String(250), nullable=True)
+    phone = db.Column(db.String(15), unique=True)
 
 
 class doctor(db.Model):
     __tablename__ = "doctor"
-    doc_id = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.Integer, db.ForeignKey("userdata.userid"))
+    _id = db.Column(db.Integer, primary_key=True)
+    doctor_id = db.Column(db.Integer, db.ForeignKey("userdata.user_id"), unique=True)
 
-    dname = db.Column(db.String(100), nullable=False)
-    yoe = db.Column(db.Integer, unique=False)
+    doctor_name = db.Column(db.String(100), nullable=False)
+    year_exp = db.Column(db.Integer, unique=False)
     speciality = db.Column(db.String(100), nullable=False)
-    phone = db.Column(db.Integer, unique=True)
+    phone = db.Column(db.String(15), unique=True)
     fee = db.Column(db.Integer, nullable=True)
-    availability_from = db.Column(db.String, nullable=True)
-    availability_to = db.Column(db.String, nullable=True)
-    description = db.Column(db.String(100), nullable=False)
-    address = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(250), nullable=False)
+    address = db.Column(db.String(250), nullable=False)
 
 
 class pharma(db.Model):
     __tablename__ = "pharma"
-    ph_id = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.Integer, db.ForeignKey("userdata.userid"))
+    _id = db.Column(db.Integer, primary_key=True)
+    pharma_id = db.Column(db.Integer, db.ForeignKey("userdata.user_id"), nullable=True, unique=True)
 
-    phname = db.Column(db.String(100), nullable=False)
-    yoe = db.Column(db.Integer, unique=False)
-    phone_no = db.Column(db.Integer, unique=True)
-    address = db.Column(db.String(100), nullable=False)
-    registration_no = db.Column(db.String(100), nullable=False)
+    pharma_name = db.Column(db.String(100), nullable=False)
+    year_exp = db.Column(db.Integer, unique=False)
+    phone_no = db.Column(db.String(15), unique=True)
+    address = db.Column(db.String(250), nullable=False)
+    registration_no = db.Column(db.String(100), unique=True, nullable=False)
 
 
 # master table for "prescription"
@@ -73,8 +71,8 @@ class prescription(db.Model):
     __tablename__ = "prescription"
 
     prescription_id = db.Column(db.Integer, primary_key=True)
-    patient_id = db.Column(db.Integer, db.ForeignKey("patient.pid"), nullable=False)
-    doctor_id = db.Column(db.Integer, db.ForeignKey("doctor.doc_id"), nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey("patient.patient_id"), nullable=False, unique=True)
+    doctor_id = db.Column(db.Integer, db.ForeignKey("doctor.doctor_id"), nullable=False, unique=True)
 
     medication_item = db.Column(db.String(100), nullable=True)
     route = db.Column(db.String(50), nullable=True)
@@ -93,7 +91,7 @@ class doseDirection(db.Model):
 
     dose = db.Column(db.Float, nullable=False)
     dose_unit = db.Column(db.String(10), nullable=False)
-    frequency_per_day = db.Column(db.Integer, nullable=False)
+    frequency_per_day = db.Column(db.String(100), nullable=False)  ## eg 1;1\d and 5;1\w
 
 
 class orderDetails(db.Model):

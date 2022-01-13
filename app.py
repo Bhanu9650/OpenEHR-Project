@@ -1,14 +1,16 @@
 from ctypes import addressof
 from os import uname
 import re
-from flask import Flask, app, request
+from flask import Flask, app, request,jsonify
 from flask.templating import render_template
+from sqlalchemy.sql.functions import user
 from models import *
 from models import userdata
 import hashlib
 
 
 from sqlalchemy import func 
+import json
 
 
 
@@ -103,17 +105,15 @@ def registration():
         age = request.form.get('age')
         gender = request.form.get('gen')
         phone = request.form.get('phn')
-        (useriddata,)= db.session.query(func.max(userdata.userid)).first()
         # print(uname)
         # print(email)
         # print(password)
         hashedPassword = hashlib.md5(bytes(str(password),encoding='utf-8'))
         hashedPassword = hashedPassword.hexdigest()
         entry = userdata(role = 'Patient',email = email,password = hashedPassword)
-        
-        entry1 = patient(pname = pname, age = age,gender = gender,address = address,phone = phone,userid = useriddata)
         db.session.add(entry)
-        
+        (useriddata,)= db.session.query(func.max(userdata.user_id)).first()
+        entry1 = patient(patient_name = pname, age = age,gender = gender,address = address,phone = phone,patient_id = useriddata)
         db.session.add(entry1)
         db.session.commit()
         return render_template('login.html')
@@ -138,8 +138,8 @@ def registration1():
         hashedPassword = hashedPassword.hexdigest()
         entry = userdata(role = 'Pharmacist',email = email,password = hashedPassword)
         db.session.add(entry)
-        (useriddata,)= db.session.query(func.max(userdata.userid)).first()
-        entry1 = pharma(phname = pname,address = address,phone_no = phone,registration_no= regno,yoe = yoe,userid = useriddata )
+        (useriddata,)= db.session.query(func.max(userdata.user_id)).first()
+        entry1 = pharma(pharma_name = pname,address = address,phone_no = phone,registration_no= regno,year_exp = yoe,pharma_id = useriddata )
         db.session.add(entry1)
         db.session.commit()
         return render_template('login.html')
@@ -158,9 +158,6 @@ def registration2():
         fee = request.form.get('fee')
         yoe = request.form.get('yoe')
         desc = request.form.get('desc')
-        avf = request.form.get('avf')
-        avt = request.form.get('avt')
-        (useriddata,)= db.session.query(func.max(userdata.userid)).first()
 
         # print(uname)
         # print(email)
@@ -169,8 +166,8 @@ def registration2():
         hashedPassword = hashedPassword.hexdigest()
         entry = userdata(role = 'Doctor',email = email,password = hashedPassword)
         db.session.add(entry)
-        
-        entry1 = doctor(dname = dname,address = address,phone = phone,description= desc,yoe = yoe,speciality = speciality,fee = fee,availability_from = avf , availability_to = avt,userid = useriddata)
+        (useriddata,)= db.session.query(func.max(userdata.user_id)).first()
+        entry1 = doctor(doctor_name = dname,address = address,phone = phone,description= desc,year_exp = yoe,speciality = speciality,fee = fee,doctor_id= useriddata)
         db.session.add(entry1)
         db.session.commit()
         return render_template('login.html')
@@ -186,7 +183,20 @@ def doctorUsersPage(doctor_id):
     
 @app.route('/doctor/<doctor_id>/profile', methods=["GET"])
 def doctorProfilePage(doctor_id):
-    pass
+    doctor_profile = db.session.query(doctor).filter(doctor.doc_id == doctor_id)
+    doc_id = None
+    email = None
+    for row in doctor_profile:
+        doc_id = row.userid
+        break
+    usr_id = db.session.query(userdata).filter(userdata.userid == doc_id)
+    for row in usr_id:
+        email = row.email
+        break
+    
+    return jsonify([{'name':doc.dname,'phone':doc.phone,'address':doc.address,'speciality': doc.speciality,'description':doc.description,'email':email}
+    for doc in doctor.query.filter(doctor.doc_id == doctor_id)
+    ])
     
 @app.route('/doctor/<doctor_id>/prescribe', methods=["GET"])
 def doctorPrescribePage(doctor_id):
@@ -214,13 +224,8 @@ def patientHomePage(patient_id):
     
 @app.route('/patient/<patient_id>/profile', methods=["GET"])
 def patientProfilePage(patient_id):
+
     pass 
-
-
-
-
-
-
 if __name__ == "__main__":
     app.run(debug=True, port=4005)
     

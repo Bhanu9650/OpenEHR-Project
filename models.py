@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:abc123@localhost/eapr"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:password@localhost/eapr"
 
 db = SQLAlchemy(app)
 
@@ -22,6 +22,7 @@ class patient(db.Model):
     _id = db.Column(db.Integer, primary_key=True)
     patient_id = db.Column(db.Integer, db.ForeignKey("userdata.user_id"), unique=True)
     # doctor_id = db.Column(db.Integer, db.ForeignKey("doctor.doctor_id"), nullable=True)
+    # user_id = patient id , pid = _id
 
     patient_name = db.Column(db.String(100), nullable=False)
     date_of_reg = db.Column(db.DateTime, nullable=True)

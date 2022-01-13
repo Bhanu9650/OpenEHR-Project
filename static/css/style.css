@@ -1,6 +1,6 @@
 /*===== GOOGLE FONTS =====*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Lobster&display=swap');
 /*===== VARIABLES CSS =====*/
 :root {
   --header-height: 3rem;
@@ -8,11 +8,19 @@
   /*========== Colors ==========*/
   --first-color: #069C54;
   --first-color-alt: #048654;
-  --title-color: #393939;
-  --text-color: #707070;
+  /* --title-color: #393939; */
+  /* --text-color: #707070; */
   --text-color-light: #A6A6A6;
-  --body-color:  #ffcccc;
-  --container-color:  #ffcccc;
+  /* --body-color:  #ccffe0  ; */
+  /* --container-color:  #ffcccc; */
+  /* --header-color:#43d1b7; */
+
+  --title-color: #F1F3F2;
+  --text-color: #C7D1CC;
+  --body-color: #1D2521;
+  --container-color: #27302C;
+  --header-color:#000000;
+  
 
   /*========== Font and typography ==========*/
   --body-font: 'Poppins', sans-serif;
@@ -64,10 +72,17 @@ html{
 
 /*========== Variables Dark theme ==========*/
 body.dark-theme{
-  --title-color: #F1F3F2;
+  /* --title-color: #F1F3F2;
   --text-color: #C7D1CC;
   --body-color: #1D2521;
   --container-color: #27302C;
+  --header-color:#000000; */
+  --title-color: #393939; 
+  --text-color: #707070;
+  /* --text-color-light: #A6A6A6; */
+  --body-color:  #ccffe0  ;
+  --container-color:  #ffcccc;
+  --header-color:#43d1b7;
 }
 
 /*========== Button Dark/Light ==========*/
@@ -148,7 +163,7 @@ img{
   top: 0;
   left: 0;
   z-index: var(--z-fixed);
-  background-color: var(--body-color);
+  background-color: var(--header-color);
 }
 
 /*========== NAV ==========*/
@@ -179,7 +194,11 @@ img{
 .nav__item{
   margin-bottom: var(--mb-2);
 }
-
+.nav__logo{
+  font-size: var(--h1-font-size);
+  font-family: 'Gloria Hallelujah', cursive;
+font-family: 'Lobster', cursive;
+}
 .nav__link, .nav__logo, .nav__toggle{
   color: var(--text-color);
   font-weight: var(--font-medium);
@@ -404,7 +423,13 @@ img{
 }
 
 .contact__description{
-  margin-bottom: var(--mb-3);
+    width: 100%;
+    background: #f0faffcf;
+    padding: 30px 20px;
+    /* text-align: center; */
+    line-height: 2;
+    border-radius: 20px;
+    color: #000000;
 }
 
 /*========== FOOTER ==========*/
@@ -475,7 +500,7 @@ img{
   }
 
   .contact__container{
-    grid-template-columns: 1.75fr 1fr;
+    /* grid-template-columns: 1.75fr 1fr; */
     align-items: center;
   }
   .contact__button{

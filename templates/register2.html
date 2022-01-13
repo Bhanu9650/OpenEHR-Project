@@ -1,84 +1,48 @@
 <!DOCTYPE html>
-<html>
-<<<<<<< HEAD
-  <title>Simple Sign up from</title>
+<html lang="en">
   <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'register.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <style>
-      
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <!--========== BOX ICONS ==========-->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page</title>
+     <!--========== CSS ==========-->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/team-section.css">
   </head>
   <body>
-    <form action="/doctorregistrationsuccess" method = "POST">
-      <h1>Please Login to Meet New People out there :)</h1>
-     
-      <div class="formcontainer">
-      <div class="container">
-
-        <label for="uname"><strong>Doctor  Name</strong></label>
-        <input type="text" placeholder="Enter your Name" name="uname" requiredl>
-
-        <label for="mail"><strong>E-mail</strong></label>
-        <input type="text" placeholder="Enter E-mail" name="mail" required>
-
-        <label for="psw"><strong>Password</strong></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-
-        <label for="add"><strong>Address </strong></label>
-        <input type="text" placeholder="Enter Address" name="add" required>
-
-        <label for="yoe"><strong>Year of Experience </strong></label>
-        <input type="text" placeholder="Enter Year of Experience" name="yoe" required>
-
-        <label for="spl"><strong>Speciality</strong></label>
-        <input type="text" placeholder="Enter Speciality" name="spl" required>
-
-        <label for="phn"><strong>Phone</strong></label>
-        <input type="text" placeholder="Enter Phone" name="phn" required>
-
-        <label for="fee"><strong>Fee</strong></label>
-        <input type="text" placeholder="Enter Fees" name="fee" required>
-
-        <label for="desc"><strong>Description</strong></label>
-        <input type="text" placeholder="Enter Description" name="desc" required>
-
-        <label for="avf"><strong>Availabity From (TIME)</strong></label>
-        <input type="text" placeholder="Enter Availabity From " name="avf">
-        <br>
-        
-        <br>
-
-        <label for="avt"><strong>Availabity To (TIME) </strong></label>
-        <input type="text" placeholder="Enter Availabity  To" name="avt" >
-        <br>
-        <br>
+    <!--========== SCROLL TOP ==========-->
+    <a href="#" class="scrolltop" id="scroll-top">
+      <i class='bx bx-chevron-up scrolltop__icon'></i>
+  </a>
+  <!--========== HEADER ==========-->
+  <header class="l-header" id="header">
+    <nav class="nav bd-container">
+        <a href="#" class="nav__logo">EAPR</a>
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="/" class="nav__link">Home</a></li>
+                <li class="nav__item"><a href="patientsignup" class="nav__link">Patients</a></li>
+                <li class="nav__item"><a href="doctorsignup" class="nav__link">Doctors</a></li>
+                <li class="nav__item"><a href="pharmasignup" class="nav__link">Pharmacists</a></li>
+                <!-- <li class="nav__item"><a href="#contact" class="nav__link">About Us</a></li> -->
+                <li class="nav__item"><a href="signin" class="nav__link">Log-In</a></li>
 
 
+                <!-- <li><i class='bx bx-moon change-theme' id="theme-button"></i></li> -->
+            </ul>
+        </div>
 
-
-        
-      </div>
-      <button type="submit"><strong>SIGN UP</strong></button>
-
-
-      <div class="container" style="background-color: #eee">
-        <label style="padding-left: 15px">
-        <input type="checkbox"  checked="checked" name="remember"> Remember me
-        </label>
-      </div>
-    </form>
-  </body>
-=======
-  <title>Doctor Signup</title>
-  <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'register2.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-  
-  </head>
-  <body>
+        <div class="nav__toggle" id="nav-toggle">
+            <i class='bx bx-menu'></i>
+        </div>
+    </nav>
+</header>
     <form action="/doctorregistrationsuccess" method = "POST">
       <nav id="iconi">
         <a href="/"><i class="fas fa-home fa-4x" style="font-size:48px;color: #048654"></i></a> 
@@ -177,5 +141,4 @@
       }
     }
   </script>
->>>>>>> origin/simran
 </html>

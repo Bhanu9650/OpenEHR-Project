@@ -71,8 +71,8 @@ class prescription(db.Model):
     __tablename__ = "prescription"
 
     prescription_id = db.Column(db.Integer, primary_key=True)
-    patient_id = db.Column(db.Integer, db.ForeignKey("patient.patient_id"), nullable=False, unique=True)
-    doctor_id = db.Column(db.Integer, db.ForeignKey("doctor.doctor_id"), nullable=False, unique=True)
+    patient_id = db.Column(db.Integer, db.ForeignKey("patient.patient_id"), nullable=False)
+    doctor_id = db.Column(db.Integer, db.ForeignKey("doctor.doctor_id"), nullable=False)
 
     medication_item = db.Column(db.String(100), nullable=True)
     route = db.Column(db.String(50), nullable=True)
@@ -138,7 +138,7 @@ class allergyIntolerance(db.Model):
 
 
 class problemList(db.Model):
-    __tablename__ = "problemDiagnosis"
+    __tablename__ = "problemList"
     problem_id = db.Column(db.Integer, primary_key=True)
     prescription_id = db.Column(
         db.Integer, db.ForeignKey("prescription.prescription_id"), nullable=False

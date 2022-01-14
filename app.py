@@ -349,7 +349,7 @@ def patientProfilePage(patient_id):
     for pat in patient.query.filter(patient._id == patient_id)
     ])
 
-    return render_template('patientProfile.html',data = data)
+    return render_template('patient/profile.html',data = 'patient', data2=patient_id, data1=patient_profile.first())
 
 
     pass

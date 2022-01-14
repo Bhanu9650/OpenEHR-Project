@@ -188,6 +188,7 @@ def doctorUsersPage(doctor_id):
 @app.route('/doctor/<doctor_id>/profile', methods=["GET"])
 def doctorProfilePage(doctor_id):
     doctor_profile = db.session.query(doctor).filter(doctor._id == doctor_id)
+    print(doctor_profile)
 
     doc_id = None
     email = None
@@ -248,6 +249,8 @@ def patientProfilePage(patient_id):
     return render_template('patientProfile.html',data = data)
 
 
+@ app.route('/patient/<patient_id>/prescription', methods = ["GET"])
+def patientPresciptionPage(patient_id):
     pass
 if __name__ == "__main__":
     app.run(debug = True, port = 4005)

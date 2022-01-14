@@ -1,7 +1,7 @@
 from ctypes import addressof
 from os import uname
 import re
-from flask import Flask, app, request, jsonify
+from flask import Flask, app, request,jsonify,redirect,url_for
 from flask.templating import render_template
 from sqlalchemy.sql.functions import user
 from models import *
@@ -76,21 +76,15 @@ def loginsucess():
         # roles = result.role
         # for row in result:
         #     roles = row.role
-
+        
         for row in result:
-            if len(row.email) != 0:
-                roles = row.role
-                if roles == 'Doctor':
-                    return render_template('doctorDashboard.html', data=roles)
-
-                elif roles == 'Patient':
-                    return render_template('patientDashboard.html', data=roles)
-                else:
-                    return render_template('pharmaDashboard.html', data=roles)
-
-        data = "Wrong credentials"
-        return render_template('login.html', data=data)
-
+            if len(row.email)!= 0:
+                roles = row.role 
+                userid = row.user_id
+                return redirect(url_for('userHomePage', user_id=userid, role=roles))
+            else:
+                data = "Wrong credentials"
+                return render_template('login.html',data = data)
 
 # Renders Login Page After Registration
 @app.route('/patientregistrationsuccess', methods=["POST"])
@@ -175,9 +169,16 @@ def registration2():
         return render_template('login.html')
 
 
-@app.route('/doctor/<doctor_id>', methods=["GET"])
-def doctorHomePage(doctor_id):
-    pass
+@app.route('/<role>/<user_id>', methods=["GET", "POST"])
+def userHomePage(role, user_id):
+    if role == 'Doctor':
+        # role = role.capitalize()
+        return render_template('doctorDashboard.html', data=role)
+    elif role == 'Patient':
+        return render_template('patientDashboard.html', data=role)
+    else:
+        return render_template('pharmaDashboard.html', data=role)
+
 
 
 @app.route('/doctor/<doctor_id>/users', methods=["GET"])
@@ -202,7 +203,6 @@ def doctorProfilePage(doctor_id):
     data = jsonify([{'name': doc.doctor_name, 'phone': doc.phone, 'address': doc.address, 'speciality': doc.speciality, 'description': doc.description, 'email': email}
     for doc in doctor.query.filter(doctor._id == doctor_id)]
     )
-
     return render_template('doctorProfile.html', data = data)
 
 @ app.route('/doctor/<doctor_id>/prescribe', methods = ["GET"])
@@ -223,10 +223,6 @@ def doctorMedicalIllnessPage(doctor_id):
 
 @ app.route('/doctor/<doctor_id>/prescribe/diagnosis', methods = ["POST"])
 def doctorDiagnosisPage(doctor_id):
-    pass
-
-@ app.route('/patient/<patient_id>', methods = ["GET"])
-def patientHomePage(patient_id):
     pass
 
 @ app.route('/patient/<patient_id>/profile', methods = ["GET"])

@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:password@localhost/eapr"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:abc123@localhost/eapr"
 
 db = SQLAlchemy(app)
 
@@ -111,8 +111,8 @@ class orderDetails(db.Model):
 class pastHistoryIllness(db.Model):
     __tablename__ = "pastHistoryIllness"
     illness_id = db.Column(db.Integer, primary_key=True)
-    prescription_id = db.Column(
-        db.Integer, db.ForeignKey("prescription.prescription_id"), nullable=False
+    patient_id = db.Column(
+        db.Integer, db.ForeignKey("patient.patient_id"), nullable=False
     )
 
     problem_name = db.Column(db.String(100), nullable=False)
@@ -127,8 +127,8 @@ class pastHistoryIllness(db.Model):
 class allergyIntolerance(db.Model):
     __tablename__ = "allergyIntolerance"
     allergy_id = db.Column(db.Integer, primary_key=True)
-    prescription_id = db.Column(
-        db.Integer, db.ForeignKey("prescription.prescription_id"), nullable=False
+    patient_id = db.Column(
+        db.Integer, db.ForeignKey("patient.patient_id"), nullable=False
     )
 
     substance = db.Column(db.String(250), nullable=False)
@@ -141,8 +141,8 @@ class allergyIntolerance(db.Model):
 class problemList(db.Model):
     __tablename__ = "problemList"
     problem_id = db.Column(db.Integer, primary_key=True)
-    prescription_id = db.Column(
-        db.Integer, db.ForeignKey("prescription.prescription_id"), nullable=False
+    patient_id = db.Column(
+        db.Integer, db.ForeignKey("patient.patient_id"), nullable=False
     )
 
     problem_diag_name = db.Column(db.String(100), nullable=False)

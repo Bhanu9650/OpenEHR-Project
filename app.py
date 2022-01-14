@@ -5,7 +5,7 @@ from flask import Flask, app, request,jsonify,redirect,url_for
 from flask.templating import render_template
 from sqlalchemy.sql.functions import user
 from models import *
-from models import userdata
+from models import userdata, patient
 import hashlib
 
 
@@ -178,10 +178,12 @@ def userHomePage(role, user_id):
     else:
         return render_template('pharmaDashboard.html', data=role)
 
-
-@app.route('/doctor/<doctor_id>/users', methods=["GET"])
+# We have to change users ---> patients
+@app.route('/doctor/<doctor_id>/users', methods=["GET", "POST"])
 def doctorUsersPage(doctor_id):
-    pass
+    patient_profiles = db.session.query(patient)
+    return render_template('doctorPatient.html', data = patient_profiles)
+
     
 @app.route('/doctor/<doctor_id>/profile', methods=["GET"])
 def doctorProfilePage(doctor_id):

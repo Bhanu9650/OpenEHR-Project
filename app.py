@@ -2,7 +2,8 @@ from crypt import methods
 from ctypes import addressof
 from os import uname
 import re
-from flask import Flask, app, request,jsonify,redirect,url_for
+from flask import Flask, app, request, jsonify, redirect, url_for
+
 from flask.templating import render_template
 from sqlalchemy.sql.functions import user
 from models import patient, problemList, prescription
@@ -255,10 +256,44 @@ def doctorPrescriptionPage(doctor_id):
             return render_template("modal_prescription.html", data={"message":"Patient does not exist. Please check the Patient ID and try again."})
 
 
-
-@ app.route('/doctor/<doctor_id>/prescribe/past_illness', methods = ["GET","POST"])
+@app.route('/doctor/<doctor_id>/prescribe/past_illness', methods=["GET", "POST"])
 def doctorPastIllnessPage(doctor_id):
-    pass
+
+    if request.method == "GET":
+        return render_template("doctorPrescribePage.html", data=doctor_id)
+    
+    elif request.method == "POST":
+        patient_id = request.form.get('patient_id')
+        problem_name = request.form.get('problem_name')
+        body_site = request.form.get('body_site')
+        datetime_onset = request.form.get('datetime_onset')
+        severity = request.form.get('severity')
+        procedure_type = request.form.get('procedure_type')
+
+        patient_details = db.session.query(patient) \
+                                    .filter_by(patient_id=patient_id) \
+                                    .first()
+
+        if patient_details is not None:
+            entry = pastHistoryIllness(patient_id=patient_id,
+                                problem_name=problem_name,
+                                body_site=body_site,
+                                datetime_onset=datetime_onset,
+                                severity=severity,
+                                procedure_type=procedure_type
+                                )
+            
+            db.session.add(entry)
+            db.session.commit()
+
+            return redirect(url_for('doctorPrescribePage', doctor_id=doctor_id)) 
+
+        else:
+            message = {
+                "message": "Patient does not exist. Please check the Patient ID and try again."
+                }
+
+    return render_template("doctorDiagnosis.html", data=message)
 
 @ app.route('/doctor/<doctor_id>/prescribe/medication_summary', methods = ["GET","POST"])
 def doctorMedicalIllnessPage(doctor_id):

@@ -13,8 +13,8 @@ except FileNotFoundError:
     {
         "DB":
         {
-            "DB_USERNAME": "",
-            "DB_PASSWORD": ""
+            "DB_USER": "",
+            "DB_PWD": ""
         }
     }
     """

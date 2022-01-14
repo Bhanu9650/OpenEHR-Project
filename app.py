@@ -79,7 +79,7 @@ def loginsucess():
         
         for row in result:
             if len(row.email)!= 0:
-                roles = row.role 
+                roles = row.role.lower()
                 userid = row.user_id
                 return redirect(url_for('userHomePage', user_id=userid, role=roles))
             else:
@@ -171,10 +171,10 @@ def registration2():
 
 @app.route('/<role>/<user_id>', methods=["GET", "POST"])
 def userHomePage(role, user_id):
-    if role == 'Doctor':
+    if role == 'doctor':
         # role = role.capitalize()
-        return render_template('doctorDashboard.html', data=role)
-    elif role == 'Patient':
+        return render_template('doctor/home.html', data=role)
+    elif role == 'patient':
         return render_template('patientDashboard.html', data=role)
     else:
         return render_template('pharmaDashboard.html', data=role)
@@ -183,7 +183,9 @@ def userHomePage(role, user_id):
 @app.route('/doctor/<doctor_id>/users', methods=["GET", "POST"])
 def doctorUsersPage(doctor_id):
     patient_profiles = db.session.query(patient)
-    return render_template('doctorPatient.html', data = patient_profiles)
+    # return render_template('doctorPatient.html', data = patient_profiles)
+    return render_template('doctor/patientlist.html', data = patient_profiles)
+
 
 @app.route('/doctor/<doctor_id>/profile', methods=["GET"])
 def doctorProfilePage(doctor_id):

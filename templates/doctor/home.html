@@ -87,10 +87,10 @@
                   <ul class="submenu-angle" aria-expanded="true" style="background-color: #152036">
                                     <!-- <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Dashboard v.1</span></a></li> -->
                                     
-                                    <li><a title="Patient List" href="home.html"><span class="mini-sub-pro">Home</span></a></li>
-                                    <li><a title="Patient Cart" href="patientlist.html"><span class="mini-sub-pro">Patient List</span></a></li>
-                                    <li><a title="Patient Cart" href="profile.html"><span class="mini-sub-pro">Profile</span></a></li>
-                                    <li><a title="Patient Cart" href="prescribe.html"><span class="mini-sub-pro">Prescribe</span></a></li>
+                                    <li><a title="Patient List" href="{{ url_for('userHomePage', role=data, user_id=data2) }}"><span class="mini-sub-pro">Home</span></a></li>
+                                    <li><a title="Patient Cart" href="{{ url_for('doctorUsersPage', doctor_id=data2) }}"><span class="mini-sub-pro">Patient List</span></a></li>
+                                    <li><a title="Patient Cart" href="{{ url_for('doctorProfilePage', doctor_id=data2) }}"><span class="mini-sub-pro">Profile</span></a></li>
+                                    <li><a title="Patient Cart" href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}"><span class="mini-sub-pro">Prescribe</span></a></li>
                                 </ul>
                             </li> 
                         </ul>
@@ -119,6 +119,28 @@
                                                     <th>Age</th>
                                                     <th>Gender</th>
                                                 </tr>
+                                                {% for patient in data %}
+                                                        <tr>
+                                                            <td>
+                                                                <p>{{patient.patient_id}}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>1254</p>
+                                                            </td>
+                                                            <td>
+                                                                <h3>Patient</h3>
+                                                                <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
+                                                            </td>
+                                                            
+                                                            <td>18</td>
+                                                            <td>
+                                                                <p>Male</p>
+                                                            </td>
+                                                            <td>
+                                                                <buttontype="button" class="btn btn-primary">Open Here</button>
+                                                            </td>
+                                                        </tr>
+                                                {% endfor %}
                                                 <tr>
                                                     <td>
                                                         <p>1254</p>

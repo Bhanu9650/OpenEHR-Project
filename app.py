@@ -89,6 +89,7 @@ def loginsucess():
             else:
                 data = "Wrong credentials"
                 return render_template('login.html',data = data)
+                
 
 # Renders Login Page After Registration
 @app.route('/patientregistrationsuccess', methods=["POST"])
@@ -176,8 +177,7 @@ def registration2():
 @app.route('/<role>/<user_id>', methods=["GET", "POST"])
 def userHomePage(role, user_id):
     if role == 'doctor':
-        # role = role.capitalize()
-        return render_template('doctor/home.html', data=role)
+        return render_template('doctor/home.html', data=role, data2=user_id )
     elif role == 'patient':
         return render_template('patientDashboard.html', data=role)
     else:
@@ -188,7 +188,7 @@ def userHomePage(role, user_id):
 def doctorUsersPage(doctor_id):
     patient_profiles = db.session.query(patient)
     # return render_template('doctorPatient.html', data = patient_profiles)
-    return render_template('doctor/patientlist.html', data = patient_profiles)
+    return render_template('doctor/patientlist.html', pat_profile = patient_profiles, data='doctor' , data2=doctor_id )
 
 
 @app.route('/doctor/<doctor_id>/profile', methods=["GET"])
@@ -207,11 +207,11 @@ def doctorProfilePage(doctor_id):
     data = jsonify([{'name': doc.doctor_name, 'phone': doc.phone, 'address': doc.address, 'speciality': doc.speciality, 'description': doc.description, 'email': email}
     for doc in doctor.query.filter(doctor._id == doctor_id)]
     )
-    return render_template('doctorProfile.html', data = data)
+    return render_template('doctor/profile.html', data = 'doctor', data3=data , data2=doctor_id)
 
-@ app.route('/doctor/<doctor_id>/prescribe', methods = ["GET"])
+@ app.route('/doctor/<doctor_id>/prescribe', methods = ["GET", "POST"])
 def doctorPrescribePage(doctor_id):
-        return render_template('doctorPrescribe.html')
+        return render_template('doctor/prescribe.html', data2=doctor_id)
 
 @ app.route('/doctor/<doctor_id>/prescribe/prescription', methods = ["GET","POST"])
 def doctorPrescriptionPage(doctor_id):

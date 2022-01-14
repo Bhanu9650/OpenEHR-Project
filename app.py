@@ -103,7 +103,7 @@ def registration():
         # print(password)
         hashedPassword = hashlib.md5(bytes(str(password), encoding='utf-8'))
         hashedPassword = hashedPassword.hexdigest()
-        entry = userdata(role='Patient', email=email, password=hashedPassword)
+        entry = userdata(role='patient', email=email, password=hashedPassword)
         db.session.add(entry)
         (useriddata,) = db.session.query(func.max(userdata.user_id)).first()
         entry1 = patient(patient_name=pname, age=age, gender=gender,
@@ -129,7 +129,7 @@ def registration1():
         # print(password)
         hashedPassword = hashlib.md5(bytes(str(password), encoding='utf-8'))
         hashedPassword = hashedPassword.hexdigest()
-        entry = userdata(role='Pharmacist', email=email,
+        entry = userdata(role='pharmacist', email=email,
                          password=hashedPassword)
         db.session.add(entry)
         (useriddata,) = db.session.query(func.max(userdata.user_id)).first()
@@ -159,7 +159,7 @@ def registration2():
         # print(password)
         hashedPassword = hashlib.md5(bytes(str(password), encoding='utf-8'))
         hashedPassword = hashedPassword.hexdigest()
-        entry = userdata(role='Doctor', email=email, password=hashedPassword)
+        entry = userdata(role='doctor', email=email, password=hashedPassword)
         db.session.add(entry)
         (useriddata,) = db.session.query(func.max(userdata.user_id)).first()
         entry1 = doctor(doctor_name=dname, address=address, phone=phone, description=desc,
@@ -228,6 +228,7 @@ def doctorDiagnosisPage(doctor_id):
 @ app.route('/patient/<patient_id>/profile', methods = ["GET"])
 def patientProfilePage(patient_id):
     patient_profile=db.session.query(patient).filter(patient._id == patient_id)
+    
     pat_id=None
     email=None
     for row in patient_profile:
@@ -247,6 +248,16 @@ def patientProfilePage(patient_id):
 
 @ app.route('/patient/<patient_id>/prescription', methods = ["GET"])
 def patientPresciptionPage(patient_id):
+    total_prescription = db.session.query(prescription,doseDirection,orderDetails).\
+        join(doseDirection,prescription.prescription_id == doseDirection.prescription_id).\
+        join(orderDetails,prescription.prescription_id == orderDetails.prescription_id).\
+        filter(prescription.patient_id == patient_id)
+  
+           
+    return render_template ('prescriptionPatient.html',data=total_prescription)
+
+
+
     pass
 if __name__ == "__main__":
     app.run(debug = True, port = 4005)

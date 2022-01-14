@@ -114,26 +114,28 @@
                                                     <th>Gender</th>
                                                     <th>Registraion Date</th>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <h3>Patient</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
-                                                    </td>
-                                                    
-                                                    <td>18</td>
-                                                    <td>
-                                                        <p>Male</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>12-11-2022</p>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-primary">Patient Summary</button>
-                                                    </td>
-                                                </tr>
+                                                {% for pat in prescription_data %}
+                                                    <tr>
+                                                        <td>
+                                                            <p>{{ pat[0].patient_id }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <h3>Patient</h3>
+                                                            <p>{{ pat[0].additional_instruction }}</p>
+                                                        </td>
+                                                        
+                                                        <td>{{ pat[1].age }}</td>
+                                                        <td>
+                                                            <p>{{ pat[1].gender }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ pat[0].date_of_reg}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-primary">Patient Summary</button>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
                                                 <tr>
                                                     <td>
                                                         <p>321</p>

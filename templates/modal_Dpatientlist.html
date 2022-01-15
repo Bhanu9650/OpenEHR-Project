@@ -19,6 +19,7 @@
                 <form id="myForm" class="needs-validation" novalidate>
                     <div class="container">
                         <h4><b>Patient Details</b></h4><br>
+                        {% if data1 | length >0 %}
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Patient ID</label>
                             <div class="col-sm-10">
@@ -66,9 +67,12 @@
                              
                             </div>
                         </div>
+                        {% else %}
+                        <h6>No data Available</h6>
+                        {% endif %}
                         <br>
-
                         <h4><b>Past Illness History</b></h4><br>
+                        {% if data1 | length >1 %}
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Problem Name</label>
                             <div class="col-sm-10">
@@ -108,8 +112,13 @@
                                
                             </div>
                         </div>
+                        {% else %}
+                        <h6>No data Available</h6>
+                        {% endif %}
                         <br>
+
                         <h4><b>Allergy Details</b></h4><br>
+                        {% if data1 | length >2 %}
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Allergy</label>
                             <div class="col-sm-10">
@@ -145,8 +154,12 @@
                                
                             </div>
                         </div>
+                        {% else %}
+                        <h6>No data Available</h6>
+                        {% endif %}
                         <br>
                         <h4><b>Diagnosis Details</b></h4><br>
+                        {% if data1 | length >3 %}
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Problem Name</label>
                             <div class="col-sm-10">
@@ -176,6 +189,9 @@
                                
                             </div>
                         </div>
+                        {% else %}
+                        <h6>No data Available</h6>
+                        {% endif %}
 
                        
                     </div>

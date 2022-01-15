@@ -89,6 +89,8 @@ def loginsucess():
             else:
                 data = "Wrong credentials"
                 return render_template('login.html',data = data)
+    else:
+        return render_template('login.html')
                 
 
 # Renders Login Page After Registration
@@ -108,7 +110,7 @@ def registration():
         # print(password)
         hashedPassword = hashlib.md5(bytes(str(password), encoding='utf-8'))
         hashedPassword = hashedPassword.hexdigest()
-        entry = userdata(role='Patient', email=email, password=hashedPassword)
+        entry = userdata(role='patient', email=email, password=hashedPassword)
         db.session.add(entry)
         (useriddata,) = db.session.query(func.max(userdata.user_id)).first()
         entry1 = patient(patient_name=pname, age=age, gender=gender,
@@ -134,7 +136,7 @@ def registration1():
         # print(password)
         hashedPassword = hashlib.md5(bytes(str(password), encoding='utf-8'))
         hashedPassword = hashedPassword.hexdigest()
-        entry = userdata(role='Pharmacist', email=email,
+        entry = userdata(role='pharmacist', email=email,
                          password=hashedPassword)
         db.session.add(entry)
         (useriddata,) = db.session.query(func.max(userdata.user_id)).first()
@@ -164,7 +166,7 @@ def registration2():
         # print(password)
         hashedPassword = hashlib.md5(bytes(str(password), encoding='utf-8'))
         hashedPassword = hashedPassword.hexdigest()
-        entry = userdata(role='Doctor', email=email, password=hashedPassword)
+        entry = userdata(role='doctor', email=email, password=hashedPassword)
         db.session.add(entry)
         (useriddata,) = db.session.query(func.max(userdata.user_id)).first()
         entry1 = doctor(doctor_name=dname, address=address, phone=phone, description=desc,
@@ -177,7 +179,10 @@ def registration2():
 @app.route('/<role>/<user_id>', methods=["GET", "POST"])
 def userHomePage(role, user_id):
     if role == 'doctor':
-        return render_template('doctor/home.html', data=role, data2=user_id )
+        prescription_data = db.session.query(prescription,patient).\
+                            join(patient, prescription.patient_id == patient.patient_id).\
+                            filter(prescription.doctor_id == user_id).all()
+        return render_template('doctor/home.html', data=role, data2=user_id, prescription_data=prescription_data)
     elif role == 'patient':
         return render_template('patient/home.html', data=role,data2=user_id )
     else:
@@ -186,32 +191,23 @@ def userHomePage(role, user_id):
 # We have to change users ---> patients
 @app.route('/doctor/<doctor_id>/users', methods=["GET", "POST"])
 def doctorUsersPage(doctor_id):
-    patient_profiles = db.session.query(patient)
-    # return render_template('doctorPatient.html', data = patient_profiles)
-    return render_template('doctor/patientlist.html', pat_profile = patient_profiles, data='doctor' , data2=doctor_id )
+    prescription_data = db.session.query(prescription,patient).\
+                            join(patient, prescription.patient_id == patient.patient_id).\
+                            filter(prescription.doctor_id == doctor_id).all()
+    return render_template('doctor/patientlist.html', prescription_data = prescription_data, data='doctor' , data2=doctor_id )
 
 
 @app.route('/doctor/<doctor_id>/profile', methods=["GET"])
-def doctorProfilePage(doctor_id):
-    doctor_profile = db.session.query(doctor).filter(doctor._id == doctor_id)
-
-    doc_id = None
-    email = None
-    for row in doctor_profile:
-        doc_id = row.doctor_id
-        break
-    usr_id = db.session.query(userdata).filter(userdata.user_id == doc_id)
-    for row in usr_id:
-        email = row.email
-        break
-    data = jsonify([{'name': doc.doctor_name, 'phone': doc.phone, 'address': doc.address, 'speciality': doc.speciality, 'description': doc.description, 'email': email}
-    for doc in doctor.query.filter(doctor._id == doctor_id)]
-    )
-    return render_template('doctor/profile.html', data = 'doctor', data3=data , data2=doctor_id)
+def doctorProfilePage(doctor_id):             
+    doctor_profile = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
+    doctor_info = None
+    for doc_id in doctor_profile:
+        doctor_info = doc_id
+    return render_template('doctor/profile.html', doctor_info=doctor_info)
 
 @ app.route('/doctor/<doctor_id>/prescribe', methods = ["GET", "POST"])
 def doctorPrescribePage(doctor_id):
-        return render_template('doctor/prescribe.html', data='doctor',data2=doctor_id)
+    return render_template('doctor/prescribe.html', data2=doctor_id)
 
 @ app.route('/doctor/<doctor_id>/prescribe/prescription', methods = ["GET","POST"])
 def doctorPrescriptionPage(doctor_id):
@@ -334,23 +330,19 @@ def patientSummary(doctor_id, patient_id):
 @ app.route('/patient/<patient_id>/profile', methods = ["GET","POST"])
 def patientProfilePage(patient_id):
     patient_profile=db.session.query(patient).filter(patient.patient_id == patient_id)
-    pat_id=None
-    email=None
-    for row in patient_profile:
-        pat_id=row.patient_id
-        break
-    usr_id=db.session.query(userdata).filter(userdata.user_id == pat_id)
-    for row in usr_id:
-        email=row.email
-        break
-    
-    data  = jsonify([{'name': pat.patient_name, 'phone': pat.phone, 'address': pat.address, 'age': pat.age, 'gender': pat.gender, 'email': email}
-    for pat in patient.query.filter(patient._id == patient_id)
-    ])
+  
     return render_template('patient/profile.html',data = 'patient', data2=patient_id, data1=patient_profile.first())
+    
 
+@ app.route('/patient/<patient_id>/prescription', methods = ["GET"])
+def patientPresciptionPage(patient_id):
+    total_prescription = db.session.query(prescription,doseDirection,orderDetails).\
+        join(doseDirection,prescription.prescription_id == doseDirection.prescription_id).\
+        join(orderDetails,prescription.prescription_id == orderDetails.prescription_id).\
+        filter(prescription.patient_id == patient_id)
+  
+    return render_template ('prescriptionPatient.html',data=total_prescription)
+   
 
-
-    pass
 if __name__ == "__main__":
     app.run(debug = True, port = 4005)

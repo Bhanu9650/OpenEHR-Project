@@ -171,13 +171,19 @@ def userHomePage(role, user_id):
             doctor_info = row
         return render_template('doctor/home.html', data=role, data2=user_id, prescription_data=prescription_data, doctor_info=doctor_info)
     elif role == 'patient':
-        patient_data = db.session.query(prescription, patient, doctor)\
-            .join(patient, prescription.patient_id == patient.patient_id)\
-            .join(doctor, prescription.doctor_id == doctor.doctor_id)\
-            .filter(prescription.patient_id == user_id)\
-            .all()
-        print(patient_data)
-        return render_template('patient/home.html', data=role, data2=user_id, patient_data= patient_data )
+        prescription_info = db.session.query(prescription).filter(prescription.patient_id == user_id).all()
+        patient_info = db.session.query(patient).filter(patient.patient_id == user_id).first()
+        # doctor_info = db.session.query(doctor).filter(doctor.patient_id == user_id).all()
+        # print(prescription_info)
+        if(len(prescription_info) == 0):
+            length = len(prescription_info)
+            return render_template('patient/home.html', patient_info=patient_info, data=role , data2=user_id, prescription_info=prescription_info, length=length)
+        else:
+            prescription_fill_info = db.session.query(prescription).filter(prescription.patient_id == user_id).first()
+            doctor_data = db.session.query(doctor).filter(doctor.doctor_id == prescription_fill_info.doctor_id)
+            for row in doctor_data:
+                doctor_info = row
+            return render_template('patient/home.html', patient_info=patient_info, data=role , data2=user_id, prescription_info=prescription_info, doctor_info=doctor_info)
     else:
         return render_template('pharmaDashboard.html', data=role)
 
@@ -246,7 +252,10 @@ def doctorPrescriptionPage(doctor_id):
             return redirect(url_for('doctorPrescribePage',doctor_id=doctor_id))
 
         else:
-            return render_template("doctor/form-prescription.html", data={"message":"Patient does not exist. Please check the Patient ID and try again."})
+            message = {
+                "message": "Patient does not exist. Please check the Patient ID and try again."
+            }
+            return render_template("doctor/form-prescription.html", data3=message, data='doctor',data2=doctor_id)
 
 
 @app.route('/doctor/<doctor_id>/prescribe/past_illness', methods=["GET", "POST"])
@@ -296,7 +305,7 @@ def doctorPastIllnessPage(doctor_id):
                 "message": "Patient does not exist. Please check the Patient ID and try again."
                 }
     
-            return render_template("doctor/form-pastillness.html", data=message)
+            return render_template("doctor/form-pastillness.html", data3=message, data='doctor',data2=doctor_id)
 
 @ app.route('/doctor/<doctor_id>/prescribe/allergy', methods = ["GET","POST"])
 def doctorAllergyIntolerance(doctor_id):
@@ -344,7 +353,7 @@ def doctorAllergyIntolerance(doctor_id):
                 "message": "Patient does not exist. Please check the Patient ID and try again."
                 }
     
-            return render_template("doctor/form-allergy.html", data=message)
+            return render_template("doctor/form-allergy.html", data3=message, data='doctor',data2=doctor_id)
 
 
 
@@ -382,7 +391,7 @@ def doctorDiagnosisPage(doctor_id):
 
         else:
 
-            return render_template("doctor/form-problem.html", data={"message":"Patient does not exist. Please check the Patient ID and try again."})
+            return render_template("doctor/form-problem.html", data3={"message":"Patient does not exist. Please check the Patient ID and try again."}, data='doctor',data2=doctor_id)
 
 
 @ app.route('/doctor/<doctor_id>/patients/<patient_id>', methods=["GET"])
@@ -403,7 +412,7 @@ def patientProfilePage(patient_id):
     return render_template('patient/profile.html',data = 'patient', data2=patient_id, data1=patient_profile.first())
     
 
-@ app.route('/patient/<patient_id>/<prescription_id>', methods = ["GET"])
+@ app.route('/patient/<patient_id>/<prescription_id>', methods = ["GET", "POST"])
 def patientPresciptionPage(patient_id, prescription_id):
     total_prescription = db.session.query(prescription,doseDirection,orderDetails).\
         join(doseDirection,prescription.prescription_id == doseDirection.prescription_id).\

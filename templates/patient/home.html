@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{ patient_data[0][1].patient_name.title()}}'s Homepage</title>
+    <title>{{ patient_info.patient_name }}'s Homepage</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Google Fonts
@@ -56,8 +56,8 @@
             <a href="/" class="nav__logo navbar-brand">EAPR</a>
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
-                    <li class="nav__item"><a href="{{ url_for('userHomePage', user_id=data2,role=data) }}" class="nav__link">Home</a></li>
-                    <li class="nav__item"><a href="{{ url_for('patientProfilePage', patient_id=data2, role=data) }}" class="nav__link">Profile</a></li>
+                    <li class="nav__item"><a href="{{ url_for('userHomePage', role=data, user_id=data2) }}" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="{{ url_for('patientProfilePage',  role=data, patient_id=data2) }}" class="nav__link">Profile</a></li>
                     <li class="nav__item"><a href="/" class="nav__link">Logout</a></li>
                    
     
@@ -80,7 +80,8 @@
           <div class="nalika-profile" style="background-color: #152036">
             <div class="profile-dtl">
               <a href="#"><img src="/static/prescribe-img/demo.png" alt="" /></a>
-              <h2>{{ patient_data[0][1].patient_name.title()}}<span class="min-dtn"></span></h2>
+              
+              <h2>{{patient_info.patient_name}}<span class="min-dtn"></span></h2>
             </div>
     
           </div>
@@ -129,41 +130,41 @@
                                                     <th>Doctor's Phone</th>
                                                     <th>Description</th>
                                                 </tr>
+                                                {% if length == 0 %}
+                                                    <h1 style="color: white;">Please Visit Doctor </h1>
+                                                {% else %}
+                                                    {% for presc in prescription_info %}
+                                                    <tr>
+                                                        <td>
+                                                            <h3>{{ presc.prescription_id }}</h3>
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <p>{{ presc.doctor_id }}</p>
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <h3>{{ doctor_info.doctor_name }}</h3>
+                                                            <p>{{ doctor_info.speciality}}</p>
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <p>{{ doctor_info.phone }}</p>
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <p>{{ presc.additional_instruction[:100] }}</p>
+                                                        </td>
 
+                                                        <td>
+                                                            <form action="{{ url_for('patientPresciptionPage', patient_id=data2, prescription_id=presc.prescription_id ) }}" method="get">
+                                                                <button type="submit" class="btn btn-primary">View Here</button></a>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                {% endif %}
                                                 <!-- [(<prescription 1>, <patient 1>, <doctor 1>)] -->
-                                            {% for presc in patient_data %}
-                                                <tr>
-                                                    <td>
-                                                        <h3>{{ presc[0].prescription_id }}</h3>
-                                                    </td>
-                                                    
-                                                    <td>
-                                                        <p>{{ presc[0].doctor_id }}</p>
-                                                    </td>
-                                                    
-                                                    <td>
-                                                        <h3>{{ presc[2].doctor_name.title() }}</h3>
-                                                        <p>{{ presc[2].speciality.title() }}</p>
-                                                    </td>
-                                                    
-                                                    <td>
-                                                        <p>{{ presc[2].phone }}</p>
-                                                    </td>
-                                                    
-                                                    <td>
-                                                        <p>{{ presc[0].additional_instruction[:100] }}</p>
-                                                    </td>
-
-                                                    <td>
-                                                        <form action="{{ url_for('patientPresciptionPage', patient_id=data2, prescription_id=presc[0].prescription_id ) }}" method="get">
-                                                            <button type="submit" class="btn btn-primary">View Here</button></a>
-                                                          </form>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                            
-
-
                                             </table>
                                         </div>
                                     </div>

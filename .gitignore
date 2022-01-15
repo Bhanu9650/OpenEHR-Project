@@ -1,6 +1,7 @@
 notes.txt
 *try*.*
 .config.json
+*.pyc
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

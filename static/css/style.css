@@ -10,16 +10,16 @@
   --first-color-alt: #048654;
   /* --title-color: #393939; */
   /* --text-color: #707070; */
-  --text-color-light: #A6A6A6;
+  --text-color-light: black;
   /* --body-color:  #ccffe0  ; */
   /* --container-color:  #ffcccc; */
   /* --header-color:#43d1b7; */
 
   --title-color: #F1F3F2;
-  --text-color: #C7D1CC;
+  --text-color: black;
   --body-color: #1D2521;
   --container-color: #27302C;
-  --header-color:#000000;
+  --header-color:#43d1b7;
   
 
   /*========== Font and typography ==========*/
@@ -448,6 +448,7 @@ font-family: 'Lobster', cursive;
   display: block;
   font-size: var(--small-font-size);
   margin: .25rem 0 var(--mb-3);
+  color: black;
 }
 
 .footer__social{
@@ -473,10 +474,13 @@ font-family: 'Lobster', cursive;
 }
 
 .footer__copy{
-  text-align: center;
-  font-size: var(--small-font-size);
-  color: var(--text-color-light);
+  font-weight: bold;
+  color: black;
   margin-top: 3.5rem;
+  text-align: right;
+  
+
+
 }
 
 /*========== MEDIA QUERIES ==========*/

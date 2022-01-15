@@ -56,8 +56,8 @@
             <a href="/" class="nav__logo navbar-brand">EAPR</a>
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
-                    <li class="nav__item"><a href="" class="nav__link">Home</a></li>
-                    <li class="nav__item"><a href="" class="nav__link">Profile</a></li>
+                    <li class="nav__item"><a href="{{ url_for('userHomePage', user_id=data2,role=data) }}" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="{{ url_for('patientProfilePage', patient_id=data2, role=data) }}" class="nav__link">Profile</a></li>
                     <li class="nav__item"><a href="/" class="nav__link">Logout</a></li>
                    
     
@@ -155,7 +155,9 @@
                                                     </td>
 
                                                     <td>
-                                                        <buttontype="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal7">View</button>
+                                                        <form action="{{ url_for('patientPresciptionPage', patient_id=data2, prescription_id=presc[0].prescription_id ) }}" method="get">
+                                                            <button type="submit" class="btn btn-primary">View Here</button></a>
+                                                          </form>
                                                     </td>
                                                 </tr>
                                             {% endfor %}
@@ -165,7 +167,6 @@
                                             </table>
                                         </div>
                                     </div>
-                                    {%include "modal_patienthome.html" %}
                                 </section>
                             </div>
                         </div>

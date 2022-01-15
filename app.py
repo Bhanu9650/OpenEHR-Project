@@ -208,7 +208,7 @@ def doctorProfilePage(doctor_id):
     data = jsonify([{'name': doc.doctor_name, 'phone': doc.phone, 'address': doc.address, 'speciality': doc.speciality, 'description': doc.description, 'email': email}
     for doc in doctor.query.filter(doctor._id == doctor_id)]
     )
-    return render_template('doctorProfile.html', data = data)
+    return render_template('bhagja', data = data)
 
 @ app.route('/doctor/<doctor_id>/prescribe', methods = ["GET"])
 def doctorPrescribePage(doctor_id):
@@ -335,23 +335,27 @@ def patientSummary(doctor_id, patient_id):
 
 @ app.route('/patient/<patient_id>/profile', methods = ["GET"])
 def patientProfilePage(patient_id):
-    patient_profile=db.session.query(patient).filter(patient._id == patient_id)
+    patient_profile=db.session.query(patient).filter(patient.patient_id == patient_id)
+    print(patient_profile)
     
-    pat_id=None
-    email=None
     for row in patient_profile:
-        pat_id=row.patient_id
-        break
-    usr_id=db.session.query(userdata).filter(userdata.user_id == pat_id)
-    for row in usr_id:
-        email=row.email
-        break
+        print(row.patient_id)
     
-    data  = jsonify([{'name': pat.patient_name, 'phone': pat.phone, 'address': pat.address, 'age': pat.age, 'gender': pat.gender, 'email': email}
-    for pat in patient.query.filter(patient._id == patient_id)
-    ])
+    # pat_id=None
+    # email=None
+    # for row in patient_profile:
+    #     pat_id=row.patient_id
+    #     break
+    # usr_id=db.session.query(userdata).filter(userdata.user_id == pat_id)
+    # for row in usr_id:
+    #     email=row.email
+    #     break
+    
+    # data  = jsonify([{'name': pat.patient_name, 'phone': pat.phone, 'address': pat.address, 'age': pat.age, 'gender': pat.gender, 'email': email}
+    # for pat in patient.query.filter(patient._id == patient_id)
+    # ])
+   
 
-    return render_template('patientProfile.html',data = data)
 
 
 @ app.route('/patient/<patient_id>/prescription', methods = ["GET"])

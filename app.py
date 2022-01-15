@@ -347,8 +347,8 @@ def patientProfilePage(patient_id):
     data  = jsonify([{'name': pat.patient_name, 'phone': pat.phone, 'address': pat.address, 'age': pat.age, 'gender': pat.gender, 'email': email}
     for pat in patient.query.filter(patient._id == patient_id)
     ])
+    return render_template('patient/profile.html',data = 'patient', data2=patient_id, data1=patient_profile.first())
 
-    return render_template('patient/profile.html',data1 = data,data=patient_id,data2='patient')
 
 
     pass

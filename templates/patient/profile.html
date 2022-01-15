@@ -48,11 +48,10 @@
         <a href="/" class="nav__logo">EAPR</a>
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
-              <li class="nav__item"><a href="" class="nav__link">Home</a></li>
-              
-              <li class="nav__item"><a href="" class="nav__link">Profile</a></li>
+              <li class="nav__item"><a href="{{ url_for('userHomePage', user_id=data2,role=data) }}" class="nav__link">Home</a></li>
+              <li class="nav__item"><a href="{{ url_for('patientProfilePage', patient_id=data2, role=data) }}" class="nav__link">Profile</a></li>
               <li class="nav__item"><a href="/" class="nav__link">Logout</a></li>
-               
+             
 
 
                 <li><i class='bx bx-moon change-theme' id="theme-button"></i></li>
@@ -169,17 +168,7 @@
         </div>
       </div>
     </div>
-    <div class="footer-copyright-area">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="footer-copy-right">
-              <p>Copyright © 2018 <a href="https://colorlib.com/wp/templates/">Colorlib</a> All rights reserved.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
   </div>
 
   <!-- jquery

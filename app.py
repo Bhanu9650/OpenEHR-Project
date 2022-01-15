@@ -72,20 +72,14 @@ def loginsucess():
         hashedPassword = hashlib.md5(bytes(str(password), encoding='utf-8'))
         hashedPassword = hashedPassword.hexdigest()
         result = db.session.query(userdata).filter(
-            userdata.email == email, userdata.password == hashedPassword)
+            userdata.email == email, userdata.password == hashedPassword).first()
 
-        # roles = result.role
-        # for row in result:
-        #     roles = row.role
-        
-        for row in result:
-            if len(row.email)!= 0:
-                roles = row.role.lower()
-                userid = row.user_id
-                return redirect(url_for('userHomePage', user_id=userid, role=roles))
-            else:
-                data = "Wrong credentials"
-                return render_template('login.html',data = data)
+        if result is not None:
+            return redirect(url_for('userHomePage', user_id=result.user_id, role=result.role.lower()))
+        else:
+            data = "Wrong credentials"
+            return render_template('login.html',data = data)
+
     else:
         return render_template('login.html')
                 
@@ -179,7 +173,7 @@ def userHomePage(role, user_id):
             .join(doctor, prescription.doctor_id == doctor.doctor_id)\
             .filter(prescription.patient_id == user_id)\
             .all()
-
+        print(patient_data)
         return render_template('patient/home.html', data=role, data2=user_id, patient_data= patient_data )
     else:
         return render_template('pharmaDashboard.html', data=role)
@@ -397,7 +391,6 @@ def patientSummary(doctor_id, patient_id):
 @ app.route('/patient/<patient_id>/profile', methods = ["GET","POST"])
 def patientProfilePage(patient_id):
     patient_profile=db.session.query(patient).filter(patient.patient_id == patient_id)
-  
     return render_template('patient/profile.html',data = 'patient', data2=patient_id, data1=patient_profile.first())
     
 
@@ -408,7 +401,9 @@ def patientPresciptionPage(patient_id, prescription_id):
         join(orderDetails,prescription.prescription_id == orderDetails.prescription_id).\
         filter(prescription.patient_id == patient_id).filter(prescription.prescription_id==prescription_id).all()
     print("PRESCRIPTION:", total_prescription)
-    return render_template ('doctor/doctor_prescription.html',data=total_prescription)
+    patient_profile=db.session.query(patient).filter(patient.patient_id == patient_id)
+
+    return render_template ('patient/patient_prescription.html',data1=total_prescription,   data='patient' , data2=patient_id, data3= patient_profile.first())
 
 @ app.route('/doctor/<doctor_id>/<prescription_id>', methods = ["GET"])
 def doctorPresciptionPage(doctor_id, prescription_id):
@@ -422,12 +417,12 @@ def doctorPresciptionPage(doctor_id, prescription_id):
 
 
 
-@app.errorhandler(Exception)
-def handle_error(e):
-    code = 404
-    if isinstance(e, HTTPException):
-        code = e.code
-    return render_template('error404.html')
+# @app.errorhandler(Exception)
+# def handle_error(e):
+#     code = 404
+#     if isinstance(e, HTTPException):
+#         code = e.code
+#     return render_template('error404.html')
 
 if __name__ == "__main__":
     app.run(debug = True, port = 4005)

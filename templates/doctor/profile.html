@@ -49,7 +49,7 @@
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
               <li class="nav__item"><a href="{{ url_for('userHomePage', role='doctor', user_id=doctor_info.doctor_id) }}" class="nav__link">Home</a></li>
-                    <li class="nav__item"><a href="{{ url_for('doctorUsersPage', doctor_id=doctor_info.doctor_id) }}" class="nav__link">Patient List</a></li>
+                    <li class="nav__item"><a href="{{ url_for('doctorUsersPage', doctor_id=doctor_info.doctor_id) }}" class="nav__link">Patients</a></li>
                     <li class="nav__item"><a href="{{ url_for('doctorPrescribePage', doctor_id=doctor_info.doctor_id) }}" class="nav__link">Prescribe</a></li>
                     <li class="nav__item"><a href="/" class="nav__link">Logout</a></li>
                
@@ -89,7 +89,7 @@
                 <!-- <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Dashboard v.1</span></a></li> -->
 
                 <li><a title="Patient List" href="{{ url_for('userHomePage', role='doctor', user_id=doctor_info.doctor_id) }}"><span class="mini-sub-pro">Home</span></a></li>
-                <li><a title="Patient Cart" href="{{ url_for('doctorUsersPage', doctor_id=doctor_info.doctor_id) }}"><span class="mini-sub-pro">Patient List</span></a></li>
+                <li><a title="Patient Cart" href="{{ url_for('doctorUsersPage', doctor_id=doctor_info.doctor_id) }}"><span class="mini-sub-pro">Patients</span></a></li>
                 <li><a title="Patient Cart" href="{{ url_for('doctorProfilePage', doctor_id=doctor_info.doctor_id) }}"><span class="mini-sub-pro">Profile</span></a></li>
                 <li><a title="Patient Cart" href="{{ url_for('doctorPrescribePage', doctor_id=doctor_info.doctor_id) }}"><span class="mini-sub-pro">Prescribe</span></a></li>
 

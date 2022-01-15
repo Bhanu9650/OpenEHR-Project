@@ -9,7 +9,7 @@ from sqlalchemy.sql.functions import user
 from models import patient, problemList, prescription
 from models import userdata
 from models import *
-
+from werkzeug.exceptions import HTTPException
 import hashlib
 
 
@@ -187,10 +187,8 @@ def userHomePage(role, user_id):
 # We have to change users ---> patients
 @app.route('/doctor/<doctor_id>/users', methods=["GET", "POST"])
 def doctorUsersPage(doctor_id):
-    prescription_data = db.session.query(prescription,patient).\
-                            join(patient, prescription.patient_id == patient.patient_id).\
-                            filter(prescription.doctor_id == doctor_id).all()
-    return render_template('doctor/patientlist.html', prescription_data = prescription_data, data='doctor' , data2=doctor_id )
+    patient_info = db.session.query(patient).all()
+    return render_template('doctor/patientlist.html', patient_data = patient_info, data='doctor' , data2=doctor_id )
 
 
 @app.route('/doctor/<doctor_id>/profile', methods=["GET"])
@@ -386,8 +384,14 @@ def doctorDiagnosisPage(doctor_id):
 
 @ app.route('/doctor/<doctor_id>/patients/<patient_id>', methods=["GET"])
 def patientSummary(doctor_id, patient_id):
-    data = db.session.query(patient,pastHistoryIllness,allergyIntolerance, problemList).join(pastHistoryIllness,patient.patient_id == pastHistoryIllness.patient_id).join(allergyIntolerance,patient.patient_id == allergyIntolerance.patient_id).join(problemList,patient.patient_id == problemList.patient_id).filter(prescription.patient_id == patient_id)
-    return render_template('patient/profile.html',data = data)
+    data = db.session.query(patient,pastHistoryIllness,allergyIntolerance, problemList).\
+        join(pastHistoryIllness,patient.patient_id == pastHistoryIllness.patient_id).\
+        join(allergyIntolerance,patient.patient_id == allergyIntolerance.patient_id).\
+        join(problemList,patient.patient_id == problemList.patient_id).\
+        filter(patient.patient_id == patient_id).first()
+
+    print(data)
+    return render_template('doctor/doctor_patient_summary.html',data1 = data, data='doctor' , data2=doctor_id  )
 
 
 @ app.route('/patient/<patient_id>/profile', methods = ["GET","POST"])
@@ -397,15 +401,33 @@ def patientProfilePage(patient_id):
     return render_template('patient/profile.html',data = 'patient', data2=patient_id, data1=patient_profile.first())
     
 
-@ app.route('/patient/<patient_id>/prescription', methods = ["GET"])
-def patientPresciptionPage(patient_id):
+@ app.route('/patient/<patient_id>/<prescription_id>', methods = ["GET"])
+def patientPresciptionPage(patient_id, prescription_id):
     total_prescription = db.session.query(prescription,doseDirection,orderDetails).\
         join(doseDirection,prescription.prescription_id == doseDirection.prescription_id).\
         join(orderDetails,prescription.prescription_id == orderDetails.prescription_id).\
-        filter(prescription.patient_id == patient_id)
-  
-    return render_template ('prescriptionPatient.html',data=total_prescription)
-   
+        filter(prescription.patient_id == patient_id).filter(prescription.prescription_id==prescription_id).all()
+    print("PRESCRIPTION:", total_prescription)
+    return render_template ('doctor/doctor_prescription.html',data=total_prescription)
+
+@ app.route('/doctor/<doctor_id>/<prescription_id>', methods = ["GET"])
+def doctorPresciptionPage(doctor_id, prescription_id):
+    total_prescription = db.session.query(prescription,doseDirection,orderDetails).\
+        join(doseDirection,prescription.prescription_id == doseDirection.prescription_id).\
+        join(orderDetails,prescription.prescription_id == orderDetails.prescription_id).\
+        filter(prescription.prescription_id==prescription_id).all()
+    # print("PRESCRIPTION:", total_prescription)
+    
+    return render_template ('doctor/doctor_prescription.html',data1=total_prescription,  data='doctor' , data2=doctor_id)
+
+
+
+@app.errorhandler(Exception)
+def handle_error(e):
+    code = 404
+    if isinstance(e, HTTPException):
+        code = e.code
+    return render_template('error404.html')
 
 if __name__ == "__main__":
     app.run(debug = True, port = 4005)

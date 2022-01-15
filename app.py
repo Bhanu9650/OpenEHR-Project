@@ -167,14 +167,22 @@ def userHomePage(role, user_id):
                             join(patient, prescription.patient_id == patient.patient_id).\
                             filter(prescription.doctor_id == user_id).all()
         return render_template('doctor/home.html', data=role, data2=user_id, prescription_data=prescription_data)
+    
     elif role == 'patient':
-        patient_data = db.session.query(prescription, patient, doctor)\
+        patient_data = db.session.query(patient, prescription, doctor)\
             .join(patient, prescription.patient_id == patient.patient_id)\
             .join(doctor, prescription.doctor_id == doctor.doctor_id)\
             .filter(prescription.patient_id == user_id)\
             .all()
-        print(patient_data)
+
+        if(len(patient_data) == 0):
+            patient_data = db.session.query(patient)\
+                .filter(patient.patient_id == user_id)\
+                .all()
+            patient_data = [patient_data]
+        
         return render_template('patient/home.html', data=role, data2=user_id, patient_data= patient_data )
+    
     else:
         return render_template('pharmaDashboard.html', data=role)
 

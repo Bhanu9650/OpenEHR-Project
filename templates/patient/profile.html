@@ -72,7 +72,7 @@
       <div class="nalika-profile" style="background-color: #152036">
         <div class="profile-dtl">
           <a href="#"><img src="/static/prescribe-img/demo.png" alt="" /></a>
-          <h2>{{data1.patient_name}}</h2>
+          <h2>{{data1.patient_name.title()}}</h2>
         </div>
 
       </div>
@@ -116,12 +116,12 @@
                 <img class="profile_img" src="https://cdn4.iconfinder.com/data/icons/professions-1-2/151/3-512.png"
                   alt="student dp">
                 
-                <h3>{{ data1.patient_name }}</h3>
+                <h3>{{ data1.patient_name.title() }}</h3>
               </div>
               <div class="card-body">
                 <p class="mb-0"><strong class="pr-1">Patient ID:</strong>{{ data1.patient_id }}</p>
                 <p class="mb-0"><strong class="pr-1">Age:</strong>{{data1.age}}</p>
-                <p class="mb-0"><strong class="pr-1">Gender:</strong>{{data1.gender}}</p>
+                <p class="mb-0"><strong class="pr-1">Gender:</strong>{{data1.gender.title()}}</p>
               </div>
             </div>
           </div>
@@ -135,7 +135,7 @@
                   <tr>
                     <th width="30%">Patient Name</th>
                     <td width="2%">:</td>
-                    <td>{{data1.patient_name}}</td>
+                    <td>{{data1.patient_name.title() }}</td>
                   </tr>
                   <tr>
                     <th width="30%">Date of Registration</th>

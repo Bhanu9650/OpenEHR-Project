@@ -9,7 +9,7 @@ from sqlalchemy.sql.functions import user
 from models import patient, problemList, prescription
 from models import userdata
 from models import *
-
+from werkzeug.exceptions import HTTPException
 import hashlib
 
 
@@ -399,7 +399,13 @@ def patientPresciptionPage(patient_id):
         filter(prescription.patient_id == patient_id)
   
     return render_template ('prescriptionPatient.html',data=total_prescription)
-   
+
+@app.errorhandler(Exception)
+def handle_error(e):
+    code = 404
+    if isinstance(e, HTTPException):
+        code = e.code
+    return render_template('error404.html')
 
 if __name__ == "__main__":
     app.run(debug = True, port = 4005)

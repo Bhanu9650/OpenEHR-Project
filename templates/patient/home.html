@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{ patient_data[0][1].patient_name.title()}}'s Homepage</title>
+    <title>{{ patient_data[0][0].patient_name.title()}}'s Homepage</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Google Fonts
@@ -80,7 +80,7 @@
           <div class="nalika-profile" style="background-color: #152036">
             <div class="profile-dtl">
               <a href="#"><img src="/static/prescribe-img/demo.png" alt="" /></a>
-              <h2>{{ patient_data[0][1].patient_name.title()}}<span class="min-dtn"></span></h2>
+              <h2>{{ patient_data[0][0].patient_name.title()}}<span class="min-dtn"></span></h2>
             </div>
     
           </div>
@@ -121,6 +121,7 @@
                                     <!-- <h3 class="product-cart-dn">Shopping</h3> -->
                                     <div class="product-list-cart">
                                         <div class="product-status-wrap border-pdt-ct">
+                                            {% if patient_data[0]|length > 1 %}
                                             <table>
                                                 <tr>
                                                     <th>Prescription ID</th>
@@ -129,42 +130,50 @@
                                                     <th>Doctor's Phone</th>
                                                     <th>Description</th>
                                                 </tr>
+                                                
+                                                {% for presc in patient_data %}
+                                                <!-- [(<patient 1>, <prescription 1>, <doctor 1>)] -->
 
-                                                <!-- [(<prescription 1>, <patient 1>, <doctor 1>)] -->
-                                            {% for presc in patient_data %}
-                                                <tr>
-                                                    <td>
-                                                        <h3>{{ presc[0].prescription_id }}</h3>
-                                                    </td>
-                                                    
-                                                    <td>
-                                                        <p>{{ presc[0].doctor_id }}</p>
-                                                    </td>
-                                                    
-                                                    <td>
-                                                        <h3>{{ presc[2].doctor_name.title() }}</h3>
-                                                        <p>{{ presc[2].speciality.title() }}</p>
-                                                    </td>
-                                                    
-                                                    <td>
-                                                        <p>{{ presc[2].phone }}</p>
-                                                    </td>
-                                                    
-                                                    <td>
-                                                        <p>{{ presc[0].additional_instruction[:100] }}</p>
-                                                    </td>
+                                                        <tr>
+                                                            <td>
+                                                                <h3>{{ presc[1].prescription_id }}</h3>
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                <p>{{ presc[1].doctor_id }}</p>
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                <h3>{{ presc[2].doctor_name.title() }}</h3>
+                                                                <p>{{ presc[2].speciality.title() }}</p>
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                <p>{{ presc[2].phone }}</p>
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                <p>{{ presc[1].additional_instruction[:100] }}</p>
+                                                            </td>
+        
+                                                            <td>
+                                                                <form action="{{ url_for('patientPresciptionPage', patient_id=data2, prescription_id=presc[0].prescription_id ) }}" method="get">
+                                                                    <button type="submit" class="btn btn-primary">View Here</button></a>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
 
-                                                    <td>
-                                                        <form action="{{ url_for('patientPresciptionPage', patient_id=data2, prescription_id=presc[0].prescription_id ) }}" method="get">
-                                                            <button type="submit" class="btn btn-primary">View Here</button></a>
-                                                          </form>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                            
+                                                        
+                                                        
+                                                        {% endfor %}
+                                                        
+                                                    </table>
+                                                    
+                                            {% else %}
 
+                                                <h2 class='text-center' style='color: white;'>There are no prescriptions available. </h2>
 
-                                            </table>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </section>

@@ -93,10 +93,10 @@
                   <ul class="submenu-angle" aria-expanded="true" style="background-color: #152036">
                                     <!-- <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Dashboard v.1</span></a></li> -->
                                     
-                                    <li><a title="Patient List" href="home.html"><span class="mini-sub-pro">Home</span></a></li>
-                                    <li><a title="Patient Cart" href="patientlist.html"><span class="mini-sub-pro">Patient List</span></a></li>
-                                    <li><a title="Patient Cart" href="profile.html"><span class="mini-sub-pro">Profile</span></a></li>
-                                    <li><a title="Patient Cart" href="prescribe.html"><span class="mini-sub-pro">Prescribe</span></a></li>
+                                    <li><a title="Patient List" href="{{ url_for('userHomePage', role=data, user_id=data2) }}"><span class="mini-sub-pro">Home</span></a></li>
+                                    <li><a title="Patient Cart" href="{{ url_for('doctorUsersPage', doctor_id=data2) }}"><span class="mini-sub-pro">Patient List</span></a></li>
+                                    <li><a title="Patient Cart" href="{{ url_for('doctorProfilePage', doctor_id=data2) }}"><span class="mini-sub-pro">Profile</span></a></li>
+                                    <li><a title="Patient Cart" href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}"><span class="mini-sub-pro">Prescribe</span></a></li>
                                 </ul>
                             </li> 
                         </ul>
@@ -125,109 +125,33 @@
                                                     <th>Age</th>
                                                     <th>Gender</th>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <h3>Patient</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
-                                                    </td>
-                                                    
-                                                    <td>18</td>
-                                                    <td>
-                                                        <p>Male</p>
-                                                    </td>
-                                                    <td>
-                                                        <buttontype="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">Open Here</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>321</p>
-                                                    </td>
-                                                    <td>
-                                                        <h3>Patient</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
-                                                    </td>
-                                                    
-                                                    <td>17</td>
-                                                    <td>
-                                                        <p>Male</p>
-                                                    </td>
-                                                    <td>
-                                                        <buttontype="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">Open Here</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <h3>Patient</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
-                                                    </td>
-                                                    
-                                                    <td>15</td>
-                                                    <td>
-                                                        <p>Male</p>
-                                                    </td>
-                                                    <td>
-                                                        <buttontype="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">Open Here</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <h3>Patient</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
-                                                    </td>
-                                                    
-                                                    <td>12</td>
-                                                    <td>
-                                                        <p>Male</p>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">Open Here</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <h3>Patient</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
-                                                    </td>
-                                                    
-                                                    <td>18</td>
-                                                    <td>
-                                                        <p>Male</p>
-                                                    </td>
-                                                    <td>
-                                                        <buttontype="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">Open Here</button>
-                                                    </td>
-                                                </tr>
+                                                {% for pat in prescription_data %}
+                                                        <tr>
+                                                            <td>
+                                                                <p>{{ pat[0].prescription_id }}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{{ pat[0].patient_id }}</p>
+                                                            </td>
+                                                            <td>
+                                                                <h3>Patient</h3>
+                                                                <p>{{ pat[0].additional_instruction }}</p>
+                                                            </td>
+                                                            
+                                                            <td>{{ pat[1].age }}</td>
+                                                            <td>
+                                                                <p>{{ pat[1].gender }}</p>
+                                                            </td>
+                                                            <td>
+                                                                    <form action="{{ url_for('doctorPrescriptionPage', doctor_id=data2) }}" method="get">
+                                                                        <button type="submit" class="btn btn-primary">Open Here</button></a>
+                                                                      </form>
+                                                                    <!-- <button type="button" class="btn btn-primary">Open Here</button></a> -->
+                                                            </td>
+                                                        </tr>
+                                                {% endfor %}
                                             </table>
                                         </div>
-                                        {%include "modal_homeprescription.html" %}
                                     </div>
                                 </section>
                             </div>

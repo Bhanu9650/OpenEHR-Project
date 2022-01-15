@@ -1,9 +1,30 @@
 from enum import unique
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import json, sys
+
+try:
+    with open(".config.json") as f:
+        config = json.loads(f.read())
+except FileNotFoundError:
+    print("=" * 20)
+    message = """Create file .config.json
+    Set values as:
+    {
+        "DB":
+        {
+            "DB_USER": "",
+            "DB_PWD": ""
+        }
+    }
+    """
+    print(message)
+    sys.exit(0)
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:abc123@localhost/eapr"
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = f"postgresql://{config['DB']['DB_USER']}:{config['DB']['DB_PWD']}@localhost/eapr"
 
 db = SQLAlchemy(app)
 
@@ -50,7 +71,9 @@ class doctor(db.Model):
 class pharma(db.Model):
     __tablename__ = "pharma"
     _id = db.Column(db.Integer, primary_key=True)
-    pharma_id = db.Column(db.Integer, db.ForeignKey("userdata.user_id"), nullable=True, unique=True)
+    pharma_id = db.Column(
+        db.Integer, db.ForeignKey("userdata.user_id"), nullable=True, unique=True
+    )
 
     pharma_name = db.Column(db.String(100), nullable=False)
     year_exp = db.Column(db.Integer, unique=False)
@@ -72,7 +95,9 @@ class prescription(db.Model):
     __tablename__ = "prescription"
 
     prescription_id = db.Column(db.Integer, primary_key=True)
-    patient_id = db.Column(db.Integer, db.ForeignKey("patient.patient_id"), nullable=False)
+    patient_id = db.Column(
+        db.Integer, db.ForeignKey("patient.patient_id"), nullable=False
+    )
     doctor_id = db.Column(db.Integer, db.ForeignKey("doctor.doctor_id"), nullable=False)
 
     medication_item = db.Column(db.String(100), nullable=True)
@@ -119,9 +144,7 @@ class pastHistoryIllness(db.Model):
     body_site = db.Column(db.String(100), nullable=False)
     datetime_onset = db.Column(db.DateTime, nullable=False)
     severity = db.Column(db.String(50), nullable=True)
-    procedure_type = db.Column(
-        db.String(100), nullable=True
-    ) 
+    procedure_type = db.Column(db.String(100), nullable=True)
 
 
 class allergyIntolerance(db.Model):

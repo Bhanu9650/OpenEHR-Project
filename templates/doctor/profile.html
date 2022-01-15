@@ -73,7 +73,7 @@
       <div class="nalika-profile" style="background-color: #152036">
         <div class="profile-dtl">
           <a href="#"><img src="/static/prescribe-img/demo.png" alt="" /></a>
-          <h2>Lakian <span class="min-dtn">Das</span></h2>
+          <h2>{{ doctor_info.doctor_name }}</h2>
         </div>
 
       </div>
@@ -88,12 +88,11 @@
               <ul class="submenu-angle" aria-expanded="true" style="background-color: #152036">
                 <!-- <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Dashboard v.1</span></a></li> -->
 
-                <li><a title="Product List" href="home.html"><span class="mini-sub-pro">Home</span></a></li>
-                <li><a title="Product Cart" href="patientlist.html"><span class="mini-sub-pro">Patient List</span></a>
-                </li>
-                <li><a title="Patient Cart" href="prescribe.html"><span class="mini-sub-pro">Prescribe</span></a></li>
-                <li><a title="Product Cart" href="profil.html"><span class="mini-sub-pro">Profile</span></a></li>
-              
+                <li><a title="Patient List" href="{{ url_for('userHomePage', role=data, user_id=data2) }}"><span class="mini-sub-pro">Home</span></a></li>
+                <li><a title="Patient Cart" href="{{ url_for('doctorUsersPage', doctor_id=data2) }}"><span class="mini-sub-pro">Patient List</span></a></li>
+                <li><a title="Patient Cart" href="{{ url_for('doctorProfilePage', doctor_id=data2) }}"><span class="mini-sub-pro">Profile</span></a></li>
+                <li><a title="Patient Cart" href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}"><span class="mini-sub-pro">Prescribe</span></a></li>
+
               </ul>
             </li>
 
@@ -118,12 +117,12 @@
               <div class="card-header bg-transparent text-center">
                 <img class="profile_img" src="https://cdn4.iconfinder.com/data/icons/professions-1-2/151/3-512.png"
                   alt="student dp">
-                <h3>Ishmam Ahasa</h3>
+                <h3>{{ doctor_info.doctor_name }}</h3>
               </div>
               <div class="card-body">
-                <p class="mb-0"><strong class="pr-1">Student ID:</strong>321000001</p>
-                <p class="mb-0"><strong class="pr-1">Class:</strong>4</p>
-                <p class="mb-0"><strong class="pr-1">Section:</strong>A</p>
+                <p class="mb-0"><strong class="pr-1">Doctor ID:</strong>{{ doctor_info.doctor_id }}</p>
+                <p class="mb-0"><strong class="pr-1">Specialist:</strong>{{ doctor_info.speciality }}</p>
+                <p class="mb-0"><strong class="pr-1">Year Of Experience:</strong>{{ doctor_info.year_exp }}</p>
               </div>
             </div>
           </div>
@@ -135,14 +134,14 @@
               <div class="card-body pt-0">
                 <table class="table table-bordered">
                   <tr>
-                    <th width="30%">Roll</th>
+                    <th width="30%">Fees</th>
                     <td width="2%">:</td>
-                    <td>125</td>
+                    <td>{{ doctor_info.fee }}</td>
                   </tr>
                   <tr>
-                    <th width="30%">Academic Year </th>
+                    <th width="30%">Year Of Experience </th>
                     <td width="2%">:</td>
-                    <td>2020</td>
+                    <td>{{ doctor_info.year_exp }}</td>
                   </tr>
                   <tr>
                     <th width="30%">Gender</th>
@@ -150,14 +149,14 @@
                     <td>Male</td>
                   </tr>
                   <tr>
-                    <th width="30%">Religion</th>
+                    <th width="30%">Specialist</th>
                     <td width="2%">:</td>
-                    <td>Group</td>
+                    <td>{{ doctor_info.speciality }}</td>
                   </tr>
                   <tr>
-                    <th width="30%">blood</th>
+                    <th width="30%">Phone No.</th>
                     <td width="2%">:</td>
-                    <td>B+</td>
+                    <td>{{ doctor_info.phone }}</td>
                   </tr>
                 </table>
               </div>
@@ -168,9 +167,7 @@
                 <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Other Information</h3>
               </div>
               <div class="card-body pt-0">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat.</p>
+                <p>{{ doctor_info.description }}</p>
               </div>
             </div>
           </div>
@@ -182,7 +179,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="footer-copy-right">
-              <p>Copyright © 2018 <a href="https://colorlib.com/wp/templates/">Colorlib</a> All rights reserved.</p>
+              <p>Copyright © 2021 <a href="#">Group C</a> All rights reserved.</p>
             </div>
           </div>
         </div>

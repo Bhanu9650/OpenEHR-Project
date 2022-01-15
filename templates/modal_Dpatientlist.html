@@ -4,7 +4,7 @@
 
             <!-- Modal Header-->
             <div class="modal-header">
-                <h4 class="modal-title w-100 text-center">Patient Summary</h4>
+                <h4 class="modal-title w-100 text-center"><b>PATIENT SUMMARY</b></h4>
                 <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
             </div> 
 
@@ -18,7 +18,8 @@
 
                 <form id="myForm" class="needs-validation" novalidate>
                     <div class="container">
-
+                        <h4><b>Patient Details</b></h4><br>
+                        {% if data1 | length >0 %}
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Patient ID</label>
                             <div class="col-sm-10">
@@ -34,13 +35,7 @@
                               
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Date of Registration</label>
-                            <div class="col-sm-10">
-                                <p class="mt-2">{{data1[0].date_of_reg}}</p>  
-                              
-                            </div>
-                        </div>
+                        
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Address</label>
                             <div class="col-sm-10">
@@ -72,7 +67,12 @@
                              
                             </div>
                         </div>
-
+                        {% else %}
+                        <h6>No data Available</h6>
+                        {% endif %}
+                        <br>
+                        <h4><b>Past Illness History</b></h4><br>
+                        {% if data1 | length >1 %}
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Problem Name</label>
                             <div class="col-sm-10">
@@ -112,6 +112,13 @@
                                
                             </div>
                         </div>
+                        {% else %}
+                        <h6>No data Available</h6>
+                        {% endif %}
+                        <br>
+
+                        <h4><b>Allergy Details</b></h4><br>
+                        {% if data1 | length >2 %}
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Allergy</label>
                             <div class="col-sm-10">
@@ -147,8 +154,14 @@
                                
                             </div>
                         </div>
+                        {% else %}
+                        <h6>No data Available</h6>
+                        {% endif %}
+                        <br>
+                        <h4><b>Diagnosis Details</b></h4><br>
+                        {% if data1 | length >3 %}
                         <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Problem/Diagnosis Name</label>
+                            <label for="id" class="col-sm-2 col-form-label">Problem Name</label>
                             <div class="col-sm-10">
                                 <p class="mt-2">{{data1[3].problem_diag_name}}</p>  
                                
@@ -176,6 +189,9 @@
                                
                             </div>
                         </div>
+                        {% else %}
+                        <h6>No data Available</h6>
+                        {% endif %}
 
                        
                     </div>

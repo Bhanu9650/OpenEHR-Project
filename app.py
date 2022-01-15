@@ -70,17 +70,11 @@ def loginsucess():
         password = request.form.get('psw')
         # print(uname)
         # print(password)
-
         # print(g_name)
         hashedPassword = hashlib.md5(bytes(str(password), encoding='utf-8'))
         hashedPassword = hashedPassword.hexdigest()
-        result = db.session.query(userdata).filter(
-            userdata.email == email, userdata.password == hashedPassword)
+        result = db.session.query(userdata).filter(userdata.email == email, userdata.password == hashedPassword)
 
-        # roles = result.role
-        # for row in result:
-        #     roles = row.role
-        
         for row in result:
             if len(row.email)!= 0:
                 roles = row.role.lower()
@@ -182,7 +176,10 @@ def userHomePage(role, user_id):
         prescription_data = db.session.query(prescription,patient).\
                             join(patient, prescription.patient_id == patient.patient_id).\
                             filter(prescription.doctor_id == user_id).all()
-        return render_template('doctor/home.html', data=role, data2=user_id, prescription_data=prescription_data)
+        doctor_user = db.session.query(doctor).filter(doctor.doctor_id == user_id)
+        for row in doctor_user:
+            doctor_info = row
+        return render_template('doctor/home.html', data=role, data2=user_id, prescription_data=prescription_data, doctor_info=doctor_info)
     elif role == 'patient':
         return render_template('patient/home.html', data=role,data2=user_id )
     else:
@@ -194,7 +191,11 @@ def doctorUsersPage(doctor_id):
     prescription_data = db.session.query(prescription,patient).\
                             join(patient, prescription.patient_id == patient.patient_id).\
                             filter(prescription.doctor_id == doctor_id).all()
-    return render_template('doctor/patientlist.html', prescription_data = prescription_data, data='doctor' , data2=doctor_id )
+    doctor_user = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
+    # patient_data = db.session.query(patient)
+    for row in doctor_user:
+        doctor_info = row
+    return render_template('doctor/patientlist.html', prescription_data = prescription_data, data='doctor' , data2=doctor_id, doctor_info=doctor_info )
 
 
 @app.route('/doctor/<doctor_id>/profile', methods=["GET"])
@@ -207,7 +208,10 @@ def doctorProfilePage(doctor_id):
 
 @ app.route('/doctor/<doctor_id>/prescribe', methods = ["GET", "POST"])
 def doctorPrescribePage(doctor_id):
-    return render_template('doctor/prescribe.html', data2=doctor_id)
+    doctor_user = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
+    for row in doctor_user:
+        doctor_info = row
+    return render_template('doctor/prescribe.html', data2=doctor_id, doctor_info=doctor_info)
 
 @ app.route('/doctor/<doctor_id>/prescribe/prescription', methods = ["GET","POST"])
 def doctorPrescriptionPage(doctor_id):

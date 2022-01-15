@@ -91,10 +91,10 @@
                   <ul class="submenu-angle" aria-expanded="true" style="background-color: #152036">
                                     <!-- <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Dashboard v.1</span></a></li> -->
                                     
-                                    <li><a title="Patient List" href="home.html"><span class="mini-sub-pro">Home</span></a></li>
-                                    <li><a title="Patient Cart" href="patientlist.html"><span class="mini-sub-pro">Patient List</span></a></li>
-                                    <li><a title="Patient Cart" href="profile.html"><span class="mini-sub-pro">Profile</span></a></li>
-                                    <li><a title="Patient Cart" href="prescribe.html"><span class="mini-sub-pro">Prescribe</span></a></li>
+                                    <li><a title="Patient List" href="{{ url_for('userHomePage', role=data, user_id=data2) }}"><span class="mini-sub-pro">Home</span></a></li>
+                                    <li><a title="Patient Cart" href="{{ url_for('doctorUsersPage', doctor_id=data2) }}"><span class="mini-sub-pro">Patient List</span></a></li>
+                                    <li><a title="Patient Cart" href="{{ url_for('doctorProfilePage', doctor_id=data2) }}"><span class="mini-sub-pro">Profile</span></a></li>
+                                    <li><a title="Patient Cart" href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}"><span class="mini-sub-pro">Prescribe</span></a></li>
                                 </ul>
                             </li> 
                         </ul>

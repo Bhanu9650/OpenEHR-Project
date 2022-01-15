@@ -1,28 +1,28 @@
-<div class="modal" id="myModal1">
-    <div class="modal-dialog">
+<!--  <div class="modal" id="myModal1"> -->
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
-            <!-- Modal Header -->
+            <!-- Modal Header-->
             <div class="modal-header">
                 <h4 class="modal-title w-100 text-center">E-Prescription</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            </div> 
 
 
-<!--  -->
+
 
 <!--  -->
             <!-- Modal body -->
             <div class="modal-body">
                 <!-- adding Bootstrap Form here -->
 
-                <form id="myForm" class="needs-validation" novalidate>
+                <form id="myForm" action="{{ url_for('doctorPrescriptionPage', doctor_id=data2) }}" method="post">
                     <div class="container">
 
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Patient ID</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control" id="name_id" name="pid"
+                                <input type="number" class="form-control" id="name_id" name="patient_id"
                                     placeholder="Enter Patient ID" required />
                                 <div class="invalid-feedback">
                                     Please choose a Patient ID.
@@ -81,15 +81,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center">
-                            <button class="btn btn-success" type="submit">Submit</button>
-                        </div>
-                    </div>
-                </form>
-
-                <form id="myForm" class="needs-validation" novalidate>
-                    <div class="container">
-
+                        
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Dose</label>
                             <div class="col-sm-10">
@@ -121,14 +113,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center">
-                            <button class="btn btn-success" type="submit">Submit</button>
-                        </div>
-                    </div>
-                </form>
-
-                <form id="myForm" class="needs-validation" novalidate>
-                    <div class="container">
 
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Order Status</label>
@@ -154,7 +138,7 @@
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Date Written</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name_id" name="date_written"
+                                <input type="date" class="form-control" id="name_id" name="date_written"
                                     placeholder="Enter Date Written" required />
                                 <div class="invalid-feedback">
                                     Please choose a Date Written.
@@ -167,17 +151,20 @@
                     </div>
                 </form>
 
-                <script>
+                <!-- <script>
 
-                </script>
+                </script> -->
             </div>
+        </div>
+    </div>
+    
 
             <!-- Modal footer -->
-            <div class="modal-footer">
+            <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
 
         </div>
     </div>
-</div>
+</div> -->
 

@@ -52,9 +52,9 @@
             <a href="/" class="nav__logo">EAPR</a>
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
-                    <li class="nav__item"><a href="" class="nav__link">Home</a></li>
-                    <li class="nav__item"><a href="" class="nav__link">Patient List</a></li>
-                    <li class="nav__item"><a href="" class="nav__link">Prescribe</a></li>
+                    <li class="nav__item"><a href="{{ url_for('userHomePage', role=data, user_id=data2) }}" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="{{ url_for('doctorUsersPage', doctor_id=data2) }}" class="nav__link">Patients</a></li>
+                    <li class="nav__item"><a href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}" class="nav__link">Prescribe</a></li>
                     <li class="nav__item"><a href="/" class="nav__link">Logout</a></li>
     
     
@@ -92,7 +92,7 @@
                                     <!-- <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Dashboard v.1</span></a></li> -->
                                     
                                     <li><a title="Patient List" href="{{ url_for('userHomePage', role=data, user_id=data2) }}"><span class="mini-sub-pro">Home</span></a></li>
-                                    <li><a title="Patient Cart" href="{{ url_for('doctorUsersPage', doctor_id=data2) }}"><span class="mini-sub-pro">Patient List</span></a></li>
+                                    <li><a title="Patient Cart" href="{{ url_for('doctorUsersPage', doctor_id=data2) }}"><span class="mini-sub-pro">Patients</span></a></li>
                                     <li><a title="Patient Cart" href="{{ url_for('doctorProfilePage', doctor_id=data2) }}"><span class="mini-sub-pro">Profile</span></a></li>
                                     <li><a title="Patient Cart" href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}"><span class="mini-sub-pro">Prescribe</span></a></li>
                                 </ul>
@@ -121,33 +121,35 @@
                                                     <th>Patient Name</th>
                                                     <th>Age</th>
                                                     <th>Gender</th>
-                                                    <th>Registraion Date</th>
+                                                    <th>Contact Number</th>
                                                 </tr>
-                                                {% for pat in prescription_data %}
+                                                {% for pat in patient_data %}
                                                     <tr>
                                                         <td>
-                                                            <p>{{ pat[0].patient_id }}</p>
+                                                            <p>{{ pat.patient_id }}</p>
                                                         </td>
                                                         <td>
-                                                            <h3>Patient</h3>
-                                                            <p>{{ pat[0].additional_instruction }}</p>
+                                                            <h3>{{ pat.patient_name }}</h3>
+                                                            <p>{{ pat.address }}</p>
                                                         </td>
                                                         
-                                                        <td>{{ pat[1].age }}</td>
+                                                        <td>{{ pat.age }}</td>
                                                         <td>
-                                                            <p>{{ pat[1].gender }}</p>
+                                                            <p>{{ pat.gender }}</p>
                                                         </td>
                                                         <td>
-                                                            <p>{{ pat[0].date_of_reg}}</p>
+                                                            <p>{{ pat.phone}}</p>
                                                         </td>
                                                         <td>
-                                                            <button type="button" class="btn btn-primary">Patient Summary</button>
+                                                            
+                                                            <form action="{{ url_for('patientSummary', doctor_id=data2, patient_id=pat.patient_id) }}" method="get">
+                                                                <button type="submit" class="btn btn-primary">View Summary</button></a>
+                                                              </form>
                                                         </td>
                                                     </tr>
                                                 {% endfor %}
                                             </table>
                                         </div>
-                                        {%include "modal_Dpatientlist.html" %}
                                     </div>
                                 </section>
                             </div>

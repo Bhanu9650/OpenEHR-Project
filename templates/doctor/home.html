@@ -125,22 +125,22 @@
                                                     <th>Age</th>
                                                     <th>Gender</th>
                                                 </tr>
-                                                {% for patient in data %}
+                                                {% for pat in prescription_data %}
                                                         <tr>
                                                             <td>
-                                                                <p>{{patient.patient_id}}</p>
+                                                                <p>{{ pat[0].prescription_id }}</p>
                                                             </td>
                                                             <td>
-                                                                <p>1254</p>
+                                                                <p>{{ pat[0].patient_id }}</p>
                                                             </td>
                                                             <td>
                                                                 <h3>Patient</h3>
-                                                                <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
+                                                                <p>{{ pat[0].additional_instruction }}</p>
                                                             </td>
                                                             
-                                                            <td>18</td>
+                                                            <td>{{ pat[1].age }}</td>
                                                             <td>
-                                                                <p>Male</p>
+                                                                <p>{{ pat[1].gender }}</p>
                                                             </td>
                                                             <td>
                                                                     <form action="{{ url_for('doctorPrescriptionPage', doctor_id=data2) }}" method="get">

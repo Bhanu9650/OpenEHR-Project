@@ -184,7 +184,7 @@ def userHomePage(role, user_id):
                             filter(prescription.doctor_id == user_id).all()
         return render_template('doctor/home.html', data=role, data2=user_id, prescription_data=prescription_data)
     elif role == 'patient':
-        return render_template('patientDashboard.html', data=role)
+        return render_template('patient/home.html', data=role,data2=user_id )
     else:
         return render_template('pharmaDashboard.html', data=role)
 
@@ -212,7 +212,7 @@ def doctorPrescribePage(doctor_id):
 @ app.route('/doctor/<doctor_id>/prescribe/prescription', methods = ["GET","POST"])
 def doctorPrescriptionPage(doctor_id):
     if request.method == "GET":
-        return render_template('modal_prescription.html')
+        return render_template('doctor/form-prescription.html',data='doctor',data2=doctor_id)
     elif request.method == "POST":
         patient_id = request.form.get('patient_id')
         medication_item = request.form.get('medication_item')
@@ -220,6 +220,7 @@ def doctorPrescriptionPage(doctor_id):
         dosage_instruction = request.form.get('dosage_instruction')
         additional_instruction = request.form.get('additional_instruction')
         reason = request.form.get('reason')
+        print("after order details",patient_id)
 
         patient_detail = db.session.query(patient).filter_by(patient_id=patient_id).first()
         if patient_detail is not None:
@@ -246,18 +247,18 @@ def doctorPrescriptionPage(doctor_id):
 
             db.session.add(entry2)
             db.session.commit()
-
-            return redirect(url_for('doctorHomePage'))
+            # print("after order details")
+            return redirect(url_for('doctorPrescribePage',doctor_id=doctor_id))
 
         else:
-            return render_template("modal_prescription.html", data={"message":"Patient does not exist. Please check the Patient ID and try again."})
+            return render_template("doctor/form-prescription.html", data={"message":"Patient does not exist. Please check the Patient ID and try again."})
 
 
 @app.route('/doctor/<doctor_id>/prescribe/past_illness', methods=["GET", "POST"])
 def doctorPastIllnessPage(doctor_id):
 
     if request.method == "GET":
-        return render_template("doctorPrescribePage.html", data=doctor_id)
+        return render_template("doctor/form-pastillness.html",data='doctor',data2=doctor_id)
     
     elif request.method == "POST":
         patient_id = request.form.get('patient_id')
@@ -267,9 +268,7 @@ def doctorPastIllnessPage(doctor_id):
         severity = request.form.get('severity')
         procedure_type = request.form.get('procedure_type')
 
-        patient_details = db.session.query(patient) \
-                                    .filter_by(patient_id=patient_id) \
-                                    .first()
+        patient_details = db.session.query(patient).filter_by(patient_id=patient_id).first()
 
         if patient_details is not None:
             entry = pastHistoryIllness(patient_id=patient_id,
@@ -290,7 +289,7 @@ def doctorPastIllnessPage(doctor_id):
                 "message": "Patient does not exist. Please check the Patient ID and try again."
                 }
 
-    return render_template("doctorDiagnosis.html", data=message)
+    return render_template("doctor/form-pastillness.html", data=message)
 
 @ app.route('/doctor/<doctor_id>/prescribe/medication_summary', methods = ["GET","POST"])
 def doctorMedicalIllnessPage(doctor_id):
@@ -300,7 +299,7 @@ def doctorMedicalIllnessPage(doctor_id):
 @ app.route('/doctor/<doctor_id>/prescribe/diagnosis', methods = ["GET","POST"])
 def doctorDiagnosisPage(doctor_id):
     if request.method == "GET":
-        return render_template('modal_problem.html')
+        return render_template("doctor/form-problem.html",data='doctor',data2=doctor_id)
     elif request.method == "POST":
 
         patient_id = request.form.get('patient_id')
@@ -315,20 +314,20 @@ def doctorDiagnosisPage(doctor_id):
             db.session.add(entry1)
             db.session.commit()
 
-            return redirect(url_for('doctorPrescribePage'))
+            return redirect(url_for('doctorPrescribePage', doctor_id=doctor_id))
 
         else:
 
-            return render_template("modal_problem.html", data={"message":"Patient does not exist. Please check the Patient ID and try again."})
+            return render_template("doctor/form-problem.html", data={"message":"Patient does not exist. Please check the Patient ID and try again."})
 
 
 @ app.route('/doctor/<doctor_id>/patients/<patient_id>', methods=["GET"])
 def patientSummary(doctor_id, patient_id):
     data = db.session.query(patient,pastHistoryIllness,allergyIntolerance, problemList).join(pastHistoryIllness,patient.patient_id == pastHistoryIllness.patient_id).join(allergyIntolerance,patient.patient_id == allergyIntolerance.patient_id).join(problemList,patient.patient_id == problemList.patient_id).filter(prescription.patient_id == patient_id)
-    return render_template('patientProfile.html',data = data)
+    return render_template('patient/profile.html',data = data)
 
 
-@ app.route('/patient/<patient_id>/profile', methods = ["GET"])
+@ app.route('/patient/<patient_id>/profile', methods = ["GET","POST"])
 def patientProfilePage(patient_id):
     patient_profile=db.session.query(patient).filter(patient.patient_id == patient_id)
     pat_id=None
@@ -345,7 +344,7 @@ def patientProfilePage(patient_id):
     for pat in patient.query.filter(patient._id == patient_id)
     ])
 
-    return render_template('patientProfile.html',data = data)
+    return render_template('patient/profile.html',data1 = data,data=patient_id,data2='patient')
 
 
     pass

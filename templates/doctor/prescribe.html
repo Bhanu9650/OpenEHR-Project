@@ -88,11 +88,10 @@
                                         </a> -->
                   <ul class="submenu-angle" aria-expanded="true" style="background-color: #152036">
                                 <!-- <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Dashboard v.1</span></a></li> -->
-
                                 <li><a title="Patient List" href="{{ url_for('userHomePage', role=data, user_id=data2) }}"><span class="mini-sub-pro">Home</span></a></li>
-                                <li><a title="Patient Cart" href="{{ url_for('doctorUsersPage', doctor_id=data2) }}"><span class="mini-sub-pro">Patient List</span></a></li>
-                                <li><a title="Patient Cart" href="{{ url_for('doctorProfilePage', doctor_id=data2) }}"><span class="mini-sub-pro">Profile</span></a></li>
-                                <li><a title="Patient Cart" href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}"><span class="mini-sub-pro">Prescribe</span></a></li>
+                                    <li><a title="Patient Cart" href="{{ url_for('doctorUsersPage', doctor_id=data2) }}"><span class="mini-sub-pro">Patient List</span></a></li>
+                                    <li><a title="Patient Cart" href="{{ url_for('doctorProfilePage', doctor_id=data2) }}"><span class="mini-sub-pro">Profile</span></a></li>
+                                    <li><a title="Patient Cart" href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}"><span class="mini-sub-pro">Prescribe</span></a></li>
                             </ul>
                         </li>
                     </ul>
@@ -107,36 +106,39 @@
             <div class="cards">
                 
                 <div class="card card-1">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+                    <a href="{{ url_for('doctorPastIllnessPage', doctor_id=data2) }}">
+                    <button type="button" class="btn btn-primary">
                         <img src="/static/prescribe-img/2.png" alt="past history">
-                        <p>Past History</p>
-                    </button>
+                        <p>Past Illness History</p>
+                    </button></a>
                 </div>
+                <!-- Route not available in app.py for allergy -->
                 <div class="card card-1">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
+                    <a href="{{ url_for('doctorPrescriptionPage', doctor_id=data2) }}">
+                    <button type="button" class="btn btn-primary">
                         <img src="/static/prescribe-img/3.png" alt="Allergy">
                         <p>Allergy Intolerance</p>
-                    </button>
+                    </button></a>
                 </div>
                 <div class="card card-1">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal4">
+                    <a href="{{ url_for('doctorDiagnosisPage', doctor_id=data2) }}">
+                    <button type="button" class="btn btn-primary">
                         <img src="/static/prescribe-img/4.png" alt="Diagnosis">
                         <p>Problems/Diagnosis</p>
-                    </button>
+                    </button></a>
                 </div>
                 <div class="card card-1">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">
+                    <a href="{{ url_for('doctorPrescriptionPage', doctor_id=data2) }}">
+                        <button type="button" class="btn btn-primary" >
                         <img src="/static/prescribe-img/1.png" alt="e-prescription">
                         <p>E-Prescription</p>
-                    </button>
+                    </button></a>
                 </div>
             </div>
         </div>
 
-        {%include "modal_past.html" %}
-        {%include "modal_allergy.html" %}
-        {%include "modal_problem.html" %}
-        {%include "modal_prescription.html" %}
+        
+        
 
 
 
@@ -198,6 +200,22 @@ https://dribbble.com/shots/14101951-Banners
 
     <script src="../../static/js/prescribe.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
+    <!-- <script type="text/javascript">
+        $(function () {
+            $('#myModal1').on("show.bs.modal", function (e) {
+                // document.getElementById("txtCountryName").value = $(e.relatedTarget).data('name');
+                console.log("hjhjhjhj")
+                // $('#myForm').attr('action', window.location.href + '/prescription' );
+                window.location.href =window.location.href + '/prescription'
+            });
+        }); -->
+        
+    <!-- // $(window).on('load', function() {
+    //     window.location.href =window.location.href + '/prescription'
+    //     $('#myModal1').modal('show');
+    // }); -->
+
+    <!-- </script> -->
 </body>
 
 </html>

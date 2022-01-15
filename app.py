@@ -391,9 +391,12 @@ def patientSummary(doctor_id, patient_id):
         join(allergyIntolerance,patient.patient_id == allergyIntolerance.patient_id).\
         join(problemList,patient.patient_id == problemList.patient_id).\
         filter(patient.patient_id == patient_id).first()
-
-    print(data)
-    return render_template('doctor/doctor_patient_summary.html',data1 = data, data='doctor' , data2=doctor_id  )
+    if data is None:
+        data=db.session.query(patient).filter(patient.patient_id==patient_id).first()
+        return render_template('doctor/doctor_patient_summary.html',data1 = [data], data='doctor' , data2=doctor_id  )
+    else:
+        print(data)
+        return render_template('doctor/doctor_patient_summary.html',data1 = data, data='doctor' , data2=doctor_id  )
 
 
 @ app.route('/patient/<patient_id>/profile', methods = ["GET","POST"])

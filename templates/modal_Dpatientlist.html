@@ -1,146 +1,199 @@
-<div class="modal" id="myModal6">
-    <div class="modal-dialog">
+<!--  <div class="modal" id="myModal1"> -->
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
-            <!-- Modal Header -->
+            <!-- Modal Header-->
             <div class="modal-header">
-                <h4 class="modal-title w-100 text-center">Past Illness History</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+                <h4 class="modal-title w-100 text-center">Patient Summary</h4>
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            </div> 
 
+
+
+
+<!--  -->
             <!-- Modal body -->
             <div class="modal-body">
                 <!-- adding Bootstrap Form here -->
-                 <!-- Past illness modal               -->
-             <form id="myForm" class="needs-validation" novalidate>
-                <div class="container">
-                    <div class="form-group row">
-                        <label for="id" class="col-sm-2 col-form-label">Patient ID :</label>
-                        <div class="col-sm-10">
-                            <p class="mt-2">123</p>  
-                        </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label for="id" class="col-sm-2 col-form-label">Problem Name</label>
-                        <div class="col-sm-10">
-                            <p class="mt-2">Cold</p>  
-                        </div>
-                    </div>
+                <form id="myForm" class="needs-validation" novalidate>
+                    <div class="container">
 
-                    <div class="form-group row">
-                        <label for="id" class="col-sm-2 col-form-label">Body Site</label>
-                        <div class="col-sm-10">
-                          <p class="mt-2">Nose</p>   
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Patient ID</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[0].patient_id}}</p>  
+                               
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="id" class="col-sm-2 col-form-label">Date Onset</label>
-                        <div class="col-sm-10">
-                            <p class="mt-2">20-01-2019</p>  
-                           
+
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Patient Name</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[0].patient_name}}</p>  
+                              
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="id" class="col-sm-2 col-form-label">Severity</label>
-                        <div class="col-sm-10">
-                            <p class="mt-2">Low</p>  
-                            
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Date of Registration</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[0].date_of_reg}}</p>  
+                              
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="id" class="col-sm-2 col-form-label">Procedure Type</label>
-                        <div class="col-sm-10">
-                            <p class="mt-2">Medcines</p>  
-                           
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Address</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[0].address}}</p>  
+                            </div>
                         </div>
-                    </div>
-                
-                   
-                   
-                    <div style="text-align: center;">
-                        <h4>Diagnosis</h4>
-                        <button type="button"></button>
-                    </div>
-                    
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Age</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[0].age}}</p>  
+                               
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Gender</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[0].gender}}</p>  
+                          
+                            </div>
+                        </div>
                        
+                 
+
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Phone</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[0].phone}}</p>  
+                             
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Problem Name</label>
                             <div class="col-sm-10">
-                                <p class="mt-3">Insomania</p> 
+                                <p class="mt-2">{{data1[1].problem_name}}</p>  
+                               
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Body Site</label>
                             <div class="col-sm-10">
-                                <p class="mt-3">Medcines</p> 
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Date Onset</label>
-                            <div class="col-sm-10">
-                                <p class="mt-3">2-10-2021</p> 
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Severity</label>
-                            <div class="col-sm-10">
-                                <p class="mt-3">Medium</p> 
-                                
+                                <p class="mt-2">{{data1[1].body_site}}</p>  
                             </div>
                         </div>
                         
-                     
+                  
 
-                   
 
-                    <!-- Allergy Modal -->
-
-                    <h4 class="modal-title w-100 text-center">Allergy</h4>
                         <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Substance</label>
+                            <label for="id" class="col-sm-2 col-form-label">Date of Onset</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">Sulphate</p> 
-                                
+                                <p class="mt-2">{{data1[1].datetime_onset}}</p>  
+                              
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Severity</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[1].severity}}</p>  
+                               
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Intolerance Type</label>
+                            <label for="id" class="col-sm-2 col-form-label">Procedure Type</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">Tolerable</p> 
+                                <p class="mt-2">{{data1[1].procedure_type}}</p>  
+                               
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Allergy</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[2].substance}}</p>  
+                               
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Verification Status</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[2].verification_status}}</p>  
+                               
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Allergy Intolerance Type</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[2].allergy_intol_type}}</p>  
                                
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Comment</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">idk</p> 
-                              
+                                <p class="mt-2">{{data1[2].comment}}</p>  
+                               
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Manifest</label>
+                            <label for="id" class="col-sm-2 col-form-label">Manifestation</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">Angry</p> 
-                                
+                                <p class="mt-2">{{data1[2].manifestation}}</p>  
+                               
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Problem/Diagnosis Name</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[3].problem_diag_name}}</p>  
+                               
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Body Site</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[3].body_site}}</p>  
+                               
                             </div>
                         </div>
 
-                </div>
-             </form>
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Date of Onset</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[3].datetime_onset}}</p>  
+                               
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Severity</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[3].severity}}</p>  
+                               
+                            </div>
+                        </div>
+
+                       
+                    </div>
+                </form>
 
                 <script>
 
                 </script>
             </div>
+        </div>
+    </div>
 
             <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data1-dismiss="modal">Close</button>
             </div>
 
         </div>
     </div>
-</div>
+</div> -->
 

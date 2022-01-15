@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Doctor Homepage</title>
+    <title>{{ patient_data[0][1].patient_name.title()}}'s Homepage</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Google Fonts
@@ -56,8 +56,8 @@
             <a href="/" class="nav__logo navbar-brand">EAPR</a>
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
-                    <li class="nav__item"><a href="" class="nav__link">Home</a></li>
-                    <li class="nav__item"><a href="" class="nav__link">Profile</a></li>
+                    <li class="nav__item"><a href="{{ url_for('userHomePage', user_id=data2,role=data) }}" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="{{ url_for('patientProfilePage', patient_id=data2, role=data) }}" class="nav__link">Profile</a></li>
                     <li class="nav__item"><a href="/" class="nav__link">Logout</a></li>
                    
     
@@ -80,7 +80,7 @@
           <div class="nalika-profile" style="background-color: #152036">
             <div class="profile-dtl">
               <a href="#"><img src="/static/prescribe-img/demo.png" alt="" /></a>
-              <h2>User<span class="min-dtn"></span></h2>
+              <h2>{{ patient_data[0][1].patient_name.title()}}<span class="min-dtn"></span></h2>
             </div>
     
           </div>
@@ -123,117 +123,50 @@
                                         <div class="product-status-wrap border-pdt-ct">
                                             <table>
                                                 <tr>
-                                                    <!-- <th></th> -->
                                                     <th>Prescription ID</th>
-                                                    <th>Patient ID</th>
-                                                    <th>Patient Name</th>
-                                                    <th>Age</th>
-                                                    <th>Gender</th>
+                                                    <th>Doctor ID</th>
+                                                    <th>Doctor Name</th>
+                                                    <th>Doctor's Phone</th>
+                                                    <th>Description</th>
                                                 </tr>
+
+                                                <!-- [(<prescription 1>, <patient 1>, <doctor 1>)] -->
+                                            {% for presc in patient_data %}
                                                 <tr>
                                                     <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <h3>Patient</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
+                                                        <h3>{{ presc[0].prescription_id }}</h3>
                                                     </td>
                                                     
-                                                    <td>18</td>
                                                     <td>
-                                                        <p>Male</p>
-                                                    </td>
-                                                    <td>
-                                                        <buttontype="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal7">Open Here</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>321</p>
-                                                    </td>
-                                                    <td>
-                                                        <h3>Patient</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
+                                                        <p>{{ presc[0].doctor_id }}</p>
                                                     </td>
                                                     
-                                                    <td>17</td>
                                                     <td>
-                                                        <p>Male</p>
-                                                    </td>
-                                                    <td>
-                                                        <buttontype="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal7">Open Here</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <h3>Patient</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
+                                                        <h3>{{ presc[2].doctor_name.title() }}</h3>
+                                                        <p>{{ presc[2].speciality.title() }}</p>
                                                     </td>
                                                     
-                                                    <td>15</td>
                                                     <td>
-                                                        <p>Male</p>
-                                                    </td>
-                                                    <td>
-                                                        <buttontype="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal7">Open Here</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <h3>Patient</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
+                                                        <p>{{ presc[2].phone }}</p>
                                                     </td>
                                                     
-                                                    <td>12</td>
                                                     <td>
-                                                        <p>Male</p>
+                                                        <p>{{ presc[0].additional_instruction[:100] }}</p>
                                                     </td>
+
                                                     <td>
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal7">Open Here</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>1254</p>
-                                                    </td>
-                                                    <td>
-                                                        <h3>Patient</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
-                                                    </td>
-                                                    
-                                                    <td>18</td>
-                                                    <td>
-                                                        <p>Male</p>
-                                                    </td>
-                                                    <td>
-                                                        <buttontype="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal7">Open Here</button>
+                                                        <form action="{{ url_for('patientPresciptionPage', patient_id=data2, prescription_id=presc[0].prescription_id ) }}" method="get">
+                                                            <button type="submit" class="btn btn-primary">View Here</button></a>
+                                                          </form>
                                                     </td>
                                                 </tr>
+                                            {% endfor %}
+                                            
+
+
                                             </table>
                                         </div>
                                     </div>
-                                    {%include "modal_patienthome.html" %}
                                 </section>
                             </div>
                         </div>

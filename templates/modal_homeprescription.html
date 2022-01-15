@@ -5,7 +5,7 @@
             <!-- Modal Header-->
             <div class="modal-header">
                 <h4 class="modal-title w-100 text-center">E-Prescription</h4>
-                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                <!-- <button type="button" class="close" data1-dismiss="modal">&times;</button> -->
             </div> 
 
 
@@ -20,9 +20,18 @@
                     <div class="container">
 
                         <div class="form-group row">
+                            <label for="id" class="col-sm-2 col-form-label">Prescription ID</label>
+                            <div class="col-sm-10">
+                                <p class="mt-2">{{data1[0][0].prescription_id}}</p>  
+                               
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Patient ID</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">123</p>  
+                                <p class="mt-2">{{data1[0][0].patient_id}}</p>  
                                
                             </div>
                         </div>
@@ -30,27 +39,27 @@
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Medication Item</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">Benadryl</p>  
+                                <p class="mt-2">{{data1[0][0].medication_item}}</p>  
                               
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Route</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">nose</p>  
+                                <p class="mt-2">{{data1[0][0].route}}</p>  
                               
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Dosage Instructions</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">with milk</p>  
+                                <p class="mt-2">{{data1[0][0].dosage_instruction}}</p>  
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Additional Instructions</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">no ice cream</p>  
+                                <p class="mt-2">{{data1[0][0].additional_instruction}}</p>  
                                
                             </div>
                         </div>
@@ -58,7 +67,7 @@
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Reason</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">Cough</p>  
+                                <p class="mt-2">{{data1[0][0].reason}}</p>  
                           
                             </div>
                         </div>
@@ -68,7 +77,7 @@
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Dose</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">3</p>  
+                                <p class="mt-2">{{data1[0][1].dose}}</p>  
                              
                             </div>
                         </div>
@@ -76,14 +85,14 @@
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Dose Unit</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">5</p>  
+                                <p class="mt-2">{{data1[0][1].dose_unit}}</p>  
                                
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Frequency (Per/Day)</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">1/1</p>  
+                                <p class="mt-2">{{data1[0][1].frequency_per_day}}</p>  
                             </div>
                         </div>
                         
@@ -93,7 +102,7 @@
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Order Status</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">active</p>  
+                                <p class="mt-2">{{data1[0][2].status}}</p>  
                               
                             </div>
                         </div>
@@ -101,14 +110,14 @@
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Date Discontinued</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">12-12-2020</p>  
+                                <p class="mt-2">{{data1[0][2].date_discontinued}}</p>  
                                
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Date Written</label>
                             <div class="col-sm-10">
-                                <p class="mt-2">01-12-2020</p>  
+                                <p class="mt-2">{{data1[0][2].date_written}}</p>  
                                
                             </div>
                         </div>
@@ -125,7 +134,7 @@
 
             <!-- Modal footer -->
             <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data1-dismiss="modal">Close</button>
             </div>
 
         </div>

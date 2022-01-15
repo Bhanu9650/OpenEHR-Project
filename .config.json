@@ -2,6 +2,6 @@
     "DB":
     {
         "DB_USER": "postgres",
-        "DB_PWD": "password"
+        "DB_PWD": "abc123"
     }
 }

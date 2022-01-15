@@ -73,7 +73,7 @@
       <div class="nalika-profile" style="background-color: #152036">
         <div class="profile-dtl">
           <a href="#"><img src="/static/prescribe-img/demo.png" alt="" /></a>
-          <h2>{{ doctor_info.doctor_name }}</h2>
+          <h2>{{ doctor_info.doctor_name.title() }}</h2>
         </div>
 
       </div>
@@ -117,11 +117,11 @@
               <div class="card-header bg-transparent text-center">
                 <img class="profile_img" src="https://cdn4.iconfinder.com/data/icons/professions-1-2/151/3-512.png"
                   alt="student dp">
-                <h3>{{ doctor_info.doctor_name }}</h3>
+                <h3>{{ doctor_info.doctor_name.title() }}</h3>
               </div>
               <div class="card-body">
                 <p class="mb-0"><strong class="pr-1">Doctor ID:</strong>{{ doctor_info.doctor_id }}</p>
-                <p class="mb-0"><strong class="pr-1">Specialist:</strong>{{ doctor_info.speciality }}</p>
+                <p class="mb-0"><strong class="pr-1">Specialist:</strong>{{ doctor_info.speciality.title() }}</p>
                 <p class="mb-0"><strong class="pr-1">Year Of Experience:</strong>{{ doctor_info.year_exp }}</p>
               </div>
             </div>
@@ -151,7 +151,7 @@
                   <tr>
                     <th width="30%">Specialist</th>
                     <td width="2%">:</td>
-                    <td>{{ doctor_info.speciality }}</td>
+                    <td>{{ doctor_info.speciality.title() }}</td>
                   </tr>
                   <tr>
                     <th width="30%">Phone No.</th>

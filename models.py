@@ -1,7 +1,7 @@
 from enum import unique
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import json, sys
+import json, sys, os
 
 try:
     with open(".config.json") as f:
@@ -22,9 +22,7 @@ except FileNotFoundError:
     sys.exit(0)
 
 app = Flask(__name__)
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = f"postgresql://{config['DB']['DB_USER']}:{config['DB']['DB_PWD']}@localhost/eapr"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 
 db = SQLAlchemy(app)
 

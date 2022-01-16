@@ -1,6 +1,10 @@
 <!--  <div class="modal" id="myModal1"> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
+
     <div class="modal-dialog modal-lg">
-        <div style="background-color: #f1f1f1;" class="modal-content">
+        <div id="content" style="background-color: #f1f1f1;" class="modal-content">
 
             <!-- Modal Header-->
             <div class="modal-header">
@@ -17,7 +21,7 @@
                 <!-- adding Bootstrap Form here -->
 
                 <form id="myForm" class="needs-validation" novalidate>
-                    <div class="container ml-5">
+                    <div id="content" class="container ml-5">
                         <h4><b>Medication Details</b></h4><br>
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Prescription ID</label>
@@ -124,20 +128,29 @@
                        
                     </div>
                 </form>
-
-                <script>
-
-                </script>
+            </div>
+            <div id="editor"></div>
+            <div class="text-center" >
+            <button type="button" class="btn btn-success mb-3" id="cmd">DOWNLOAD</button>
             </div>
         </div>
     </div>
 
-            <!-- Modal footer -->
-            <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data1-dismiss="modal">Close</button>
-            </div>
-
-        </div>
-    </div>
-</div> -->
-
+    <script type="text/javascript">
+        var doc = new jsPDF();
+        var specialElementHandlers = {
+            '#editor': function (element, renderer) {
+                return true;
+            }
+        };
+         
+         
+        $('#cmd').click(function () {
+            doc.fromHTML($('#content').html(), 15, 15, {
+                'width': 700,
+                'elementHandlers': specialElementHandlers
+            });
+            doc.save('e-prescription.pdf');
+        });
+        </script>
+  

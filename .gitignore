@@ -1,7 +1,7 @@
 notes.txt
 *try*.*
 .config.json
-*.pyc
+eapr/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

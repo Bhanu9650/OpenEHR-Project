@@ -1,21 +1,35 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Lobster&family=Mochiy+Pop+P+One&family=Staatliches&display=swap');
+
+    .modal-title {
+        font-family: 'Gloria Hallelujah', cursive;
+        font-family: 'Lobster', cursive;
+        font-family: 'Mochiy Pop P One', sans-serif;
+        font-family: 'Staatliches', cursive;
+    }
+
+    .modal-header {
+        background-color: #bfedc0;
+    }
+</style>
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
         <!-- Modal Header-->
         <div class="modal-header">
-            <h4 class="modal-title w-100 text-center">Past Illness History</h4>
+            <h4 class="modal-title w-100 text-center">PAST ILLNESS HISTORY</h4>
             <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-        </div> 
+        </div>
 
 
 
 
-<!--  -->
+        <!--  -->
         <!-- Modal body -->
         <div class="modal-body">
             <!-- adding Bootstrap Form here -->
-                            
-             <form id="myForm3" action="{{ url_for('doctorPastIllnessPage', doctor_id=data2) }}" method="post">
+
+            <form id="myForm3" action="{{ url_for('doctorPastIllnessPage', doctor_id=data2) }}" method="post">
                 <div class="container">
                     <div class="form-group row">
                         <label for="id" class="col-sm-2 col-form-label">Patient ID</label>
@@ -84,26 +98,26 @@
 
                     {% if data.message %}
 
-                    
-                        <div class="toast-body text-danger mt-3">
-                          {{ data.message }}
-                        </div>
-                      
+
+                    <div class="toast-body text-danger mt-3">
+                        {{ data.message }}
+                    </div>
+
 
                     {% endif %}
 
                 </div>
             </form>
 
-                <script>
+            <script>
 
-                </script>
-            </div>
+            </script>
+        </div>
     </div>
 </div>
 
 
-            <!-- Modal footer
+<!-- Modal footer
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
@@ -111,4 +125,3 @@
         </div>
     </div>
 </div> -->
-

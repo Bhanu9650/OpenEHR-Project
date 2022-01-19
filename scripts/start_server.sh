@@ -1,3 +1,4 @@
-cd /home/ec2-user/python-flask-service/
+cd /home/ubuntu/OpenEHR-Project
+
 source environment/bin/activate
 python app.py

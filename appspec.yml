@@ -2,18 +2,20 @@ version: 0.0
 os: ubuntu
 files:
  - source: /
-   destination: /home/ec2-user/aws-codedeploy
+   destination: /home/ubuntu/OpenEHR-Project
+
  - source: requirements.txt
-   destination: /home/ec2-user/aws-codedeploy
+   destination: /home/ubuntu/OpenEHR-Project
+
 permissions:
-  - object: /home/ec2-user/aws-codedeploy/app.py
-    owner: ec2-user
+  - object: /home/ubuntu/OpenEHR-Project/app.py
+    owner: ubuntu
     mode: 644
     type:
       - file
  
-  - object: /home/ec2-user/aws-codedeploy/requirements.txt
-    owner: ec2-user
+  - object: /home/ubuntu/OpenEHR-Project/requirements.txt
+    owner: ubuntu
     mode: 644
     type:
       - file

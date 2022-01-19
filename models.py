@@ -24,7 +24,7 @@ except FileNotFoundError:
 app = Flask(__name__)
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-] = f"postgresql://{config['DB']['DB_USER']}:{config['DB']['DB_PWD']}@localhost/eapr"
+] = f"postgresql://{config['DB']['DB_USER']}:{config['DB']['DB_PWD']}@0.0.0.0/eapr"
 
 db = SQLAlchemy(app)
 

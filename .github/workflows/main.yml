@@ -95,7 +95,7 @@ jobs:
           --deployment-config-name CodeDeployDefault.OneAtATime \
           --deployment-group-name staging \
           --description "Our eapr project" \
-          --github-location repository=shruti-17/OpenEHR-Project,commitId=1f799886bed65126faf310a3e413f8ab1b62a038
+          --github-location repository=shruti-17/OpenEHR-Project,commitId=${{ github.sha }}
 
      
 

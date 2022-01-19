@@ -1,4 +1,3 @@
 cd /home/ubuntu/OpenEHR-Project
-
-source environment/bin/activate
-python app.py
+source eapr/bin/activate
+python3 app.py

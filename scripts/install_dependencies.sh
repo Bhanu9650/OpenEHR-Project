@@ -1,5 +1,5 @@
 #!/bin/bash
-easy_install pip
+sudo apt-get install python3-pip
 sudo apt install postgresql postgresql-contrib -y
 pip install virtualenv
 sudo apt install git -y

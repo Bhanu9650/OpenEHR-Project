@@ -90,6 +90,9 @@ jobs:
 
       - name: RUNNING APPLICATION
         run: sh scripts/install_dependencies.sh
+  
+      - name: RUNNING APPLICATION PART 2
+        run: sh scripts/start_server.sh
 
       - name: Deploy to AWS
         run: |

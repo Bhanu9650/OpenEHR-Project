@@ -100,15 +100,21 @@ jobs:
           
             #Now we have got the access of EC2 and we will start the deploy .
             pwd
-            cd /home/ubuntu/OpenEHR-Project
+            cd /home/ubuntu
+            git clone https://github.com/shruti-17/OpenEHR-Project.git
+            cd OpenEHR-Project
+            source eapr/bin/activate
+            echo hi
+            pwd
+            python3 app.py
           '
           
 
-      - name: RUNNING APPLICATION
-        run: sh scripts/install_dependencies.sh
+#       - name: RUNNING APPLICATION
+#         run: sh scripts/install_dependencies.sh
   
-      - name: RUNNING APPLICATION PART 2
-        run: sh scripts/start_server.sh
+#       - name: RUNNING APPLICATION PART 2
+#         run: sh scripts/start_server.sh
 
       - name: Deploy to AWS
         run: |

@@ -20,15 +20,15 @@
     </nav>
 </header><br><br><br>
 <div class="left-sidebar-pro">
-    <nav id="sidebar" class="" style="background-color: #152036">
-      <div class="sidebar-header" style="background-color: #152036">
+    <nav id="sidebar" class="" style="background-color: #70c99d">
+      <div class="sidebar-header" style="background-color: #70c99d">
         <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
         <strong><img src="img/logo/logosn.png" alt="" /></strong>
       </div>
-      <div class="nalika-profile" style="background-color: #152036">
+      <div class="nalika-profile" style="background-color: #70c99d">
         <div class="profile-dtl">
           <a href="#"><img src="/static/prescribe-img/demo.png" alt="" /></a>
-          <h2>Doctor</h2>
+          <h2 style="color: black;">Doctor</h2>
         </div>
 
       </div>
@@ -40,12 +40,12 @@
                                        <i class="icon nalika-home icon-wrap"></i>
                                        <span class="mini-click-non">Ecommerce</span>
                                     </a> -->
-              <ul class="submenu-angle" aria-expanded="true" style="background-color: #152036">
+              <ul class="submenu-angle" aria-expanded="true" style="background-color: #70c99d">
                             <!-- <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Dashboard v.1</span></a></li> -->
-                            <li><a title="Patient List" href="{{ url_for('userHomePage', role=data, user_id=data2) }}"><span class="mini-sub-pro">Home</span></a></li>
+                            <li style="border-top: 1px solid #5c8774;"><a title="Patient List" href="{{ url_for('userHomePage', role=data, user_id=data2) }}"><span class="mini-sub-pro">Home</span></a></li>
                             <li><a title="Patient Cart" href="{{ url_for('doctorUsersPage', doctor_id=data2) }}"><span class="mini-sub-pro">Patients</span></a></li>
                             <li><a title="Patient Cart" href="{{ url_for('doctorProfilePage', doctor_id=data2) }}"><span class="mini-sub-pro">Profile</span></a></li>
-                            <li><a title="Patient Cart" href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}"><span class="mini-sub-pro">Prescribe</span></a></li>
+                            <li style="border-bottom: 1px solid #5c8774;"><a title="Patient Cart" href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}"><span class="mini-sub-pro">Prescribe</span></a></li>
                                  </ul>
                     </li>
                 </ul>

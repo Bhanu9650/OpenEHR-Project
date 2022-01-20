@@ -2,7 +2,7 @@ from crypt import methods
 from ctypes import addressof
 from os import uname
 import re
-from flask import Flask, app, request, jsonify, redirect, url_for
+from flask import Flask, app, request, jsonify, redirect, url_for,Response
 
 from flask.templating import render_template
 from sqlalchemy.sql.functions import user
@@ -10,7 +10,10 @@ from models import patient, problemList, prescription
 from models import userdata
 from models import *
 from werkzeug.exceptions import HTTPException
-import hashlib
+from datetime import datetime, timedelta
+import hashlib,jwt
+from flask import session
+from functools import wraps
 
 
 from sqlalchemy import func
@@ -23,6 +26,30 @@ db.session.commit()
 
 # app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'keyissecured12123'
+def require_api_token(func):
+    @wraps(func)
+    def check_token(*args, **kwargs):
+        # Check to see if it's in their session
+        token=session.get('token')
+        if 'token' not in session:
+            return jsonify({'message' : 'Token is missing !!'}), 401
+  
+        try:
+            # decoding the payload to fetch the stored details
+            print(token)
+            data = jwt.decode(token, app.config['SECRET_KEY'],algorithms=["HS256"])
+            print(data)
+            current_user = data['user']
+
+        except:
+            return jsonify({
+                'message' : 'Token is invalid !!'
+            }), 401
+        # returns the current logged in users contex to the routes
+        return  func(current_user,*args, **kwargs)
+
+    return check_token
 
 # Test Routes with /test Route
 @app.route('/test')
@@ -64,17 +91,21 @@ def pregister():
 # Renders the Welcome Page
 @app.route('/dashboard', methods=["POST"])
 def loginsucess():
-
-    if request.method == "POST":
+    if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('psw')
- 
-        hashedPassword = hashlib.md5(bytes(str(password), encoding='utf-8'))
+        #hashing the input and comparing the hash
+        hashedPassword = hashlib.md5(bytes(str(password),encoding='utf-8'))
         hashedPassword = hashedPassword.hexdigest()
-        result = db.session.query(userdata).filter(
-            userdata.email == email, userdata.password == hashedPassword).first()
+        result = db.session.query(userdata).filter(userdata.email == email, userdata.password == hashedPassword).first()
+        print(result)
 
         if result is not None:
+            token = jwt.encode({'user':result.user_id, 'exp': datetime.utcnow()+timedelta(minutes=15)}, app.config['SECRET_KEY'])
+            print("Token ",token)
+            session['token']=token
+            # return make_response(jsonify({'jwt' : token}), 201)
+            # return make_response(jsonify({'token' : token,'user':row.name}), 201)
             return redirect(url_for('userHomePage', user_id=result.user_id, role=result.role.lower()))
         else:
             data = "Wrong credentials"
@@ -161,30 +192,36 @@ def registration2():
 
 
 @app.route('/<role>/<user_id>', methods=["GET", "POST"])
-def userHomePage(role, user_id):
-    if role == 'doctor':
-        prescription_data = db.session.query(prescription,patient).\
-                            join(patient, prescription.patient_id == patient.patient_id).\
-                            filter(prescription.doctor_id == user_id).all()
-        return render_template('doctor/home.html', data=role, data2=user_id, prescription_data=prescription_data)
-    
-    elif role == 'patient':
-        patient_data = db.session.query(patient, prescription, doctor)\
-            .join(patient, prescription.patient_id == patient.patient_id)\
-            .join(doctor, prescription.doctor_id == doctor.doctor_id)\
-            .filter(prescription.patient_id == user_id)\
-            .all()
-
-        if(len(patient_data) == 0):
-            patient_data = db.session.query(patient)\
-                .filter(patient.patient_id == user_id)\
-                .all()
-            patient_data = [patient_data]
+@require_api_token
+def userHomePage(current_user,role, user_id):
+    print(current_user,user_id)
+    if int(current_user)==int(user_id):
+        if role == 'doctor':
+            prescription_data = db.session.query(prescription,patient).\
+                                join(patient, prescription.patient_id == patient.patient_id).\
+                                filter(prescription.doctor_id == user_id).all()
+            return render_template('doctor/home.html', data=role, data2=user_id, prescription_data=prescription_data)
         
-        return render_template('patient/home.html', data=role, data2=user_id, patient_data= patient_data )
-    
+        elif role == 'patient':
+            patient_data = db.session.query(patient, prescription, doctor)\
+                .join(patient, prescription.patient_id == patient.patient_id)\
+                .join(doctor, prescription.doctor_id == doctor.doctor_id)\
+                .filter(prescription.patient_id == user_id)\
+                .all()
+
+            if(len(patient_data) == 0):
+                patient_data = db.session.query(patient)\
+                    .filter(patient.patient_id == user_id)\
+                    .all()
+                patient_data = [patient_data]
+            
+            return render_template('patient/home.html', data=role, data2=user_id, patient_data= patient_data )
+        
+        else:
+            return render_template('pharmaDashboard.html', data=role)
     else:
-        return render_template('pharmaDashboard.html', data=role)
+        # return render_template('home.html')
+        return redirect("/", code=302)
 
 # We have to change users ---> patients
 @app.route('/doctor/<doctor_id>/users', methods=["GET", "POST"])
@@ -428,12 +465,12 @@ def doctorPresciptionPage(doctor_id, prescription_id):
 
 
 
-@app.errorhandler(Exception)
-def handle_error(e):
-    code = 404
-    if isinstance(e, HTTPException):
-        code = e.code
-    return render_template('error404.html')
+# @app.errorhandler(Exception)
+# def handle_error(e):
+#     code = 404
+#     if isinstance(e, HTTPException):
+#         code = e.code
+#     return render_template('error404.html')
 
 if __name__ == "__main__":
     app.run(debug = True, port = 4005)

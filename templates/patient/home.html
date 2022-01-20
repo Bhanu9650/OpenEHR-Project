@@ -83,7 +83,7 @@
           <div class="nalika-profile" style="background-color: #70c99d">
             <div class="profile-dtl">
               <a href="#"><img src="/static/avatar.png" alt="" /></a>
-              <h2>{{ patient_data[0][0].patient_name.title()}}<span class="min-dtn"></span></h2>
+              <h2 style="color:black">{{ patient_data[0][0].patient_name.title()}}<span class="min-dtn"></span></h2>
             </div>
     
           </div>
@@ -126,12 +126,13 @@
                                         <div class="product-status-wrap border-pdt-ct">
                                             {% if patient_data[0]|length > 1 %}
                                             <table style="background-color: #e5eeff;">
-                                                <tr>
+                                                <tr style="background-color: #70c99d">
                                                     <th>Prescription ID</th>
                                                     <th>Doctor ID</th>
                                                     <th>Doctor Name</th>
                                                     <th>Doctor's Phone</th>
                                                     <th>Description</th>
+                                                    <th></th>
                                                 </tr>
                                                 
                                                 {% for presc in patient_data %}

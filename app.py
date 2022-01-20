@@ -17,7 +17,7 @@ from functools import wraps
 
 
 from sqlalchemy import func
-import json
+import json, os
 
 
 db.create_all()
@@ -26,14 +26,14 @@ db.session.commit()
 
 # app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'keyissecured12123'
+app.config['SECRET_KEY'] = os.environ.get("JWT_SECRET_KEY")
 def require_api_token(func):
     @wraps(func)
     def check_token(*args, **kwargs):
         # Check to see if it's in their session
         token=session.get('token')
         if 'token' not in session:
-            return jsonify({'message' : 'Token is missing !!'}), 401
+            return render_template('invalid_session.html', message = "missing")
   
         try:
             # decoding the payload to fetch the stored details
@@ -43,9 +43,7 @@ def require_api_token(func):
             current_user = data['user']
 
         except:
-            return jsonify({
-                'message' : 'Token is invalid !!'
-            }), 401
+            return render_template('invalid_session.html', message = "expired")
         # returns the current logged in users contex to the routes
         return  func(current_user,*args, **kwargs)
 
@@ -465,12 +463,12 @@ def doctorPresciptionPage(doctor_id, prescription_id):
 
 
 
-# @app.errorhandler(Exception)
-# def handle_error(e):
-#     code = 404
-#     if isinstance(e, HTTPException):
-#         code = e.code
-#     return render_template('error404.html')
+@app.errorhandler(Exception)
+def handle_error(e):
+    code = 404
+    if isinstance(e, HTTPException):
+        code = e.code
+    return render_template('error404.html')
 
 if __name__ == "__main__":
     app.run(debug = True, port = 4005)

@@ -136,7 +136,7 @@ def loginsucess():
         result = db.session.query(userdata).filter(userdata.email == email, userdata.password == hashedPassword).first()
 
         if result is not None:
-            token = jwt.encode({'user':result.user_id, 'exp': datetime.utcnow()+timedelta(seconds=120)}, app.config['SECRET_KEY'])
+            token = jwt.encode({'user':result.user_id, 'exp': datetime.utcnow()+timedelta(minutes=30)}, app.config['SECRET_KEY'])
             session['token']=token
             # return make_response(jsonify({'jwt' : token}), 201)
             # return make_response(jsonify({'token' : token,'user':row.name}), 201)

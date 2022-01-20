@@ -31,22 +31,15 @@ def require_api_token(func):
     @wraps(func)
     def check_token(*args, **kwargs):
         # Check to see if it's in their session
-        func_sig = tuple(map(str, str(signature(func)) [1:-1].split(', ')))  
         # tuple(map(str, str(signature(func)) [1:-1].split(', ')))
         
-        print("="*20)
-        print("args:", args)
-        print("kwargs:", kwargs)
-        print("signature:", func_sig)
         token=session.get('token')
         if 'token' not in session:
             return render_template('invalid_session.html', message = "missing")
   
         try:
             # decoding the payload to fetch the stored details
-            print("token:", token)
             data = jwt.decode(token, app.config['SECRET_KEY'],algorithms=["HS256"])
-            print("JWT data:", data)
 
             new_kwargs = dict()
 
@@ -89,19 +82,6 @@ def require_api_token(func):
                 new_kwargs['patient_id'] = kwargs['patient_id']
                 data['user'] = kwargs['patient_id']
 
-            # current_user = data['user']
-
-            print("new_kwargs:", new_kwargs)            
-            print("="*20)
-
-            
-            # if 'user' in data:
-            #     current_user = data['user']
-            # elif 'doctor' in data:
-            #     current_user = data['doctor']
-
-
-
         except :
             return render_template('invalid_session.html', message = "expired")
         # returns the current logged in users contex to the routes
@@ -133,8 +113,6 @@ def dregister():
     return render_template('register2.html')
 
 # Renders Pharmacist SignUp Page
-
-
 @app.route('/pharmasignup')
 def phregister():
     return render_template('register1.html')
@@ -156,11 +134,9 @@ def loginsucess():
         hashedPassword = hashlib.md5(bytes(str(password),encoding='utf-8'))
         hashedPassword = hashedPassword.hexdigest()
         result = db.session.query(userdata).filter(userdata.email == email, userdata.password == hashedPassword).first()
-        print(result)
 
         if result is not None:
             token = jwt.encode({'user':result.user_id, 'exp': datetime.utcnow()+timedelta(seconds=120)}, app.config['SECRET_KEY'])
-            print("Token ",token)
             session['token']=token
             # return make_response(jsonify({'jwt' : token}), 201)
             # return make_response(jsonify({'token' : token,'user':row.name}), 201)
@@ -252,7 +228,6 @@ def registration2():
 @app.route('/<role>/<user_id>', methods=["GET", "POST"])
 @require_api_token
 def userHomePage(current_user,role, user_id):
-    print(current_user,user_id)
     if int(current_user)==int(user_id):
         if role == 'doctor':
             prescription_data = db.session.query(prescription,patient).\
@@ -498,7 +473,6 @@ def patientSummary(doctor_id, patient_id):
         data=db.session.query(patient).filter(patient.patient_id==patient_id).first()
         return render_template('doctor/doctor_patient_summary.html',data1 = [data], data='doctor' , data2=doctor_id  )
     else:
-        print(data)
         return render_template('doctor/doctor_patient_summary.html',data1 = data, data='doctor' , data2=doctor_id  )
 
 
@@ -516,7 +490,6 @@ def patientPresciptionPage(patient_id, prescription_id):
         join(doseDirection,prescription.prescription_id == doseDirection.prescription_id).\
         join(orderDetails,prescription.prescription_id == orderDetails.prescription_id).\
         filter(prescription.patient_id == patient_id).filter(prescription.prescription_id==prescription_id).all()
-    print("PRESCRIPTION:", total_prescription)
     patient_profile=db.session.query(patient).filter(patient.patient_id == patient_id)
 
     return render_template ('patient/patient_prescription.html',data1=total_prescription,   data='patient' , data2=patient_id, data3= patient_profile.first())

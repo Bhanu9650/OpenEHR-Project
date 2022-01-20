@@ -99,12 +99,12 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
           
             #Now we have got the access of EC2 and we will start the deploy .
+            sudo kill -9 $(sudo lsof -t -i:4005)
             pwd
-            cd /home/ubuntu
-            git clone https://github.com/shruti-17/OpenEHR-Project.git
-            cd OpenEHR-Project
+            cd /home/ubuntu/OpenEHR-Project
             source eapr/bin/activate
             echo hi
+            git pull origin master
             pwd
             python3 app.py
           '

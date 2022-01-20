@@ -3,6 +3,7 @@
 # sudo apt install postgresql postgresql-contrib -y
 # pip install virtualenv
 # sudo apt install git -y
+pwd
 cd /home/ubuntu/OpenEHR-Project
 # python3 -m venv eapr
 source eapr/bin/activate

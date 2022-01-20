@@ -1,11 +1,18 @@
 body {
     
     
-    background: linear-gradient(to right, #1b2a47, #1b2a47); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #b0e0e6 !important;/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     padding: 0;
     margin: 0;
     font-family: 'Lato', sans-serif;
     color: #000;
+}
+
+table h3,td,th,p{
+    color: black !important;
+}
+td,th{
+    padding-left: 25px !important;
 }
 
 .student-profile .card {

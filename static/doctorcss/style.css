@@ -19,7 +19,8 @@
 /*----------------------------------------*/
 /*  1.  Theme default CSS
 /*----------------------------------------*/
-html, body {height: 100%; font-family: 'Roboto', sans-serif;font-weight:400;background:#152036;}
+html, body {height: 100%; font-family: 'Roboto', sans-serif;font-weight:400;
+    background-color: #b0e0e6 !important;}
 .floatleft {float:left}
 .floatright {float:right}
 .alignleft {float:left;margin-right:15px;margin-bottom: 15px}
@@ -50,7 +51,7 @@ margin: 0;
 padding: 0
 }
 .clear{clear:both}
-body {}
+/* body {} */
 
 .mg-tb-30{
 	margin:30px 0px;
@@ -417,9 +418,9 @@ ul.dtl-social li a{
 	display:block;
 	padding:18px 10px;
 }
-.header-right-info {
+/* .header-right-info {
 	
-}
+} */
 .header-right-info ul.header-right-menu li{
 	display:inline-block;
 }

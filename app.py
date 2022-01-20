@@ -18,7 +18,7 @@ from functools import wraps
 
 from sqlalchemy import func
 import json, os
-
+from inspect import signature
 
 db.create_all()
 db.session.commit()
@@ -31,21 +31,81 @@ def require_api_token(func):
     @wraps(func)
     def check_token(*args, **kwargs):
         # Check to see if it's in their session
+        func_sig = tuple(map(str, str(signature(func)) [1:-1].split(', ')))  
+        # tuple(map(str, str(signature(func)) [1:-1].split(', ')))
+        
+        print("="*20)
+        print("args:", args)
+        print("kwargs:", kwargs)
+        print("signature:", func_sig)
         token=session.get('token')
         if 'token' not in session:
             return render_template('invalid_session.html', message = "missing")
   
         try:
             # decoding the payload to fetch the stored details
-            print(token)
+            print("token:", token)
             data = jwt.decode(token, app.config['SECRET_KEY'],algorithms=["HS256"])
-            print(data)
-            current_user = data['user']
+            print("JWT data:", data)
 
-        except:
+            new_kwargs = dict()
+
+            # dashboard - doctor, patient
+            if 'user_id' in kwargs:
+                new_kwargs['current_user'] = kwargs['user_id']
+                new_kwargs['role'] = kwargs['role']
+                new_kwargs['user_id'] = kwargs['user_id']
+
+                data['user'] = kwargs['user_id']
+
+            # doctor -> patients -> view patient
+            elif ('patient_id' in kwargs) and ('doctor_id' in kwargs):
+                new_kwargs['doctor_id'] = kwargs['doctor_id']
+                new_kwargs['patient_id'] = kwargs['patient_id']
+
+                data['user'] = kwargs['doctor_id']
+
+            # patient -> home -> view here
+            elif ('patient_id' in kwargs) and ('prescription_id' in kwargs):
+                new_kwargs['patient_id'] = kwargs['patient_id']
+                new_kwargs['prescription_id'] = kwargs['prescription_id']
+
+                data['user'] = kwargs['patient_id']
+
+            # doctor -> home -> view here
+            elif ('doctor_id' in kwargs) and ('prescription_id' in kwargs):
+                new_kwargs['doctor_id'] = kwargs['doctor_id']
+                new_kwargs['prescription_id'] = kwargs['prescription_id']
+
+                data['user'] = kwargs['doctor_id']
+
+            # all doctor routes only having doctor_id
+            elif 'doctor_id' in kwargs:
+                new_kwargs['doctor_id'] = kwargs['doctor_id']
+                data['user'] = kwargs['doctor_id']
+
+            # all patient routes only having patient_id
+            elif 'patient_id' in kwargs:
+                new_kwargs['patient_id'] = kwargs['patient_id']
+                data['user'] = kwargs['patient_id']
+
+            # current_user = data['user']
+
+            print("new_kwargs:", new_kwargs)            
+            print("="*20)
+
+            
+            # if 'user' in data:
+            #     current_user = data['user']
+            # elif 'doctor' in data:
+            #     current_user = data['doctor']
+
+
+
+        except :
             return render_template('invalid_session.html', message = "expired")
         # returns the current logged in users contex to the routes
-        return  func(current_user,*args, **kwargs)
+        return func(*args, **new_kwargs)
 
     return check_token
 
@@ -99,7 +159,7 @@ def loginsucess():
         print(result)
 
         if result is not None:
-            token = jwt.encode({'user':result.user_id, 'exp': datetime.utcnow()+timedelta(minutes=15)}, app.config['SECRET_KEY'])
+            token = jwt.encode({'user':result.user_id, 'exp': datetime.utcnow()+timedelta(seconds=120)}, app.config['SECRET_KEY'])
             print("Token ",token)
             session['token']=token
             # return make_response(jsonify({'jwt' : token}), 201)
@@ -223,12 +283,14 @@ def userHomePage(current_user,role, user_id):
 
 # We have to change users ---> patients
 @app.route('/doctor/<doctor_id>/users', methods=["GET", "POST"])
+@require_api_token
 def doctorUsersPage(doctor_id):
     patient_info = db.session.query(patient).all()
     return render_template('doctor/patientlist.html', patient_data = patient_info, data='doctor' , data2=doctor_id )
 
 
 @app.route('/doctor/<doctor_id>/profile', methods=["GET"])
+@require_api_token
 def doctorProfilePage(doctor_id):             
     doctor_profile = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
     doctor_info = None
@@ -237,10 +299,12 @@ def doctorProfilePage(doctor_id):
     return render_template('doctor/profile.html', doctor_info=doctor_info)
 
 @ app.route('/doctor/<doctor_id>/prescribe', methods = ["GET", "POST"])
+@require_api_token
 def doctorPrescribePage(doctor_id):
     return render_template('doctor/prescribe.html', data2=doctor_id)
 
 @ app.route('/doctor/<doctor_id>/prescribe/prescription', methods = ["GET","POST"])
+@require_api_token
 def doctorPrescriptionPage(doctor_id):
     if request.method == "GET":
         return render_template('doctor/form-prescription.html',data='doctor',data2=doctor_id)
@@ -284,6 +348,7 @@ def doctorPrescriptionPage(doctor_id):
 
 
 @app.route('/doctor/<doctor_id>/prescribe/past_illness', methods=["GET", "POST"])
+@require_api_token
 def doctorPastIllnessPage(doctor_id):
 
     if request.method == "GET":
@@ -333,6 +398,7 @@ def doctorPastIllnessPage(doctor_id):
             return render_template("doctor/form-pastillness.html", data=message)
 
 @ app.route('/doctor/<doctor_id>/prescribe/allergy', methods = ["GET","POST"])
+@require_api_token
 def doctorAllergyIntolerance(doctor_id):
 
     if request.method == "GET":
@@ -383,6 +449,7 @@ def doctorAllergyIntolerance(doctor_id):
 
 
 @ app.route('/doctor/<doctor_id>/prescribe/diagnosis', methods = ["GET","POST"])
+@require_api_token
 def doctorDiagnosisPage(doctor_id):
     if request.method == "GET":
         return render_template("doctor/form-problem.html",data='doctor',data2=doctor_id)
@@ -420,6 +487,7 @@ def doctorDiagnosisPage(doctor_id):
 
 
 @ app.route('/doctor/<doctor_id>/patients/<patient_id>', methods=["GET"])
+@require_api_token
 def patientSummary(doctor_id, patient_id):
     data = db.session.query(patient,pastHistoryIllness,allergyIntolerance, problemList).\
         join(pastHistoryIllness,patient.patient_id == pastHistoryIllness.patient_id).\
@@ -435,12 +503,14 @@ def patientSummary(doctor_id, patient_id):
 
 
 @ app.route('/patient/<patient_id>/profile', methods = ["GET","POST"])
+@require_api_token
 def patientProfilePage(patient_id):
     patient_profile=db.session.query(patient).filter(patient.patient_id == patient_id)
     return render_template('patient/profile.html',data = 'patient', data2=patient_id, data1=patient_profile.first())
     
 
 @ app.route('/patient/<patient_id>/<prescription_id>', methods = ["GET"])
+@require_api_token
 def patientPresciptionPage(patient_id, prescription_id):
     total_prescription = db.session.query(prescription,doseDirection,orderDetails).\
         join(doseDirection,prescription.prescription_id == doseDirection.prescription_id).\
@@ -452,6 +522,7 @@ def patientPresciptionPage(patient_id, prescription_id):
     return render_template ('patient/patient_prescription.html',data1=total_prescription,   data='patient' , data2=patient_id, data3= patient_profile.first())
 
 @ app.route('/doctor/<doctor_id>/<prescription_id>', methods = ["GET"])
+@require_api_token
 def doctorPresciptionPage(doctor_id, prescription_id):
     total_prescription = db.session.query(prescription,doseDirection,orderDetails).\
         join(doseDirection,prescription.prescription_id == doseDirection.prescription_id).\
@@ -463,12 +534,12 @@ def doctorPresciptionPage(doctor_id, prescription_id):
 
 
 
-@app.errorhandler(Exception)
-def handle_error(e):
-    code = 404
-    if isinstance(e, HTTPException):
-        code = e.code
-    return render_template('error404.html')
+# @app.errorhandler(Exception)
+# def handle_error(e):
+#     code = 404
+#     if isinstance(e, HTTPException):
+#         code = e.code
+#     return render_template('error404.html')
 
 if __name__ == "__main__":
     app.run(debug = True, port = 4005)

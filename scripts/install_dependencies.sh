@@ -7,4 +7,3 @@ cd /home/ubuntu/OpenEHR-Project
 python3 -m venv eapr
 source eapr/bin/activate
 git pull origin master
-pip install -r requirements.txt

@@ -1,31 +1,14 @@
 from enum import unique
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import json, sys
+import json, sys, os
+from sqlalchemy import create_engine
 
-try:
-    with open(".config.json") as f:
-        config = json.loads(f.read())
-except FileNotFoundError:
-    print("=" * 20)
-    message = """Create file .config.json
-    Set values as:
-    {
-        "DB":
-        {
-            "DB_USER": "",
-            "DB_PWD": ""
-        }
-    }
-    """
-    print(message)
-    sys.exit(0)
+
 
 app = Flask(__name__)
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = f"postgresql://{config['DB']['DB_USER']}:{config['DB']['DB_PWD']}@localhost/eapr"
-
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@db:5432/eapr"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
 

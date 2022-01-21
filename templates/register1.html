@@ -1,125 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Pharmacist signup</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		 <!--========== BOX ICONS ==========-->
-		 <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-		 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	 
-		 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-		
+<head>
+	<meta charset="utf-8">
+	<title>Pharmacist signup</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--========== BOX ICONS ==========-->
+	<link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!-- LINEARICONS -->
+	<link rel="stylesheet" href="fonts/linearicons/style.css">
+	<!-- STYLE CSS -->
+	<link rel="stylesheet" href="/static/css/pharma_register.css">
+	<link rel="stylesheet" href="/static/css/style.css">
+	<link rel="stylesheet" href="/static/team-section.css">
+</head>
 
-		<!-- LINEARICONS -->
-		<link rel="stylesheet" href="fonts/linearicons/style.css">
-		
-		
-		<!-- STYLE CSS -->
-		<link rel="stylesheet" href="/static/css/pharma_register.css">
-		<link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/team-section.css">
-	</head>
+<body>
+	<!--========== SCROLL TOP ==========-->
+	<a href="#" class="scrolltop" id="scroll-top">
+		<i class='bx bx-chevron-up scrolltop__icon'></i>
+	</a>
+	<!--========== HEADER ==========-->
+	<header class="l-header" id="header">
+		<nav class="nav bd-container">
+			<a class="nav__logo">EAPR</a>
+			<div class="nav__menu" id="nav-menu">
+				<ul class="nav__list">
+					<li class="nav__item"><a href="/" class="nav__link">Home</a></li>
+					<li class="nav__item"><a href="patientsignup" class="nav__link">Patient</a></li>
+					<li class="nav__item"><a href="doctorsignup" class="nav__link">Doctor</a></li>
+					<li class="nav__item"><a href="signin" class="nav__link">Login</a></li>
+				</ul>
+			</div>
+			<div class="nav__toggle" id="nav-toggle">
+				<i class='bx bx-menu'></i>
+			</div>
+		</nav>
+	</header>
+	<div class="login-wrapper">
+		<img src="/static/image-3.png" alt="" class="image-1">
+		<form action="/pharmaregistrationsuccess" method="POST" class="form">
+			<img src="/static/pharma.jpg" alt="" id="img1">
+			<h3 id="headd">Pharmacist's Signup</h3>
+			<div class="input-group">
+				<input type="text" class="form-control" id="inputEmail" placeholder="Enter Username" name="uname" required>
+			</div>
+			<div class="input-group">
+				<input type="email" name="mail" class="form-control" id="inputEmail" placeholder="Enter Email" required>
+			</div>
+			<div class="input-group">
+				<input type="password" name="psw" class="form-control" id="inputEmail" placeholder="Enter Password" required>
+			</div>
+			<div class="input-group">
+				<input type="text" name="add" class="form-control" id="inputEmail" placeholder="Enter Address" required>
+			</div>
+			<div class="input-group">
+				<input type="number" name="yoe" class="form-control" id="inputEmail"
+					placeholder="Enter Years of Experience" required>
+			</div>
+			<div class="input-group">
+				<input type="tel" name="phn" class="form-control" id="inputEmail" placeholder="Enter Phone" required>
+			</div>
+			<div class="input-group">
+				<input type="tel" name="rn" class="form-control" id="inputEmail" placeholder="Enter Registration Number" required>
+			</div>
+			<button>
+				<span>Register</span>
+			</button>
+			<p>{{data}}</p>
+		</form>
+	</div>
+	<script src="js/jquery-3.3.1.min.js"></script>
+</body>
+<script>
+	function show() {
+		var password = document.getElementById("password");
+		var icon = document.querySelector(".fas");
 
-	<body>
-		 <!--========== SCROLL TOP ==========-->
-		 <a href="#" class="scrolltop" id="scroll-top">
-			<i class='bx bx-chevron-up scrolltop__icon'></i>
-		</a>
-		<!--========== HEADER ==========-->
-		<header class="l-header" id="header">
-			<nav class="nav bd-container">
-				<a  class="nav__logo">EAPR</a>
-				<div class="nav__menu" id="nav-menu">
-					<ul class="nav__list">
-						<li class="nav__item"><a href="/" class="nav__link">Home</a></li>
-						<li class="nav__item"><a href="patientsignup" class="nav__link">Patient</a></li>
-						<li class="nav__item"><a href="doctorsignup" class="nav__link">Doctor</a></li>
-						<!-- <li class="nav__item"><a href="pharmasignup" class="nav__link">Pharmacist</a></li> -->
-						<!-- <li class="nav__item"><a href="#contact" class="nav__link">About Us</a></li> -->
-						<li class="nav__item"><a href="signin" class="nav__link">Login</a></li>
-		
-		
-						<!-- <li><i class='bx bx-moon change-theme' id="theme-button"></i></li> -->
-					</ul>
-				</div>
-		
-				<div class="nav__toggle" id="nav-toggle">
-					<i class='bx bx-menu'></i>
-				</div>
-			</nav>
-		</header>
-		
-
-		<div class="login-wrapper">
-			<img src="/static/image-3.png" alt="" class="image-1">
-		
-			<form action="/pharmaregistrationsuccess" method = "POST" class="form">
-			
-			
-			
-				<img src="/static/pharma.jpg" alt="" id="img1">
-				<h3 id="headd">Pharmacist's Signup</h3>
-			
-		
-			<div class="input-group">
-				<input type="text" class="form-control" id="inputEmail" placeholder="Enter Username" name="uname"
-								required>
-							
-							
-			</div>
-			<div class="input-group">
-				<input type="email" name="mail" class="form-control" id="inputEmail" placeholder="Enter Email"
-								required>
-			</div>
-			<div class="input-group">
-				<input type="password" name="psw" class="form-control" id="inputEmail" placeholder="Enter Password"
-								required>
-			</div>
-			<div class="input-group">
-				<input type="text" name="add" class="form-control" id="inputEmail" placeholder="Enter Address"
-								required>
-			</div>
-			<div class="input-group">
-				<input type="number" name="yoe" class="form-control" id="inputEmail" placeholder="Enter Years of Experience"
-								required>
-			</div>
-			
-			<div class="input-group">
-				<input type="tel" name="phn" class="form-control" id="inputEmail" placeholder="Enter Phone"
-								required>
-			</div>
-			<div class="input-group">
-				<input type="tel" name="rn" class="form-control" id="inputEmail" placeholder="Enter Registration Number"
-								required>
-			</div>
-
-		
-						<button>
-						<span>Register</span>
-					</button>
-						<p>{{data}}</p>
-			</form>
-			
-		</div>
-		
-		<script src="js/jquery-3.3.1.min.js"></script>
-		
-	</body>
-	<script>
-		function show() {
-		  var password = document.getElementById("password");
-		  var icon = document.querySelector(".fas");
-	
-		  // ========== Checking type of password ===========
-		  if (password.type === "password") {
+		// ========== Checking type of password ===========
+		if (password.type === "password") {
 			password.type = "text";
-		  } else {
+		} else {
 			password.type = "password";
-		  }
 		}
-	  </script>
-
+	}
+</script>
 </html>

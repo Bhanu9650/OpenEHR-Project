@@ -1,122 +1,94 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Lobster&family=Mochiy+Pop+P+One&family=Staatliches&display=swap');
-
     .modal-title {
         font-family: 'Gloria Hallelujah', cursive;
         font-family: 'Lobster', cursive;
         font-family: 'Mochiy Pop P One', sans-serif;
         font-family: 'Staatliches', cursive;
     }
-
     .modal-header {
         background-color: #bfedc0;
     }
 </style>
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
         <!-- Modal Header-->
         <div class="modal-header">
             <h4 class="modal-title w-100 text-center">PROBLEM/DAIGNOSIS</h4>
-            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-        </div> 
-
-
-
-
-<!--  -->
+        </div>
         <!-- Modal body -->
         <div class="modal-body">
-            <!-- adding Bootstrap Form here -->        
-            
-
-                <form id="myForm" action="{{ url_for('doctorDiagnosisPage', doctor_id=data2) }}" method="post">
-                    <div class="container">
-                        <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Patient ID</label>
-                            <div class="col-sm-10">
-                                <input type="number" class="form-control" id="name_id" name="patient_id"
-                                    placeholder="Enter patient ID" required />
-                                <div class="invalid-feedback">
-                                    Please choose a Patient ID.
-                                </div>
+            <form id="myForm" action="{{ url_for('doctorDiagnosisPage', doctor_id=data2) }}" method="post">
+                <div class="container">
+                    <div class="form-group row">
+                        <label for="id" class="col-sm-2 col-form-label">Patient ID</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="name_id" name="patient_id"
+                                placeholder="Enter patient ID" required />
+                            <div class="invalid-feedback">
+                                Please choose a Patient ID.
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Problem Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name_id" name="problem_diag_name"
-                                    placeholder="Enter Problem/Diagnosis Name" required />
-                                <div class="invalid-feedback">
-                                    Please choose a Problem/Diagnosis Name.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Body Site</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name_id" name="body_site"
-                                    placeholder="Enter Body Site" required />
-                                <div class="invalid-feedback">
-                                    Please choose a Body Site.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Date Onset</label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control" id="name_id" name="datetime_onset"
-                                    placeholder="Enter Date Onset" />
-                                <div class="invalid-feedback">
-                                    Please choose a Date Onset.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Severity</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name_id" name="severity"
-                                    placeholder="Enter Severity" />
-                                <div class="invalid-feedback">
-                                    Please choose Severity .
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="text-center">
-                            <button class="btn btn-success" type="submit">Submit</button>
-                        </div>
-                        {% if data.message %}
-                            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                                <div class="toast-header">
-                                <img src="..." class="rounded mr-2" alt="...">
-                                <strong class="mr-auto">Error</strong>
-                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                </div>
-                                <div class="toast-body">
-                                {{ data3.message }}
-                                </div>
-                            </div>
-                        {% endif %}
                     </div>
-                </form>
-
-                <script>
-
-                </script>
-            </div>
-    </div>
-</div>
-
-            <!-- Modal footer -->
-            <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
+                    <div class="form-group row">
+                        <label for="id" class="col-sm-2 col-form-label">Problem Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name_id" name="problem_diag_name"
+                                placeholder="Enter Problem/Diagnosis Name" required />
+                            <div class="invalid-feedback">
+                                Please choose a Problem/Diagnosis Name.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="id" class="col-sm-2 col-form-label">Body Site</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name_id" name="body_site"
+                                placeholder="Enter Body Site" required />
+                            <div class="invalid-feedback">
+                                Please choose a Body Site.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="id" class="col-sm-2 col-form-label">Date Onset</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="name_id" name="datetime_onset"
+                                placeholder="Enter Date Onset" />
+                            <div class="invalid-feedback">
+                                Please choose a Date Onset.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="id" class="col-sm-2 col-form-label">Severity</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name_id" name="severity"
+                                placeholder="Enter Severity" />
+                            <div class="invalid-feedback">
+                                Please choose Severity .
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-success" type="submit">Submit</button>
+                    </div>
+                    {% if data.message %}
+                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <img src="..." class="rounded mr-2" alt="...">
+                            <strong class="mr-auto">Error</strong>
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body">
+                            {{ data3.message }}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </form>
         </div>
     </div>
-</div> -->
-
+</div>

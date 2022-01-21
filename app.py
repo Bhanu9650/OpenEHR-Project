@@ -2,7 +2,7 @@ from crypt import methods
 from ctypes import addressof
 from os import uname
 import re
-from flask import Flask, app, request, jsonify, redirect, url_for,Response
+from flask import Flask, app, request, jsonify, redirect, url_for, Response
 
 from flask.templating import render_template
 from sqlalchemy.sql.functions import user
@@ -11,7 +11,7 @@ from models import userdata
 from models import *
 from werkzeug.exceptions import HTTPException
 from datetime import datetime, timedelta
-import hashlib,jwt
+import hashlib, jwt
 from flask import session
 from functools import wraps
 
@@ -258,8 +258,12 @@ def doctorUsersPage(current_user, doctor_id):
     if int(current_user) != int(doctor_id):
         return render_template('invalid_session.html', message = "missing")
 
+    doctor_user = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
+    for row in doctor_user:
+        doctor_info = row
+
     patient_info = db.session.query(patient).all()
-    return render_template('doctor/patientlist.html', patient_data = patient_info, data='doctor' , data2=doctor_id )
+    return render_template('doctor/patientlist.html', patient_data = patient_info, data='doctor' , data2=doctor_id, doctor_info=doctor_info )
 
 
 @app.route('/doctor/<doctor_id>/profile', methods=["GET"])
@@ -327,7 +331,10 @@ def doctorPrescriptionPage(current_user, doctor_id):
             return redirect(url_for('doctorPrescribePage',doctor_id=doctor_id))
 
         else:
-            return render_template("doctor/form-prescription.html", data={"message":"Patient does not exist. Please check the Patient ID and try again."})
+            message = {
+                "message": "Patient does not exist. Please check the Patient ID and try again."
+            }
+            return render_template("doctor/form-prescription.html", data3=message, data='doctor',data2=doctor_id)
 
 
 @app.route('/doctor/<doctor_id>/prescribe/past_illness', methods=["GET", "POST"])
@@ -381,7 +388,7 @@ def doctorPastIllnessPage(current_user, doctor_id):
                 "message": "Patient does not exist. Please check the Patient ID and try again."
                 }
     
-            return render_template("doctor/form-pastillness.html", data=message)
+            return render_template("doctor/form-pastillness.html", data3=message, data='doctor',data2=doctor_id)
 
 @ app.route('/doctor/<doctor_id>/prescribe/allergy', methods = ["GET","POST"])
 @require_api_token
@@ -433,7 +440,7 @@ def doctorAllergyIntolerance(current_user, doctor_id):
                 "message": "Patient does not exist. Please check the Patient ID and try again."
                 }
     
-            return render_template("doctor/form-allergy.html", data=message)
+            return render_template("doctor/form-allergy.html", data3=message, data='doctor',data2=doctor_id)
 
 
 
@@ -476,7 +483,7 @@ def doctorDiagnosisPage(current_user, doctor_id):
 
         else:
 
-            return render_template("doctor/form-problem.html", data={"message":"Patient does not exist. Please check the Patient ID and try again."})
+            return render_template("doctor/form-problem.html", data3={"message":"Patient does not exist. Please check the Patient ID and try again."}, data='doctor',data2=doctor_id)
 
 
 @ app.route('/doctor/<doctor_id>/patients/<patient_id>', methods=["GET"])

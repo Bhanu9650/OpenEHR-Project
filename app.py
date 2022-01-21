@@ -2,7 +2,7 @@ from crypt import methods
 from ctypes import addressof
 from os import uname
 import re
-from flask import Flask, app, request, jsonify, redirect, url_for,Response
+from flask import Flask, app, request, jsonify, redirect, url_for, Response
 
 from flask.templating import render_template
 from sqlalchemy.sql.functions import user
@@ -11,7 +11,7 @@ from models import userdata
 from models import *
 from werkzeug.exceptions import HTTPException
 from datetime import datetime, timedelta
-import hashlib,jwt
+import hashlib, jwt
 from flask import session
 from functools import wraps
 
@@ -45,42 +45,37 @@ def require_api_token(func):
 
             # dashboard - doctor, patient
             if 'user_id' in kwargs:
-                new_kwargs['current_user'] = kwargs['user_id']
+                new_kwargs['current_user'] = data['user']
                 new_kwargs['role'] = kwargs['role']
                 new_kwargs['user_id'] = kwargs['user_id']
 
-                data['user'] = kwargs['user_id']
-
             # doctor -> patients -> view patient
             elif ('patient_id' in kwargs) and ('doctor_id' in kwargs):
+                new_kwargs['current_user'] = data['user']
                 new_kwargs['doctor_id'] = kwargs['doctor_id']
                 new_kwargs['patient_id'] = kwargs['patient_id']
-
-                data['user'] = kwargs['doctor_id']
 
             # patient -> home -> view here
             elif ('patient_id' in kwargs) and ('prescription_id' in kwargs):
+                new_kwargs['current_user'] = data['user']
                 new_kwargs['patient_id'] = kwargs['patient_id']
                 new_kwargs['prescription_id'] = kwargs['prescription_id']
-
-                data['user'] = kwargs['patient_id']
 
             # doctor -> home -> view here
             elif ('doctor_id' in kwargs) and ('prescription_id' in kwargs):
+                new_kwargs['current_user'] = data['user']
                 new_kwargs['doctor_id'] = kwargs['doctor_id']
                 new_kwargs['prescription_id'] = kwargs['prescription_id']
 
-                data['user'] = kwargs['doctor_id']
-
             # all doctor routes only having doctor_id
             elif 'doctor_id' in kwargs:
+                new_kwargs['current_user'] = data['user']
                 new_kwargs['doctor_id'] = kwargs['doctor_id']
-                data['user'] = kwargs['doctor_id']
 
             # all patient routes only having patient_id
             elif 'patient_id' in kwargs:
+                new_kwargs['current_user'] = data['user']
                 new_kwargs['patient_id'] = kwargs['patient_id']
-                data['user'] = kwargs['patient_id']
 
         except :
             return render_template('invalid_session.html', message = "expired")
@@ -254,22 +249,29 @@ def userHomePage(current_user,role, user_id):
             return render_template('pharmaDashboard.html', data=role)
     else:
         # return render_template('home.html')
-        return redirect("/", code=302)
+        return render_template('invalid_session.html', message = "missing")
 
 # We have to change users ---> patients
 @app.route('/doctor/<doctor_id>/users', methods=["GET", "POST"])
 @require_api_token
-def doctorUsersPage(doctor_id):
+def doctorUsersPage(current_user, doctor_id):
+    if int(current_user) != int(doctor_id):
+        return render_template('invalid_session.html', message = "missing")
+
     doctor_user = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
     for row in doctor_user:
         doctor_info = row
+
     patient_info = db.session.query(patient).all()
     return render_template('doctor/patientlist.html', patient_data = patient_info, data='doctor' , data2=doctor_id, doctor_info=doctor_info )
 
 
 @app.route('/doctor/<doctor_id>/profile', methods=["GET"])
 @require_api_token
-def doctorProfilePage(doctor_id):             
+def doctorProfilePage(current_user, doctor_id):             
+    if int(current_user) != int(doctor_id):
+        return render_template('invalid_session.html', message = "missing")
+
     doctor_profile = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
     doctor_info = None
     for doc_id in doctor_profile:
@@ -278,15 +280,19 @@ def doctorProfilePage(doctor_id):
 
 @ app.route('/doctor/<doctor_id>/prescribe', methods = ["GET", "POST"])
 @require_api_token
-def doctorPrescribePage(doctor_id):
-    doctor_user = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
-    for row in doctor_user:
-        doctor_info = row
-    return render_template('doctor/prescribe.html', data2=doctor_id, doctor_info=doctor_info)
+def doctorPrescribePage(current_user, doctor_id):
+    if int(current_user) != int(doctor_id):
+        return render_template('invalid_session.html', message = "missing")
+
+    return render_template('doctor/prescribe.html', data2=doctor_id)
 
 @ app.route('/doctor/<doctor_id>/prescribe/prescription', methods = ["GET","POST"])
 @require_api_token
-def doctorPrescriptionPage(doctor_id):
+def doctorPrescriptionPage(current_user, doctor_id):
+    if int(current_user) != int(doctor_id):
+        return render_template('invalid_session.html', message = "missing")
+
+
     if request.method == "GET":
         return render_template('doctor/form-prescription.html',data='doctor',data2=doctor_id)
     elif request.method == "POST":
@@ -333,7 +339,10 @@ def doctorPrescriptionPage(doctor_id):
 
 @app.route('/doctor/<doctor_id>/prescribe/past_illness', methods=["GET", "POST"])
 @require_api_token
-def doctorPastIllnessPage(doctor_id):
+def doctorPastIllnessPage(current_user, doctor_id):
+    if int(current_user) != int(doctor_id):
+        return render_template('invalid_session.html', message = "missing")
+
 
     if request.method == "GET":
         return render_template("doctor/form-pastillness.html",data='doctor',data2=doctor_id)
@@ -383,7 +392,10 @@ def doctorPastIllnessPage(doctor_id):
 
 @ app.route('/doctor/<doctor_id>/prescribe/allergy', methods = ["GET","POST"])
 @require_api_token
-def doctorAllergyIntolerance(doctor_id):
+def doctorAllergyIntolerance(current_user, doctor_id):
+    if int(current_user) != int(doctor_id):
+        return render_template('invalid_session.html', message = "missing")
+
 
     if request.method == "GET":
         return render_template("doctor/form-allergy.html",data='doctor',data2=doctor_id)
@@ -434,7 +446,11 @@ def doctorAllergyIntolerance(doctor_id):
 
 @ app.route('/doctor/<doctor_id>/prescribe/diagnosis', methods = ["GET","POST"])
 @require_api_token
-def doctorDiagnosisPage(doctor_id):
+def doctorDiagnosisPage(current_user, doctor_id):
+    if int(current_user) != int(doctor_id):
+        return render_template('invalid_session.html', message = "missing")
+
+
     if request.method == "GET":
         return render_template("doctor/form-problem.html",data='doctor',data2=doctor_id)
     elif request.method == "POST":
@@ -472,7 +488,12 @@ def doctorDiagnosisPage(doctor_id):
 
 @ app.route('/doctor/<doctor_id>/patients/<patient_id>', methods=["GET"])
 @require_api_token
-def patientSummary(doctor_id, patient_id):
+def patientSummary(current_user, doctor_id, patient_id):
+    if int(current_user) != int(doctor_id):
+        return render_template('invalid_session.html', message = "missing")
+
+
+
     data = db.session.query(patient,pastHistoryIllness,allergyIntolerance, problemList).\
         join(pastHistoryIllness,patient.patient_id == pastHistoryIllness.patient_id).\
         join(allergyIntolerance,patient.patient_id == allergyIntolerance.patient_id).\
@@ -487,14 +508,20 @@ def patientSummary(doctor_id, patient_id):
 
 @ app.route('/patient/<patient_id>/profile', methods = ["GET","POST"])
 @require_api_token
-def patientProfilePage(patient_id):
+def patientProfilePage(current_user, patient_id):
+    if int(current_user) != int(patient_id):
+        return render_template('invalid_session.html', message = "missing")
+
     patient_profile=db.session.query(patient).filter(patient.patient_id == patient_id)
     return render_template('patient/profile.html',data = 'patient', data2=patient_id, data1=patient_profile.first())
     
 
 @ app.route('/patient/<patient_id>/<prescription_id>', methods = ["GET"])
 @require_api_token
-def patientPresciptionPage(patient_id, prescription_id):
+def patientPresciptionPage(current_user, patient_id, prescription_id):
+    if int(current_user) != int(patient_id):
+        return render_template('invalid_session.html', message = "missing")
+
     total_prescription = db.session.query(prescription,doseDirection,orderDetails).\
         join(doseDirection,prescription.prescription_id == doseDirection.prescription_id).\
         join(orderDetails,prescription.prescription_id == orderDetails.prescription_id).\
@@ -505,7 +532,11 @@ def patientPresciptionPage(patient_id, prescription_id):
 
 @ app.route('/doctor/<doctor_id>/<prescription_id>', methods = ["GET"])
 @require_api_token
-def doctorPresciptionPage(doctor_id, prescription_id):
+def doctorPresciptionPage(current_user, doctor_id, prescription_id):
+    if int(current_user) != int(doctor_id):
+        return render_template('invalid_session.html', message = "missing")
+
+
     total_prescription = db.session.query(prescription,doseDirection,orderDetails).\
         join(doseDirection,prescription.prescription_id == doseDirection.prescription_id).\
         join(orderDetails,prescription.prescription_id == orderDetails.prescription_id).\

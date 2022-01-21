@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{ patient_info.patient_name }}'s Homepage</title>
+    <title>{{ patient_data[0][0].patient_name.title() }}'s Homepage</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Google Fonts
@@ -44,9 +44,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 <style>
-    .submenu-angle li:hover {
-    background-color: rgb(7, 22, 87) !important;
-  }
+   .submenu-angle li:hover {
+        background-color: rgb(7, 164, 175) !important;
+      }
+  .mini-sub-pro, span{
+        color:black !important;
+    }
 </style>
 </head>
 
@@ -72,21 +75,15 @@
         </nav>
     </header><br><br><br>
     <div class="left-sidebar-pro">
-        <nav id="sidebar" class="" style="background-color: #152036">
-          <div class="sidebar-header" style="background-color: #152036">
+        <nav id="sidebar" class="" style="background-color: #70c99d">
+          <div class="sidebar-header" style="background-color: #70c99d">
             <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
             <strong><img src="img/logo/logosn.png" alt="" /></strong>
           </div>
-          <div class="nalika-profile" style="background-color: #152036">
+          <div class="nalika-profile" style="background-color: #70c99d">
             <div class="profile-dtl">
-<<<<<<< HEAD
-              <a href="#"><img src="/static/prescribe-img/demo.png" alt="" /></a>
-              
-              <h2>{{patient_info.patient_name}}<span class="min-dtn"></span></h2>
-=======
               <a href="#"><img src="/static/avatar.png" alt="" /></a>
-              <h2>{{ patient_data[0][0].patient_name.title()}}<span class="min-dtn"></span></h2>
->>>>>>> 6d4183af9d1f0bf45a9cd80b1c4d7c3b6730287b
+              <h2 style="color:black">{{ patient_data[0][0].patient_name.title()}}<span class="min-dtn"></span></h2>
             </div>
     
           </div>
@@ -98,15 +95,15 @@
                                            <i class="icon nalika-home icon-wrap"></i>
                                            <span class="mini-click-non">Ecommerce</span>
                                         </a> -->
-                  <ul class="submenu-angle" aria-expanded="true" style="background-color: #152036">
+                  <ul class="submenu-angle" aria-expanded="true" style="background-color: #70c99d">
                                     <!-- <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Dashboard v.1</span></a></li> -->
                                     
                                     <!-- <li><a title="Patient List" href="home.html"><span class="mini-sub-pro">Home</span></a></li> -->
                                     
                                     <!-- <li><a title="Patient Cart" href="profile.html"><span class="mini-sub-pro">Profile</span></a></li> -->
-                                    <li><a title="Patient List" href="{{ url_for('userHomePage', user_id=data2,role=data) }}">
+                                    <li style="border-top: 1px solid #5c8774;"><a title="Patient List" href="{{ url_for('userHomePage', user_id=data2,role=data) }}">
                                         <span class="mini-sub-pro">Home</span></a></li>
-                                    <li><a title="Patient Cart" href="{{ url_for('patientProfilePage', patient_id=data2, role=data) }}">
+                                    <li style="border-bottom: 1px solid #5c8774;"><a title="Patient Cart" href="{{ url_for('patientProfilePage', patient_id=data2, role=data) }}">
                                         <span class="mini-sub-pro">Profile</span></a></li>
                                 </ul>
                             </li> 
@@ -121,26 +118,25 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="product-cart-inner">
+                        <div class="product-cart-inner" style="background-color: #b0e0e6;">
                             <div id="example-basic">
                                 <section>
                                     <!-- <h3 class="product-cart-dn">Shopping</h3> -->
-                                    <div class="product-list-cart">
+                                    <div class="product-list-cart" style="background-color: #b0e0e6;">
                                         <div class="product-status-wrap border-pdt-ct">
                                             {% if patient_data[0]|length > 1 %}
-                                            <table>
-                                                <tr>
+                                            <table style="background-color: #e5eeff;">
+                                                <tr style="background-color: #70c99d">
                                                     <th>Prescription ID</th>
                                                     <th>Doctor ID</th>
                                                     <th>Doctor Name</th>
                                                     <th>Doctor's Phone</th>
                                                     <th>Description</th>
+                                                    <th></th>
                                                 </tr>
                                                 
                                                 {% for presc in patient_data %}
                                                 <!-- [(<patient 1>, <prescription 1>, <doctor 1>)] -->
-
-
                                                         <tr>
                                                             <td>
                                                                 <h3>{{ presc[1].prescription_id }}</h3>
@@ -161,38 +157,13 @@
                                                             
                                                             <td>
                                                                 <p>{{ presc[1].additional_instruction[:100] }}</p>
-                                                            </td>
-        
+                                                            </td>                    
                                                             <td>
-                                                                <form action="{{ url_for('patientPresciptionPage', patient_id=data2, prescription_id=presc[1].prescription_id ) }}" method="get">
+                                                                <form action="{{ url_for('patientPresciptionPage', patient_id=data2, prescription_id=presc.prescription_id ) }}" method="get">
                                                                     <button type="submit" class="btn btn-primary">View Here</button></a>
                                                                 </form>
                                                             </td>
-                                                        </tr>                     
-                                                        
-                                                        <td>
-                                                            <p>{{ presc.doctor_id }}</p>
-                                                        </td>
-                                                        
-                                                        <td>
-                                                            <h3>{{ doctor_info.doctor_name }}</h3>
-                                                            <p>{{ doctor_info.speciality}}</p>
-                                                        </td>
-                                                        
-                                                        <td>
-                                                            <p>{{ doctor_info.phone }}</p>
-                                                        </td>
-                                                        
-                                                        <td>
-                                                            <p>{{ presc.additional_instruction[:100] }}</p>
-                                                        </td>
-
-                                                        <td>
-                                                            <form action="{{ url_for('patientPresciptionPage', patient_id=data2, prescription_id=presc.prescription_id ) }}" method="get">
-                                                                <button type="submit" class="btn btn-primary">View Here</button></a>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
+                                                        </tr>
                                                 {% endfor %}
                                                 {% endif %}
                                                 <!-- [(<prescription 1>, <patient 1>, <doctor 1>)] -->

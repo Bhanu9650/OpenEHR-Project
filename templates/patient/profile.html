@@ -36,9 +36,12 @@
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
   <style>
-    .submenu-angle li:hover {
-    background-color: rgb(7, 22, 87) !important;
-  }
+   .submenu-angle li:hover {
+        background-color: rgb(7, 164, 175) !important;
+      }
+  .mini-sub-pro, span{
+        color:black !important;
+    }
 </style>
 </head>
 
@@ -64,15 +67,15 @@
     </nav>
 </header><br><br><br>
   <div class="left-sidebar-pro">
-    <nav id="sidebar" class="" style="background-color: #152036">
-      <div class="sidebar-header" style="background-color: #152036">
+    <nav id="sidebar" class="" style="background-color: #70c99d">
+      <div class="sidebar-header" style="background-color: #70c99d">
         <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
         <strong><img src="img/logo/logosn.png" alt="" /></strong>
       </div>
-      <div class="nalika-profile" style="background-color: #152036">
+      <div class="nalika-profile" style="background-color: #70c99d">
         <div class="profile-dtl">
           <a href="#"><img src="/static/avatar.png" alt="" /></a>
-          <h2>{{data1.patient_name.title() }}</h2>
+          <h2 style="color:black">{{data1.patient_name.title() }}</h2>
 
         </div>
 
@@ -85,12 +88,12 @@
                                        <i class="icon nalika-home icon-wrap"></i>
                                        <span class="mini-click-non">Ecommerce</span>
                                     </a> -->
-              <ul class="submenu-angle" aria-expanded="true" style="background-color: #152036">
+              <ul class="submenu-angle" aria-expanded="true" style="background-color: #70c99d">
                 <!-- <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Dashboard v.1</span></a></li> -->
 
-                <li><a title="Patient List" href="{{ url_for('userHomePage', user_id=data2,role=data) }}">
+                <li style="border-top: 1px solid #5c8774;"><a title="Patient List" href="{{ url_for('userHomePage', user_id=data2,role=data) }}">
                   <span class="mini-sub-pro">Home</span></a></li>
-              <li><a title="Patient Cart" href="{{ url_for('patientProfilePage', patient_id=data2, role=data) }}">
+              <li style="border-bottom: 1px solid #5c8774;"><a title="Patient Cart" href="{{ url_for('patientProfilePage', patient_id=data2, role=data) }}">
                   <span class="mini-sub-pro">Profile</span></a></li>
               </ul>
             </li>

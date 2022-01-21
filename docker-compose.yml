@@ -1,0 +1,26 @@
+version: '3.6'
+
+services:
+  web:
+    build: .
+    volumes:
+      - .:/flask
+    ports:
+      - 5000:5000
+    image: app:flask
+    container_name: flask_container
+    command: python3 app.py 0.0.0.0:5000
+    depends_on:
+      - db
+    environment:
+      STAGE: test
+    
+  db:
+    image: postgres
+    ports: 
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: abc123
+      POSTGRES_DB: eapr
+      container_name: postgres_db

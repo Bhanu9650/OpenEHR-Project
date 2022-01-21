@@ -23,8 +23,9 @@ direction and order details
 
 ### Install and Run code 
 
-1. Create database eapr in postgresql
+1. Create database `eapr` in postgresql
 `CREATE DATABASE eapr;`
+
 2. Create a file `.config.json` and add the following values or the specific username and password, and add it in the project directory:
 ```json
     {
@@ -35,11 +36,22 @@ direction and order details
         }
     }
 ```
-3. Install the dependancies:
+3. Create a virtual environment: 
+`python3 -m venv eapr`
+
+4. Activate environment:
+`source eapr/bin/activate`
+
+5. Install the dependancies:
 `pip install -r requirements.txt`
 
-4. Run the code
-`python app.py`
+6. export `JWT_SECRET_KEY="<your_key>"`
+
+7. Run the code
+`python3 app.py`
+
+8. Clean up
+`deactivate`
 
 ### Tech stack
 <strong>EAPR</strong> uses
@@ -69,5 +81,4 @@ PostgreSQL
 - Simran Gera (I-1554) <br>
 - Shruti Gupta (I-1553) <br>
 - Vinay Chauhan (I-1562) <br>
-
 

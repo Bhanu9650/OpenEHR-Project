@@ -1,10 +1,13 @@
 <!--  <div class="modal" id="myModal1"> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div id="content" class="modal-content">
 
             <!-- Modal Header-->
             <div class="modal-header">
-                <h4 class="modal-title w-100 text-center">Patient Summary</h4>
+                <h4 class="modal-title w-100 text-center"><b>PATIENT SUMMARY</b></h4>
                 <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
             </div> 
 
@@ -18,7 +21,8 @@
 
                 <form id="myForm" class="needs-validation" novalidate>
                     <div class="container">
-
+                        <h4><b>Patient Details</b></h4><br>
+                        {% if data1 | length >0 %}
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Patient ID</label>
                             <div class="col-sm-10">
@@ -34,13 +38,7 @@
                               
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Date of Registration</label>
-                            <div class="col-sm-10">
-                                <p class="mt-2">{{data1[0].date_of_reg}}</p>  
-                              
-                            </div>
-                        </div>
+                        
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Address</label>
                             <div class="col-sm-10">
@@ -72,7 +70,12 @@
                              
                             </div>
                         </div>
-
+                        {% else %}
+                        <h6>No data Available</h6>
+                        {% endif %}
+                        <br>
+                        <h4><b>Past Illness History</b></h4><br>
+                        {% if data1 | length >1 %}
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Problem Name</label>
                             <div class="col-sm-10">
@@ -112,6 +115,13 @@
                                
                             </div>
                         </div>
+                        {% else %}
+                        <h6>No data Available</h6>
+                        {% endif %}
+                        <br>
+
+                        <h4><b>Allergy Details</b></h4><br>
+                        {% if data1 | length >2 %}
                         <div class="form-group row">
                             <label for="id" class="col-sm-2 col-form-label">Allergy</label>
                             <div class="col-sm-10">
@@ -147,8 +157,14 @@
                                
                             </div>
                         </div>
+                        {% else %}
+                        <h6>No data Available</h6>
+                        {% endif %}
+                        <br>
+                        <h4><b>Diagnosis Details</b></h4><br>
+                        {% if data1 | length >3 %}
                         <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Problem/Diagnosis Name</label>
+                            <label for="id" class="col-sm-2 col-form-label">Problem Name</label>
                             <div class="col-sm-10">
                                 <p class="mt-2">{{data1[3].problem_diag_name}}</p>  
                                
@@ -176,24 +192,36 @@
                                
                             </div>
                         </div>
+                        {% else %}
+                        <h6>No data Available</h6>
+                        {% endif %}
 
                        
                     </div>
                 </form>
-
-                <script>
-
-                </script>
+            </div>
+            <div id="editor"></div>
+            <div class="text-center" >
+            <button type="button" class="btn btn-success mb-3" id="cmd">DOWNLOAD</button>
             </div>
         </div>
     </div>
 
-            <!-- Modal footer -->
-            <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data1-dismiss="modal">Close</button>
-            </div>
-
-        </div>
-    </div>
-</div> -->
+    <script type="text/javascript">
+        var doc = new jsPDF();
+        var specialElementHandlers = {
+            '#editor': function (element, renderer) {
+                return true;
+            }
+        };
+         
+         
+        $('#cmd').click(function () {
+            doc.fromHTML($('#content').html(), 15, 15, {
+                'width': 700,
+                'elementHandlers': specialElementHandlers
+            });
+            doc.save('Patient_summary.pdf');
+        });
+        </script>
 

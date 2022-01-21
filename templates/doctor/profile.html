@@ -26,7 +26,8 @@
 		============================================ -->
   <link rel="stylesheet" href="../../static/doctorcss/style.css">
   <link rel="stylesheet" href="../../static/doctorcss/profile.css">
-  <link rel="stylesheet" href="../../static/doctorcss/profile2.css">
+  <!-- <link rel="stylesheet" href="../../static/doctorcss/profile2.css"> -->
+  <!-- <link rel="stylesheet" href="../../static/doctorcss/prescribe.css"> -->
   <link rel="stylesheet" href="../../static/css/style.css">
   <!-- responsive CSS
 		============================================ -->
@@ -37,15 +38,18 @@
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
   <style>
     .submenu-angle li:hover {
-    background-color: rgb(7, 22, 87) !important;
-  }
+        background-color: rgb(7, 164, 175) !important;
+      }
+  .mini-sub-pro, span{
+        color:black !important;
+    }
 </style>
 </head>
 
 <body>
   <header class="l-header" id="header">
     <nav class="nav bd-container">
-        <a href="/" class="nav__logo">EAPR</a>
+        <a  class="nav__logo">EAPR</a>
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
               <li class="nav__item"><a href="{{ url_for('userHomePage', role='doctor', user_id=doctor_info.doctor_id) }}" class="nav__link">Home</a></li>
@@ -65,15 +69,15 @@
     </nav>
 </header><br><br><br>
   <div class="left-sidebar-pro">
-    <nav id="sidebar" class="" style="background-color: #152036">
-      <div class="sidebar-header" style="background-color: #152036">
+    <nav id="sidebar" class="" style="background-color: #70c99d">
+      <div class="sidebar-header" style="background-color: #70c99d">
         <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
         <strong><img src="img/logo/logosn.png" alt="" /></strong>
       </div>
-      <div class="nalika-profile" style="background-color: #152036">
+      <div class="nalika-profile" style="background-color: #70c99d">
         <div class="profile-dtl">
           <a href="#"><img src="/static/prescribe-img/demo.png" alt="" /></a>
-          <h2>{{ doctor_info.doctor_name }}</h2>
+          <h2 style="color:black">Doctor</h2>
         </div>
 
       </div>
@@ -85,13 +89,13 @@
                                        <i class="icon nalika-home icon-wrap"></i>
                                        <span class="mini-click-non">Ecommerce</span>
                                     </a> -->
-              <ul class="submenu-angle" aria-expanded="true" style="background-color: #152036">
+              <ul class="submenu-angle" aria-expanded="true" style="background-color: #70c99d">
                 <!-- <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Dashboard v.1</span></a></li> -->
 
-                <li><a title="Patient List" href="{{ url_for('userHomePage', role='doctor', user_id=doctor_info.doctor_id) }}"><span class="mini-sub-pro">Home</span></a></li>
+                <li style="border-top: 1px solid #5c8774;"><a title="Patient List" href="{{ url_for('userHomePage', role='doctor', user_id=doctor_info.doctor_id) }}"><span class="mini-sub-pro">Home</span></a></li>
                 <li><a title="Patient Cart" href="{{ url_for('doctorUsersPage', doctor_id=doctor_info.doctor_id) }}"><span class="mini-sub-pro">Patients</span></a></li>
                 <li><a title="Patient Cart" href="{{ url_for('doctorProfilePage', doctor_id=doctor_info.doctor_id) }}"><span class="mini-sub-pro">Profile</span></a></li>
-                <li><a title="Patient Cart" href="{{ url_for('doctorPrescribePage', doctor_id=doctor_info.doctor_id) }}"><span class="mini-sub-pro">Prescribe</span></a></li>
+                <li style="border-bottom: 1px solid #5c8774;"><a title="Patient Cart" href="{{ url_for('doctorPrescribePage', doctor_id=doctor_info.doctor_id) }}"><span class="mini-sub-pro">Prescribe</span></a></li>
 
               </ul>
             </li>
@@ -117,11 +121,11 @@
               <div class="card-header bg-transparent text-center">
                 <img class="profile_img" src="https://cdn4.iconfinder.com/data/icons/professions-1-2/151/3-512.png"
                   alt="student dp">
-                <h3>{{ doctor_info.doctor_name }}</h3>
+                <h3>{{ doctor_info.doctor_name.title() }}</h3>
               </div>
               <div class="card-body">
                 <p class="mb-0"><strong class="pr-1">Doctor ID:</strong>{{ doctor_info.doctor_id }}</p>
-                <p class="mb-0"><strong class="pr-1">Specialist:</strong>{{ doctor_info.speciality }}</p>
+                <p class="mb-0"><strong class="pr-1">Specialist:</strong>{{ doctor_info.speciality.title() }}</p>
                 <p class="mb-0"><strong class="pr-1">Year Of Experience:</strong>{{ doctor_info.year_exp }}</p>
               </div>
             </div>
@@ -151,7 +155,7 @@
                   <tr>
                     <th width="30%">Specialist</th>
                     <td width="2%">:</td>
-                    <td>{{ doctor_info.speciality }}</td>
+                    <td>{{ doctor_info.speciality.title() }}</td>
                   </tr>
                   <tr>
                     <th width="30%">Phone No.</th>

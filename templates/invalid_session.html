@@ -21,7 +21,7 @@
         .err {
             color: #ffffff;
             font-family: 'Nunito Sans', sans-serif;
-            font-size: 11rem;
+            font-size: 2.4rem;
             position: absolute;
             left: 20%;
             top: 8%;
@@ -47,7 +47,7 @@
         .msg {
             text-align: center;
             font-family: 'Nunito Sans', sans-serif;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             position: absolute;
             left: 16%;
             top: 45%;
@@ -68,10 +68,7 @@
 
 <body>
     <div class="mainbox">
-        <div class="err">4</div>
-        <i class="far fa-question-circle fa-spin"></i>
-        <div class="err2">4</div>
-        <div class="msg">Maybe this page moved? Got deleted? Is hiding out in quarantine? Never existed in the first
-            place?<p>Let's go <a href="/">home</a> and try from there.</p>
+        <div class="err">The session token {{message}}.</div>
+        <div class="msg"><p>Please <a href="/signin">login</a> again.</p>
         </div>
     </div>

@@ -260,8 +260,11 @@ def userHomePage(current_user,role, user_id):
 @app.route('/doctor/<doctor_id>/users', methods=["GET", "POST"])
 @require_api_token
 def doctorUsersPage(doctor_id):
+    doctor_user = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
+    for row in doctor_user:
+        doctor_info = row
     patient_info = db.session.query(patient).all()
-    return render_template('doctor/patientlist.html', patient_data = patient_info, data='doctor' , data2=doctor_id )
+    return render_template('doctor/patientlist.html', patient_data = patient_info, data='doctor' , data2=doctor_id, doctor_info=doctor_info )
 
 
 @app.route('/doctor/<doctor_id>/profile', methods=["GET"])
@@ -276,7 +279,10 @@ def doctorProfilePage(doctor_id):
 @ app.route('/doctor/<doctor_id>/prescribe', methods = ["GET", "POST"])
 @require_api_token
 def doctorPrescribePage(doctor_id):
-    return render_template('doctor/prescribe.html', data2=doctor_id)
+    doctor_user = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
+    for row in doctor_user:
+        doctor_info = row
+    return render_template('doctor/prescribe.html', data2=doctor_id, doctor_info=doctor_info)
 
 @ app.route('/doctor/<doctor_id>/prescribe/prescription', methods = ["GET","POST"])
 @require_api_token
@@ -319,7 +325,10 @@ def doctorPrescriptionPage(doctor_id):
             return redirect(url_for('doctorPrescribePage',doctor_id=doctor_id))
 
         else:
-            return render_template("doctor/form-prescription.html", data={"message":"Patient does not exist. Please check the Patient ID and try again."})
+            message = {
+                "message": "Patient does not exist. Please check the Patient ID and try again."
+            }
+            return render_template("doctor/form-prescription.html", data3=message, data='doctor',data2=doctor_id)
 
 
 @app.route('/doctor/<doctor_id>/prescribe/past_illness', methods=["GET", "POST"])
@@ -370,7 +379,7 @@ def doctorPastIllnessPage(doctor_id):
                 "message": "Patient does not exist. Please check the Patient ID and try again."
                 }
     
-            return render_template("doctor/form-pastillness.html", data=message)
+            return render_template("doctor/form-pastillness.html", data3=message, data='doctor',data2=doctor_id)
 
 @ app.route('/doctor/<doctor_id>/prescribe/allergy', methods = ["GET","POST"])
 @require_api_token
@@ -419,7 +428,7 @@ def doctorAllergyIntolerance(doctor_id):
                 "message": "Patient does not exist. Please check the Patient ID and try again."
                 }
     
-            return render_template("doctor/form-allergy.html", data=message)
+            return render_template("doctor/form-allergy.html", data3=message, data='doctor',data2=doctor_id)
 
 
 
@@ -458,7 +467,7 @@ def doctorDiagnosisPage(doctor_id):
 
         else:
 
-            return render_template("doctor/form-problem.html", data={"message":"Patient does not exist. Please check the Patient ID and try again."})
+            return render_template("doctor/form-problem.html", data3={"message":"Patient does not exist. Please check the Patient ID and try again."}, data='doctor',data2=doctor_id)
 
 
 @ app.route('/doctor/<doctor_id>/patients/<patient_id>', methods=["GET"])

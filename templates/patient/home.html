@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{ patient_data[0][0].patient_name.title() }}'s Homepage</title>
+    <title>{{ patient_data[0][0].patient_name.title()}}'s Homepage</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Google Fonts
@@ -59,8 +59,8 @@
             <a  class="nav__logo">EAPR</a>
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
-                    <li class="nav__item"><a href="{{ url_for('userHomePage', role=data, user_id=data2) }}" class="nav__link">Home</a></li>
-                    <li class="nav__item"><a href="{{ url_for('patientProfilePage',  role=data, patient_id=data2) }}" class="nav__link">Profile</a></li>
+                    <li class="nav__item"><a href="{{ url_for('userHomePage', user_id=data2,role=data) }}" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="{{ url_for('patientProfilePage', patient_id=data2, role=data) }}" class="nav__link">Profile</a></li>
                     <li class="nav__item"><a href="/" class="nav__link">Logout</a></li>
                    
     
@@ -137,6 +137,8 @@
                                                 
                                                 {% for presc in patient_data %}
                                                 <!-- [(<patient 1>, <prescription 1>, <doctor 1>)] -->
+
+
                                                         <tr>
                                                             <td>
                                                                 <h3>{{ presc[1].prescription_id }}</h3>
@@ -157,17 +159,24 @@
                                                             
                                                             <td>
                                                                 <p>{{ presc[1].additional_instruction[:100] }}</p>
-                                                            </td>                    
+                                                            </td>
+        
                                                             <td>
-                                                                <form action="{{ url_for('patientPresciptionPage', patient_id=data2, prescription_id=presc.prescription_id ) }}" method="get">
+                                                                <form action="{{ url_for('patientPresciptionPage', patient_id=data2, prescription_id=presc[1].prescription_id ) }}" method="get">
                                                                     <button type="submit" class="btn btn-primary">View Here</button></a>
                                                                 </form>
                                                             </td>
-                                                        </tr>
-                                                {% endfor %}
-                                                {% endif %}
-                                                <!-- [(<prescription 1>, <patient 1>, <doctor 1>)] -->
-                                            </table>
+                                                        </tr>                     
+                                                        
+                                                        {% endfor %}
+                                                        
+                                                    </table>
+                                                    
+                                            {% else %}
+
+                                                <h2 class='text-center' style='color: white;'>There are no prescriptions available. </h2>
+
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </section>

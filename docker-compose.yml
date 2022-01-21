@@ -5,6 +5,8 @@ services:
     container_name: pythonapp
     image: pythonapp
     build: .
+    environment:
+      - JWT_SECRET_KEY=qazwsxedc&mac
     ports:
       - "80:80"
     depends_on:

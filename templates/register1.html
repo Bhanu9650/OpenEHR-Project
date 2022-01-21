@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Doctor signup</title>
+		<title>Pharmacist signup</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		 <!--========== BOX ICONS ==========-->
@@ -35,11 +35,11 @@
 				<div class="nav__menu" id="nav-menu">
 					<ul class="nav__list">
 						<li class="nav__item"><a href="/" class="nav__link">Home</a></li>
-						<li class="nav__item"><a href="patientsignup" class="nav__link">Users</a></li>
-						<li class="nav__item"><a href="doctorsignup" class="nav__link">Doctors</a></li>
-						<li class="nav__item"><a href="pharmasignup" class="nav__link">Pharmacists</a></li>
+						<li class="nav__item"><a href="patientsignup" class="nav__link">Patient</a></li>
+						<li class="nav__item"><a href="doctorsignup" class="nav__link">Doctor</a></li>
+						<li class="nav__item"><a href="pharmasignup" class="nav__link">Pharmacist</a></li>
 						<!-- <li class="nav__item"><a href="#contact" class="nav__link">About Us</a></li> -->
-						<li class="nav__item"><a href="signin" class="nav__link">Log-In</a></li>
+						<li class="nav__item"><a href="signin" class="nav__link">Login</a></li>
 		
 		
 						<!-- <li><i class='bx bx-moon change-theme' id="theme-button"></i></li> -->
@@ -51,66 +51,57 @@
 				</div>
 			</nav>
 		</header>
-		<form action="/pharmaregistrationsuccess" method = "POST">
+		
 
-		<h3 id="headd">Pharmacist Signup</h3>
+		<div class="login-wrapper">
+			<img src="/static/image-3.png" alt="" class="image-1">
+		
+			<form action="/pharmaregistrationsuccess" method = "POST" class="form">
+			
+			
+			
+				<img src="/static/pharma.jpg" alt="" id="img1">
+				<h3 id="headd">Pharmacist's Signup</h3>
+			
+		
+			<div class="input-group">
+				<input type="text" class="form-control" id="inputEmail" placeholder="Enter Username" name="uname"
+								required>
+							
+							
+			</div>
+			<div class="input-group">
+				<input type="email" name="mail" class="form-control" id="inputEmail" placeholder="Enter Email"
+								required>
+			</div>
+			<div class="input-group">
+				<input type="password" name="psw" class="form-control" id="inputEmail" placeholder="Enter Password"
+								required>
+			</div>
+			<div class="input-group">
+				<input type="text" name="add" class="form-control" id="inputEmail" placeholder="Enter Address"
+								required>
+			</div>
+			<div class="input-group">
+				<input type="number" name="yoe" class="form-control" id="inputEmail" placeholder="Enter Years of Experience"
+								required>
+			</div>
+			
+			<div class="input-group">
+				<input type="tel" name="phn" class="form-control" id="inputEmail" placeholder="Enter Phone"
+								required>
+			</div>
+			<div class="input-group">
+				<input type="tel" name="rn" class="form-control" id="inputEmail" placeholder="Enter Registration Number"
+								required>
+			</div>
 
-		<div class="wrapper">
-			<div class="inner">
-				<img src="/static/image-3.png" alt="" class="image-1">
-				<form action="">
-					
-					<div class="form-holder">
-						<span class="lnr lnr-user"></span>
-						<input type="text" class="form-control" placeholder="Enter username" name="uname" required>
-					</div>
-					<div class="form-holder">
-						<span class="lnr lnr-user"></span>
-						<input type="text" class="form-control" placeholder="Enter email" name="mail" required>
-					</div>
-					<div class="form-holder">
-						<span class="lnr lnr-lock"></span>
-						<input type="password" class="form-control" placeholder="Enter Password" name="psw" id="password" required>
-						<span>
-							<i class="fas fa-eye" onclick="show()" aria-hidden="true" id="eye"></i> 
-					
-						  </span>
-					</div>
-
-					<div class="form-holder">
-						<span class="lnr lnr-user"></span>
-						<input type="text" class="form-control" placeholder="Enter Address" name="add" required>
-					</div>
-
-					<div class="form-holder">
-						<span class="lnr lnr-user"></span>
-						<input type="number" class="form-control" placeholder="Enter year of Experience" name="yoe" required>
-					</div>
-
-					
-
-					<div class="form-holder">
-						<span class="lnr lnr-phone-handset"></span>
-						<input type="tel" class="form-control" placeholder="Enter Phone" name="phn" required>
-					</div>
-
-				
-					
-					<div class="form-holder">
-						<span class="lnr lnr-user"></span>
-						<input type="tel" class="form-control" placeholder="Enter Registraion number" name="rn" required>
-					</div>
-				
-
-					
-					
-					
-					<button>
+		
+						<button>
 						<span>Register</span>
 					</button>
-				</form>
-				
-			</div>
+						<p>{{data}}</p>
+			</form>
 			
 		</div>
 		

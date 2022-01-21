@@ -8,6 +8,7 @@
     background-color: #B0E0E6;
     background-size: cover;
     font-family: sans-serif;
+    overflow: auto;
   }
   .login-wrapper {
     height: 100vh;
@@ -21,6 +22,7 @@
     width: 100%;
     max-width: 380px;
     padding: 80px 40px 40px;
+    
     
     border-radius: 10px;
     background-color: #ccffe0;
@@ -39,6 +41,7 @@
     border-radius: 10px;
     pointer-events: none;
   }
+ 
   .form img {
     position: absolute;
     top: -50px;
@@ -55,7 +58,9 @@
   }
   .form .input-group {
     position: relative;
+  
   }
+
   .form .input-group input {
     width: 100%;
     padding: 10px 0;
@@ -66,8 +71,9 @@
     border-bottom: 1px solid #fff;
     outline: none;
     background-color: transparent;
-    color: inherit;
+    color: black !important;
   }
+/*  
   .form .input-group label {
     position: absolute;
     top: 0;
@@ -76,13 +82,15 @@
     font-size: 1rem;
     pointer-events: none;
     transition: .3s ease-out;
-  }
+  } */
   .form .input-group input:focus + label,
   .form .input-group input:valid + label {
     transform: translateY(-18px);
     color: #048654;
     font-size: .8rem;
+    
   }
+ 
   .submit-btn {
     display: block;
     margin-left: auto;
@@ -95,9 +103,6 @@
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-  }
-  .forgot-pw {
-    color: inherit;
   }
   
   

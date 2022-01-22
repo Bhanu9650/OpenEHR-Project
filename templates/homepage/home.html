@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!--========== BOX ICONS ==========-->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -24,7 +23,6 @@
     </a>
     <!--========== HEADER ==========-->
     <header class="l-header" id="header">
-
         <nav class="nav bd-container">
             <a class="nav__logo">EAPR</a>
             <div class="nav__menu" id="nav-menu">
@@ -33,16 +31,13 @@
                     <li class="nav__item"><a href="doctorsignup" class="nav__link">Doctor</a></li>
                     <li class="nav__item"><a href="pharmasignup" class="nav__link">Pharmacist</a></li>
                     <li class="nav__item"><a href="#contact" class="nav__link">About Us</a></li>
-
                 </ul>
             </div>
-
             <div class="nav__toggle" id="nav-toggle">
                 <i class='bx bx-menu'></i>
             </div>
         </nav>
     </header>
-
     <main class="l-main">
         <!--========== HOME ==========-->
         <section class="home" id="home">
@@ -51,15 +46,10 @@
                     <h1 class="home__title">Easy Access Patient Record</h1>
                     <h2 class="home__subtitle">To avail every facilities<br>Login Now</h2>
                     <button onclick="window.location.href='signin'" class="btn btn-success">Login</button>
-
                 </div>
-
                 <img style="border-radius: 20px;" src="/static/home.gif" alt="" class="home__img">
             </div>
         </section>
-
-
-
         <!--========== CONTACT US ==========-->
         <section class="contact section bd-container" id="contact">
             <div class="contact__container bd-grid">
@@ -77,17 +67,10 @@
                         The pharmacist would be able to get a digital format of prescription and can log the details of
                         medicine prescribed by the doctor to patients.</p>
                 </div>
-
-                <!-- <div class="contact__button">
-                <a href="#" class="button">Contact us now</a>
-            </div> -->
             </div>
         </section>
     </main>
-
-    {%include "team-section.html" %}
-
-
+    {%include "homepage/team-section.html" %}
     <!--========== FOOTER ==========-->
     <footer class="footer section bd-container">
         <div class="footer__container bd-grid">
@@ -100,7 +83,6 @@
                     <a href="#" class="footer__social"><i class='bx bxl-twitter'></i></a>
                 </div>
             </div>
-
             <p class="footer__copy">Copyright © 2022 Group-C All rights reserved</p>
     </footer>
 

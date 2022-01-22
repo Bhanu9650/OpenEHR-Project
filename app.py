@@ -31,7 +31,7 @@ def require_api_token(func):
         # tuple(map(str, str(signature(func)) [1:-1].split(', ')))
         token = session.get("token")
         if "token" not in session:
-            return render_template("invalid_session.html", message="missing")
+            return render_template("homepage/invalid_session.html", message="missing")
 
         try:
             # decoding the payload to fetch the stored details
@@ -74,7 +74,7 @@ def require_api_token(func):
                 data["user"] = kwargs["patient_id"]
 
         except:
-            return render_template("invalid_session.html", message="expired")
+            return render_template("homepage/invalid_session.html", message="expired")
 
         # returns the current logged in users contex to the routes
         return func(*args, **new_kwargs)
@@ -91,31 +91,31 @@ def test():
 # Renders Home Page
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("homepage/home.html")
 
 
 # Renders SignIn Page
 @app.route("/signin")
 def login():
-    return render_template("login.html")
+    return render_template("homepage/login.html")
 
 
 # Renders Doctor SignUp Page
 @app.route("/doctorsignup")
 def dregister():
-    return render_template("register2.html")
+    return render_template("registration/doctor_register.html")
 
 
 # Renders Pharmacist SignUp Page
 @app.route("/pharmasignup")
 def phregister():
-    return render_template("register1.html")
+    return render_template("registration/pharma_register.html")
 
 
 # Renders Pharmacist SignUp Page
 @app.route("/patientsignup")
 def pregister():
-    return render_template("register.html")
+    return render_template("registration/patient_register.html")
 
 
 # Renders the Welcome Page
@@ -149,9 +149,9 @@ def loginsucess():
             )
         else:
             data = "Wrong credentials"
-            return render_template("login.html", data=data)
+            return render_template("homepage/login.html", data=data)
     else:
-        return render_template("login.html")
+        return render_template("homepage/login.html")
 
 
 # Renders Login Page After Registration
@@ -180,7 +180,7 @@ def registration():
         )
         db.session.add(entry1)
         db.session.commit()
-        return render_template("login.html")
+        return render_template("homepage/login.html")
 
 
 # Renders Login Page After Pharmacist Registration
@@ -209,7 +209,7 @@ def registration1():
         )
         db.session.add(entry1)
         db.session.commit()
-        return render_template("login.html")
+        return render_template("homepage/login.html")
 
 
 # Renders Login Page After Doctor Registration
@@ -242,7 +242,7 @@ def registration2():
         )
         db.session.add(entry1)
         db.session.commit()
-        return render_template("login.html")
+        return render_template("homepage/login.html")
 
 
 # Renders User(role=doctor/patient) Page After Login
@@ -695,7 +695,7 @@ def handle_error(e):
     code = 404
     if isinstance(e, HTTPException):
         code = e.code
-    return render_template("error404.html")
+    return render_template("homepage/error404.html")
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Pharmacist signup</title>
+	<title>Doctor Signup</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--========== BOX ICONS ==========-->
 	<link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
@@ -13,7 +13,7 @@
 	<!-- LINEARICONS -->
 	<link rel="stylesheet" href="fonts/linearicons/style.css">
 	<!-- STYLE CSS -->
-	<link rel="stylesheet" href="/static/css/pharma_register.css">
+	<link rel="stylesheet" href="/static/css/register.css">
 	<link rel="stylesheet" href="/static/css/style.css">
 	<link rel="stylesheet" href="/static/team-section.css">
 </head>
@@ -31,7 +31,7 @@
 				<ul class="nav__list">
 					<li class="nav__item"><a href="/" class="nav__link">Home</a></li>
 					<li class="nav__item"><a href="patientsignup" class="nav__link">Patient</a></li>
-					<li class="nav__item"><a href="doctorsignup" class="nav__link">Doctor</a></li>
+					<li class="nav__item"><a href="pharmasignup" class="nav__link">Pharmacist</a></li>
 					<li class="nav__item"><a href="signin" class="nav__link">Login</a></li>
 				</ul>
 			</div>
@@ -40,19 +40,21 @@
 			</div>
 		</nav>
 	</header>
-	<div class="login-wrapper">
-		<img src="/static/image-3.png" alt="" class="image-1">
-		<form action="/pharmaregistrationsuccess" method="POST" class="form">
-			<img src="/static/pharma.jpg" alt="" id="img1">
-			<h3 id="headd">Pharmacist's Signup</h3>
+	<div class="login-wrapper mt-5 pt-5">
+		<img src="/static/images/image-1.png" alt="" class="image-1">
+		<form action="/doctorregistrationsuccess" method="POST" class="form">
+			<img src="/static/images/doc.png" alt="" id="img1">
+			<h3 id="headd" class="mb-5">Doctor's Signup</h3>
 			<div class="input-group">
-				<input type="text" class="form-control" id="inputEmail" placeholder="Enter Username" name="uname" required>
+				<input type="text" class="form-control" id="inputEmail" placeholder="Enter Username" name="uname"
+					required>
 			</div>
 			<div class="input-group">
 				<input type="email" name="mail" class="form-control" id="inputEmail" placeholder="Enter Email" required>
 			</div>
 			<div class="input-group">
-				<input type="password" name="psw" class="form-control" id="inputEmail" placeholder="Enter Password" required>
+				<input type="password" name="psw" class="form-control" id="inputEmail" placeholder="Enter Password"
+					required>
 			</div>
 			<div class="input-group">
 				<input type="text" name="add" class="form-control" id="inputEmail" placeholder="Enter Address" required>
@@ -62,10 +64,18 @@
 					placeholder="Enter Years of Experience" required>
 			</div>
 			<div class="input-group">
+				<input type="text" name="spl" class="form-control" id="inputEmail" placeholder="Enter Speciality"
+					required>
+			</div>
+			<div class="input-group">
 				<input type="tel" name="phn" class="form-control" id="inputEmail" placeholder="Enter Phone" required>
 			</div>
 			<div class="input-group">
-				<input type="tel" name="rn" class="form-control" id="inputEmail" placeholder="Enter Registration Number" required>
+				<input type="tel" name="fee" class="form-control" id="inputEmail" placeholder="Enter Fees" required>
+			</div>
+			<div class="input-group">
+				<input type="text" name="desc" class="form-control" id="inputEmail" placeholder="Enter Description"
+					required>
 			</div>
 			<button>
 				<span>Register</span>
@@ -79,7 +89,6 @@
 	function show() {
 		var password = document.getElementById("password");
 		var icon = document.querySelector(".fas");
-
 		// ========== Checking type of password ===========
 		if (password.type === "password") {
 			password.type = "text";
@@ -88,4 +97,5 @@
 		}
 	}
 </script>
+
 </html>

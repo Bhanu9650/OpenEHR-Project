@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Patient Signup</title>
+	<title>Pharmacist signup</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--========== BOX ICONS ==========-->
 	<link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
@@ -13,10 +13,11 @@
 	<!-- LINEARICONS -->
 	<link rel="stylesheet" href="fonts/linearicons/style.css">
 	<!-- STYLE CSS -->
-	<link rel="stylesheet" href="/static/css/patient_register.css">
+	<link rel="stylesheet" href="/static/css/pharma_register.css">
 	<link rel="stylesheet" href="/static/css/style.css">
 	<link rel="stylesheet" href="/static/team-section.css">
 </head>
+
 <body>
 	<!--========== SCROLL TOP ==========-->
 	<a href="#" class="scrolltop" id="scroll-top">
@@ -29,8 +30,8 @@
 			<div class="nav__menu" id="nav-menu">
 				<ul class="nav__list">
 					<li class="nav__item"><a href="/" class="nav__link">Home</a></li>
+					<li class="nav__item"><a href="patientsignup" class="nav__link">Patient</a></li>
 					<li class="nav__item"><a href="doctorsignup" class="nav__link">Doctor</a></li>
-					<li class="nav__item"><a href="pharmasignup" class="nav__link">Pharmacist</a></li>
 					<li class="nav__item"><a href="signin" class="nav__link">Login</a></li>
 				</ul>
 			</div>
@@ -40,30 +41,34 @@
 		</nav>
 	</header>
 	<div class="login-wrapper">
-		<img src="/static/image-2.svg" alt="" class="image-1">
-		<form action="/patientregistrationsuccess" method="POST" class="form">
-			<img src="/static/avatar.png" alt="" id="img1">
-			<h3 id="headd">Patient's Signup</h3>
+		<img src="/static/images/image-3.png" alt="" class="image-1">
+		<form action="/pharmaregistrationsuccess" method="POST" class="form">
+			<img src="/static/images/pharma.jpg" alt="" id="img1">
+			<h3 id="headd">Pharmacist's Signup</h3>
 			<div class="input-group">
-				<input type="text" class="form-control" id="inputEmail" placeholder="Enter Username" name="uname" required>
+				<input type="text" class="form-control" id="inputEmail" placeholder="Enter Username" name="uname"
+					required>
 			</div>
 			<div class="input-group">
 				<input type="email" name="mail" class="form-control" id="inputEmail" placeholder="Enter Email" required>
 			</div>
 			<div class="input-group">
-				<input type="password" name="psw" class="form-control" id="inputEmail" placeholder="Enter Password" required>
+				<input type="password" name="psw" class="form-control" id="inputEmail" placeholder="Enter Password"
+					required>
 			</div>
 			<div class="input-group">
 				<input type="text" name="add" class="form-control" id="inputEmail" placeholder="Enter Address" required>
 			</div>
 			<div class="input-group">
-				<input type="number" name="age" class="form-control" id="inputEmail" placeholder="Enter Age" required>
-			</div>
-			<div class="input-group">
-				<input type="text" name="gen" class="form-control" id="inputEmail" placeholder="Enter Gender" required>
+				<input type="number" name="yoe" class="form-control" id="inputEmail"
+					placeholder="Enter Years of Experience" required>
 			</div>
 			<div class="input-group">
 				<input type="tel" name="phn" class="form-control" id="inputEmail" placeholder="Enter Phone" required>
+			</div>
+			<div class="input-group">
+				<input type="tel" name="rn" class="form-control" id="inputEmail" placeholder="Enter Registration Number"
+					required>
 			</div>
 			<button>
 				<span>Register</span>
@@ -77,7 +82,6 @@
 	function show() {
 		var password = document.getElementById("password");
 		var icon = document.querySelector(".fas");
-
 		// ========== Checking type of password ===========
 		if (password.type === "password") {
 			password.type = "text";

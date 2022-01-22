@@ -6,10 +6,9 @@ import json, sys, os
 from sqlalchemy import create_engine
 
 
-
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@db:5432/eapr"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:postgres@db:5432/eapr"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 db = SQLAlchemy(app)
 
 migrate = Migrate()
@@ -29,9 +28,6 @@ class patient(db.Model):
 
     _id = db.Column(db.Integer, primary_key=True)
     patient_id = db.Column(db.Integer, db.ForeignKey("userdata.user_id"), unique=True)
-    # doctor_id = db.Column(db.Integer, db.ForeignKey("doctor.doctor_id"), nullable=True)
-    # user_id = patient id , pid = _id
-
     patient_name = db.Column(db.String(100), nullable=False)
     date_of_reg = db.Column(db.DateTime, nullable=True)
     address = db.Column(db.String(250), nullable=False)
@@ -69,15 +65,6 @@ class pharma(db.Model):
     registration_no = db.Column(db.String(100), unique=True, nullable=False)
 
 
-# master table for "prescription"
-# prescription:
-#   subtables:
-#     dosaDirection
-#     orderDetails
-#   linked tables:
-#     pastHistoryIllness
-#     allergyIntolerance
-#     problemDiagnosis
 class prescription(db.Model):
     __tablename__ = "prescription"
 
@@ -159,3 +146,14 @@ class problemList(db.Model):
     body_site = db.Column(db.String(50), nullable=False)
     datetime_onset = db.Column(db.DateTime, nullable=True)
     severity = db.Column(db.String(25), nullable=True)
+
+
+# master table for "prescription"
+# prescription:
+#   subtables:
+#     dosaDirection
+#     orderDetails
+#   linked tables:
+#     pastHistoryIllness
+#     allergyIntolerance
+#     problemDiagnosis

@@ -1,7 +1,0 @@
-{
-    "DB":
-    {
-        "DB_USER": "postgres",
-        "DB_PWD": "password"
-    }
-}

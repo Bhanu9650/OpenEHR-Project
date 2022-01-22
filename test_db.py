@@ -200,7 +200,7 @@ def test_doseDirection_model_invalid_presc_id(test_client, init_db):
     )
 
     assert dose.dose_id == 1
-    assert not dose.prescription_id == 1
+    assert not dose.prescription_id == 2
     assert dose.dose == 2.5
     assert dose.dose_unit == "mg"
     assert dose.frequency_per_day == "3/d"
@@ -215,7 +215,7 @@ def test_doseDirection_model_invalid_dose_amt(test_client, init_db):
 
     assert dose.dose_id == 1
     assert dose.prescription_id == 1
-    assert not dose.dose == 2.5
+    assert not dose.dose == 5.5
     assert dose.dose_unit == "mg"
     assert dose.frequency_per_day == "3/d"
 
@@ -230,7 +230,7 @@ def test_doseDirection_model_invalid_units(test_client, init_db):
     assert dose.dose_id == 1
     assert dose.prescription_id == 1
     assert dose.dose == 2.5
-    assert not dose.dose_unit == "mg"
+    assert not dose.dose_unit == "kg"
     assert dose.frequency_per_day == "3/d"
 
 

@@ -31,7 +31,7 @@ def require_api_token(func):
         # tuple(map(str, str(signature(func)) [1:-1].split(', ')))
         token = session.get("token")
         if "token" not in session:
-            return render_template("homepage/invalid_session.html", message="missing")
+            return render_template("invalid_session.html", message="missing")
 
         try:
             # decoding the payload to fetch the stored details
@@ -40,42 +40,40 @@ def require_api_token(func):
 
             # dashboard - doctor, patient
             if "user_id" in kwargs:
-                new_kwargs["current_user"] = kwargs["user_id"]
+                new_kwargs["current_user"] = data["user"]
                 new_kwargs["role"] = kwargs["role"]
                 new_kwargs["user_id"] = kwargs["user_id"]
-                data["user"] = kwargs["user_id"]
 
             # doctor -> patients -> view patient
             elif ("patient_id" in kwargs) and ("doctor_id" in kwargs):
+                new_kwargs["current_user"] = data["user"]
                 new_kwargs["doctor_id"] = kwargs["doctor_id"]
                 new_kwargs["patient_id"] = kwargs["patient_id"]
-                data["user"] = kwargs["doctor_id"]
 
             # patient -> home -> view here
             elif ("patient_id" in kwargs) and ("prescription_id" in kwargs):
+                new_kwargs["current_user"] = data["user"]
                 new_kwargs["patient_id"] = kwargs["patient_id"]
                 new_kwargs["prescription_id"] = kwargs["prescription_id"]
-                data["user"] = kwargs["patient_id"]
 
             # doctor -> home -> view here
             elif ("doctor_id" in kwargs) and ("prescription_id" in kwargs):
+                new_kwargs["current_user"] = data["user"]
                 new_kwargs["doctor_id"] = kwargs["doctor_id"]
                 new_kwargs["prescription_id"] = kwargs["prescription_id"]
-                data["user"] = kwargs["doctor_id"]
 
             # all doctor routes only having doctor_id
             elif "doctor_id" in kwargs:
+                new_kwargs["current_user"] = data["user"]
                 new_kwargs["doctor_id"] = kwargs["doctor_id"]
-                data["user"] = kwargs["doctor_id"]
 
             # all patient routes only having patient_id
             elif "patient_id" in kwargs:
+                new_kwargs["current_user"] = data["user"]
                 new_kwargs["patient_id"] = kwargs["patient_id"]
-                data["user"] = kwargs["patient_id"]
 
         except:
-            return render_template("homepage/invalid_session.html", message="expired")
-
+            return render_template("invalid_session.html", message="expired")
         # returns the current logged in users contex to the routes
         return func(*args, **new_kwargs)
 
@@ -111,7 +109,6 @@ def dregister():
 def phregister():
     return render_template("registration/pharma_register.html")
 
-
 # Renders Pharmacist SignUp Page
 @app.route("/patientsignup")
 def pregister():
@@ -137,7 +134,7 @@ def loginsucess():
             token = jwt.encode(
                 {
                     "user": result.user_id,
-                    "exp": datetime.utcnow() + timedelta(minutes=30),
+                    "exp": datetime.utcnow() + timedelta(minutes=15),
                 },
                 app.config["SECRET_KEY"],
             )
@@ -157,6 +154,7 @@ def loginsucess():
 # Renders Login Page After Registration
 @app.route("/patientregistrationsuccess", methods=["POST"])
 def registration():
+
     if request.method == "POST":
         pname = request.form.get("uname")
         email = request.form.get("mail")
@@ -165,6 +163,7 @@ def registration():
         age = request.form.get("age")
         gender = request.form.get("gen")
         phone = request.form.get("phn")
+
         hashedPassword = hashlib.md5(bytes(str(password), encoding="utf-8"))
         hashedPassword = hashedPassword.hexdigest()
         entry = userdata(role="patient", email=email, password=hashedPassword)
@@ -263,6 +262,7 @@ def userHomePage(current_user, role, user_id):
                 data2=user_id,
                 prescription_data=prescription_data,
             )
+
         elif role == "patient":
             patient_data = (
                 db.session.query(patient, prescription, doctor)
@@ -271,6 +271,7 @@ def userHomePage(current_user, role, user_id):
                 .filter(prescription.patient_id == user_id)
                 .all()
             )
+
             if len(patient_data) == 0:
                 patient_data = (
                     db.session.query(patient)
@@ -284,13 +285,15 @@ def userHomePage(current_user, role, user_id):
         else:
             return render_template("pharmaDashboard.html", data=role)
     else:
-        return redirect("/", code=302)
+        return render_template("homepage/invalid_session.html", message="missing")
 
 
 # Renders Docter Patient List Page
 @app.route("/doctor/<doctor_id>/patient", methods=["GET", "POST"])
 @require_api_token
-def doctorUsersPage(doctor_id):
+def doctorUsersPage(current_user, doctor_id):
+    if int(current_user) != int(doctor_id):
+        return render_template("homepage/invalid_session.html", message="missing")
     doctor_user = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
     for row in doctor_user:
         doctor_info = row
@@ -307,7 +310,10 @@ def doctorUsersPage(doctor_id):
 # Renders Docter Profile Page
 @app.route("/doctor/<doctor_id>/profile", methods=["GET"])
 @require_api_token
-def doctorProfilePage(doctor_id):
+def doctorProfilePage(current_user, doctor_id):
+    if int(current_user) != int(doctor_id):
+        return render_template("homepage/invalid_session.html", message="missing")
+
     doctor_profile = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
     doctor_info = None
     for doc_id in doctor_profile:
@@ -315,22 +321,20 @@ def doctorProfilePage(doctor_id):
     return render_template("doctor/profile.html", doctor_info=doctor_info)
 
 
-# Renders Docter Prescription Page
 @app.route("/doctor/<doctor_id>/prescribe", methods=["GET", "POST"])
 @require_api_token
-def doctorPrescribePage(doctor_id):
-    doctor_user = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
-    for row in doctor_user:
-        doctor_info = row
-    return render_template(
-        "doctor/prescribe.html", data2=doctor_id, doctor_info=doctor_info
-    )
+def doctorPrescribePage(current_user, doctor_id):
+    if int(current_user) != int(doctor_id):
+        return render_template("homepage/invalid_session.html", message="missing")
+
+    return render_template("doctor/prescribe.html", data2=doctor_id)
 
 
-# Renders Docter E-Prescription Form Page
 @app.route("/doctor/<doctor_id>/prescribe/prescription", methods=["GET", "POST"])
 @require_api_token
-def doctorPrescriptionPage(doctor_id):
+def doctorPrescriptionPage(current_user, doctor_id):
+    if int(current_user) != int(doctor_id):
+        return render_template("homepage/invalid_session.html", message="missing")
     if request.method == "GET":
         return render_template(
             "doctor/form-prescription.html", data="doctor", data2=doctor_id
@@ -397,7 +401,9 @@ def doctorPrescriptionPage(doctor_id):
 # Renders Docter Past Illness Form Page
 @app.route("/doctor/<doctor_id>/prescribe/past_illness", methods=["GET", "POST"])
 @require_api_token
-def doctorPastIllnessPage(doctor_id):
+def doctorPastIllnessPage(current_user, doctor_id):
+    if int(current_user) != int(doctor_id):
+        return render_template("homepage/invalid_session.html", message="missing")
     if request.method == "GET":
         return render_template(
             "doctor/form-pastillness.html", data="doctor", data2=doctor_id
@@ -409,6 +415,7 @@ def doctorPastIllnessPage(doctor_id):
         datetime_onset = request.form.get("datetime_onset")
         severity = request.form.get("severity")
         procedure_type = request.form.get("procedure_type")
+
         patient_details = (
             db.session.query(patient).filter_by(patient_id=patient_id).first()
         )
@@ -467,7 +474,9 @@ def doctorPastIllnessPage(doctor_id):
 # Renders Docter Allergy Form Page
 @app.route("/doctor/<doctor_id>/prescribe/allergy", methods=["GET", "POST"])
 @require_api_token
-def doctorAllergyIntolerance(doctor_id):
+def doctorAllergyIntolerance(current_user, doctor_id):
+    if int(current_user) != int(doctor_id):
+        return render_template("homepage/invalid_session.html", message="missing")
     if request.method == "GET":
         return render_template(
             "doctor/form-allergy.html", data="doctor", data2=doctor_id
@@ -537,7 +546,9 @@ def doctorAllergyIntolerance(doctor_id):
 # Renders Docter Diagnosis Fom Page
 @app.route("/doctor/<doctor_id>/prescribe/diagnosis", methods=["GET", "POST"])
 @require_api_token
-def doctorDiagnosisPage(doctor_id):
+def doctorDiagnosisPage(current_user, doctor_id):
+    if int(current_user) != int(doctor_id):
+        return render_template("homepage/invalid_session.html", message="missing")
     if request.method == "GET":
         return render_template(
             "doctor/form-problem.html", data="doctor", data2=doctor_id
@@ -599,7 +610,10 @@ def doctorDiagnosisPage(doctor_id):
 # Renders Docter Patient Description Page
 @app.route("/doctor/<doctor_id>/patients/<patient_id>", methods=["GET"])
 @require_api_token
-def patientSummary(doctor_id, patient_id):
+def patientSummary(current_user, doctor_id, patient_id):
+    if int(current_user) != int(doctor_id):
+        return render_template("homepage/invalid_session.html", message="missing")
+
     data = (
         db.session.query(patient, pastHistoryIllness, allergyIntolerance, problemList)
         .join(pastHistoryIllness, patient.patient_id == pastHistoryIllness.patient_id)
@@ -630,7 +644,9 @@ def patientSummary(doctor_id, patient_id):
 # Renders Patient Profile Page
 @app.route("/patient/<patient_id>/profile", methods=["GET", "POST"])
 @require_api_token
-def patientProfilePage(patient_id):
+def patientProfilePage(current_user, patient_id):
+    if int(current_user) != int(patient_id):
+        return render_template("homepage/invalid_session.html", message="missing")
     patient_profile = db.session.query(patient).filter(patient.patient_id == patient_id)
     return render_template(
         "patient/profile.html",
@@ -643,7 +659,10 @@ def patientProfilePage(patient_id):
 # Renders Patient's Prescription Page
 @app.route("/patient/<patient_id>/<prescription_id>", methods=["GET"])
 @require_api_token
-def patientPresciptionPage(patient_id, prescription_id):
+def patientPresciptionPage(current_user, patient_id, prescription_id):
+    if int(current_user) != int(patient_id):
+        return render_template("homepage/invalid_session.html", message="missing")
+
     total_prescription = (
         db.session.query(prescription, doseDirection, orderDetails)
         .join(
@@ -657,6 +676,7 @@ def patientPresciptionPage(patient_id, prescription_id):
         .all()
     )
     patient_profile = db.session.query(patient).filter(patient.patient_id == patient_id)
+
     return render_template(
         "patient/patient_prescription.html",
         data1=total_prescription,
@@ -669,7 +689,10 @@ def patientPresciptionPage(patient_id, prescription_id):
 # Renders Docter Prescription Page
 @app.route("/doctor/<doctor_id>/<prescription_id>", methods=["GET"])
 @require_api_token
-def doctorPresciptionPage(doctor_id, prescription_id):
+def doctorPresciptionPage(current_user, doctor_id, prescription_id):
+    if int(current_user) != int(doctor_id):
+        return render_template("homepage/invalid_session.html", message="missing")
+
     total_prescription = (
         db.session.query(prescription, doseDirection, orderDetails)
         .join(

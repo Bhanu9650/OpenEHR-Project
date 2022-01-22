@@ -297,6 +297,7 @@ def doctorUsersPage(current_user, doctor_id):
     doctor_user = db.session.query(doctor).filter(doctor.doctor_id == doctor_id)
     for row in doctor_user:
         doctor_info = row
+
     patient_info = db.session.query(patient).all()
     return render_template(
         "doctor/patientlist.html",

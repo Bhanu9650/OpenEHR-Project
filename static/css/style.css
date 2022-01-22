@@ -8,17 +8,17 @@
   /*========== Colors ==========*/
   --first-color: #069C54;
   --first-color-alt: #048654;
-  /* --title-color: #393939; */
-  /* --text-color: #707070; */
-  --text-color-light: black;
-  /* --body-color:  #ccffe0  ; */
-  /* --container-color:  #ffcccc; */
-  /* --header-color:#43d1b7; */
-
-  --title-color: #F1F3F2;
+  --title-color: black;
   --text-color: black;
-  --body-color: #1D2521;
-  --container-color: #27302C;
+  --text-color-light: black;
+  --body-color:  #ccffe0  ;
+  --container-color:  #ffcccc;
+  --header-color:#43d1b7;
+
+  --title-color: black;
+  --text-color: black;
+  /* --body-color: #1D2521; */
+  --container-color: black;
   --header-color:#43d1b7;
   
 
@@ -72,13 +72,13 @@ html{
 
 /*========== Variables Dark theme ==========*/
 body.dark-theme{
-  /* --title-color: #F1F3F2;
-  --text-color: #C7D1CC;
+  --title-color: black;
+  --text-color: black;
   --body-color: #1D2521;
   --container-color: #27302C;
-  --header-color:#000000; */
-  --title-color: #393939; 
-  --text-color: #707070;
+  --header-color:#000000;
+  --title-color: black; 
+  --text-color: black;
   /* --text-color-light: #A6A6A6; */
   --body-color:  #ccffe0  ;
   --container-color:  #ffcccc;
@@ -195,9 +195,8 @@ img{
   margin-bottom: var(--mb-2);
 }
 .nav__logo{
+  font-family: 'serif',garamond;
   font-size: var(--h1-font-size);
-  font-family: 'Gloria Hallelujah', cursive;
-font-family: 'Lobster', cursive;
 }
 .nav__link, .nav__logo, .nav__toggle{
   color: var(--text-color);

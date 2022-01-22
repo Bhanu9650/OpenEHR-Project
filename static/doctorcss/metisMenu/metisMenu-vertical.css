@@ -9,7 +9,7 @@
 }
 
 .sidebar-nav .metismenu {
-    background: #1b2a47;
+    background: #70c99d;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -67,7 +67,7 @@
 .sidebar-nav .metismenu a:active {
     color: #f8f9fa;
     text-decoration: none;
-    background: #152036;
+    /* background: #152036; */
 }
 .sidebar-nav .metismenu li .icon-wrap{
 	margin-right:10px;

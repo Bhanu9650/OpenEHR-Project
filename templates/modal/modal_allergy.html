@@ -17,19 +17,13 @@
 
         <!-- Modal Header-->
         <div class="modal-header">
-            <h4 class="modal-title w-100 text-center">PAST ILLNESS HISTORY</h4>
-            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            <h4 class="modal-title w-100 text-center">ALLERGY INTOLERANCE</h4>
         </div>
 
-
-
-
-        <!--  -->
         <!-- Modal body -->
         <div class="modal-body">
             <!-- adding Bootstrap Form here -->
-
-            <form id="myForm3" action="{{ url_for('doctorPastIllnessPage', doctor_id=data2) }}" method="post">
+            <form id="myForm4" action="{{ url_for('doctorAllergyIntolerance', doctor_id=data2) }}" method="post">
                 <div class="container">
                     <div class="form-group row">
                         <label for="id" class="col-sm-2 col-form-label">Patient ID</label>
@@ -42,86 +36,74 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="id" class="col-sm-2 col-form-label">Problem Name</label>
+                        <label for="id" class="col-sm-2 col-form-label">Substance</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name_id" name="problem_name"
-                                placeholder="Enter Problem Name" required />
+                            <input type="text" class="form-control" id="name_id" name="substance"
+                                placeholder="Enter your Substance" required />
                             <div class="invalid-feedback">
-                                Please choose a Problem Name.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="id" class="col-sm-2 col-form-label">Body Site</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name_id" name="body_site"
-                                placeholder="Enter Body Site" required />
-                            <div class="invalid-feedback">
-                                Please choose a Body Site.
+                                Please choose a Substance.
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="id" class="col-sm-2 col-form-label">Date Onset</label>
+                        <label for="id" class="col-sm-2 col-form-label">Verfication Status</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control" id="name_id" name="datetime_onset"
-                                placeholder="Enter Date Onset" required />
+                            <input type="text" class="form-control" id="name_id" name="verification_status"
+                                placeholder="Enter your Verfication Status" required />
                             <div class="invalid-feedback">
-                                Please choose a Date Onset.
+                                Please choose a Verfication Status.
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="id" class="col-sm-2 col-form-label">Severity</label>
+                        <label for="id" class="col-sm-2 col-form-label">Intolerance Type</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name_id" name="severity"
-                                placeholder="Enter Severity" />
+                            <input type="text" class="form-control" id="name_id" name="allergy_intol_type"
+                                placeholder="Enter your Intolerance Type" />
                             <div class="invalid-feedback">
-                                Please choose Severity .
+                                Please choose a Intolerance Type.
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="id" class="col-sm-2 col-form-label">Procedure Type</label>
+                        <label for="id" class="col-sm-2 col-form-label">Comment</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name_id" name="procedure_type"
-                                placeholder="Enter your Procedure Type" />
+                            <input type="text" class="form-control" id="name_id" name="comment"
+                                placeholder="Enter your Comment" required />
                             <div class="invalid-feedback">
-                                Please choose Procedure Type.
+                                Please choose a Comment.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="id" class="col-sm-2 col-form-label">Manifestation</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name_id" name="manifestation"
+                                placeholder="Enter your Manifestation" />
+                            <div class="invalid-feedback">
+                                Please choose a Manifestation.
                             </div>
                         </div>
                     </div>
                     <div class="text-center">
                         <button class="btn btn-success" type="submit">Submit</button>
                     </div>
-
                     {% if data.message %}
-
-
-                    <div class="toast-body text-danger mt-3">
-                        {{ data.message }}
+                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <img src="..." class="rounded mr-2" alt="...">
+                            <strong class="mr-auto">Error</strong>
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body">
+                            {{ data3.message }}
+                        </div>
                     </div>
-
-
                     {% endif %}
-
                 </div>
             </form>
-
-            <script>
-
-            </script>
         </div>
     </div>
 </div>
-
-
-<!-- Modal footer
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
-        </div>
-    </div>
-</div> -->

@@ -45,17 +45,19 @@ direction and order details
 5. Install the dependancies:
 `pip install -r requirements.txt`
 
-6. Run the code
+6. export `JWT_SECRET_KEY="<your_key>"`
+
+7. Run the code
 `python3 app.py`
 
-7. Clean up
+8. Clean up
 `deactivate`
 
 ### Tech stack
 <strong>EAPR</strong> uses
 
 <strong>Frontend</strong>:
-1. HTML/CSS
+1. HTML,CSS,JS
 2. Bootstrap
 3. Jinja Templating Language
 

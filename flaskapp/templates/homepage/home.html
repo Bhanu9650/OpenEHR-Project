@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--========== BOX ICONS ==========-->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page</title>
+    <!--========== CSS ==========-->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/team-section.css">
+</head>
+
+<body>
+    <!--========== SCROLL TOP ==========-->
+    <a href="#" class="scrolltop" id="scroll-top">
+        <i class='bx bx-chevron-up scrolltop__icon'></i>
+    </a>
+    <!--========== HEADER ==========-->
+    <header class="l-header" id="header">
+        <nav class="nav bd-container">
+            <a class="nav__logo">EAPR</a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="patientsignup" class="nav__link">Patient</a></li>
+                    <li class="nav__item"><a href="doctorsignup" class="nav__link">Doctor</a></li>
+                    <li class="nav__item"><a href="pharmasignup" class="nav__link">Pharmacist</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link">About Us</a></li>
+                </ul>
+            </div>
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+        </nav>
+    </header>
+    <main class="l-main">
+        <!--========== HOME ==========-->
+        <section class="home" id="home">
+            <div class="home__container bd-container bd-grid">
+                <div class="home__data">
+                    <h1 class="home__title">Easy Access Patient Record</h1>
+                    <h2 class="home__subtitle">To avail the best facilities<br>Login Now</h2>
+                    <button onclick="window.location.href='signin'" class="btn btn-success">Login</button>
+                </div>
+                <img style="border-radius: 20px;" src="/static/images/home.gif" alt="" class="home__img">
+            </div>
+        </section>
+        <!--========== CONTACT US ==========-->
+        <section class="contact section bd-container" id="contact">
+            <div class="contact__container bd-grid">
+                <div class="contact__data">
+                    <span class="section-subtitle contact__initial">Let's talk</span>
+                    <h2 class="section-title contact__initial">About us</h2>
+                    <p class="contact__description"><b>EAPR </b>stands for Easy Access Patient Record, the objective of
+                        this project to bring out transparency at each stage of the medical process be it a patient ,
+                        doctor, pharmacist.
+                        Any patient, doctor or pharmacist can register here to avail the services. The services that we
+                        provide are :-<br>
+                        The patient can register through patient Sign-Up and check his/her prescription.<br>
+                        The Doctor can record and manage all his patients data like prescription, medication, illness
+                        history, allergies etc. <br>
+                        The pharmacist would be able to get a digital format of prescription and can log the details of
+                        medicine prescribed by the doctor to patients.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    {%include "homepage/team-section.html" %}
+    <!--========== FOOTER ==========-->
+    <footer class="footer section bd-container">
+        <div class="footer__container bd-grid">
+            <div class="footer__content">
+                <a href="#" class="footer__logo">Healthcare</a>
+                <span class="footer__description">Website</span>
+                <div>
+                    <a href="#" class="footer__social"><i class='bx bxl-facebook'></i></a>
+                    <a href="#" class="footer__social"><i class='bx bxl-instagram'></i></a>
+                    <a href="#" class="footer__social"><i class='bx bxl-twitter'></i></a>
+                </div>
+            </div>
+            <p class="footer__copy">Copyright © 2022 Group-C All rights reserved</p>
+    </footer>
+
+    <!--========== SCROLL REVEAL ==========-->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <!--========== MAIN JS ==========-->
+    <script src="/static/js/main.js"></script>
+</body>
+
+</html>

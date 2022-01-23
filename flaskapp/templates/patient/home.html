@@ -1,0 +1,186 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ patient_data[0][0].patient_name.title()}}'s Homepage</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../static/doctorcss/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../static/doctorcss/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/doctorcss/main.css">
+    <!-- metisMenu CSS -->
+    <link rel="stylesheet" href="../../static/doctorcss/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="../../static/doctorcss/metisMenu/metisMenu-vertical.css">
+    <!-- style CSS -->
+    <link rel="stylesheet" href="../../static/doctorcss/style.css">
+    <link rel="stylesheet" href="../../static/doctorcss/profile2.css">
+    <link rel="stylesheet" href="../../static/doctorcss/profile.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <!-- responsive CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/doctorcss/responsive.css">
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+    <style>
+        .submenu-angle li:hover {
+            background-color: rgb(7, 164, 175) !important;
+        }
+
+        .mini-sub-pro,
+        span {
+            color: black !important;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="l-header" id="header">
+        <nav class="nav bd-container">
+            <a class="nav__logo">EAPR</a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="{{ url_for('userHomePage', user_id=data2,role=data) }}"
+                            class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="{{ url_for('patientProfilePage', patient_id=data2, role=data) }}"
+                            class="nav__link">Profile</a></li>
+                    <li class="nav__item"><a href="/" class="nav__link">Logout</a></li>
+                </ul>
+            </div>
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+        </nav>
+    </header><br><br><br>
+    <div class="left-sidebar-pro">
+        <nav id="sidebar" class="" style="background-color: #70c99d">
+            <div class="sidebar-header" style="background-color: #70c99d">
+                <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                <strong><img src="img/logo/logosn.png" alt="" /></strong>
+            </div>
+            <div class="nalika-profile" style="background-color: #70c99d">
+                <div class="profile-dtl">
+                    <a href="#"><img src="/static/images/avatar.png" alt="" /></a>
+                    <h2 style="color:black">{{ patient_data[0][0].patient_name.title()}}<span class="min-dtn"></span>
+                    </h2>
+                </div>
+            </div>
+            <div class="left-custom-menu-adp-wrap comment-scrollbar">
+                <nav class="sidebar-nav left-sidebar-menu-pro">
+                    <ul class="metismenu" id="menu1">
+                        <li class="active">
+                            <ul class="submenu-angle" aria-expanded="true" style="background-color: #70c99d">
+                                <li style="border-top: 1px solid #5c8774;"><a title="Patient List"
+                                        href="{{ url_for('userHomePage', user_id=data2,role=data) }}">
+                                        <span class="mini-sub-pro">Home</span></a></li>
+                                <li style="border-bottom: 1px solid #5c8774;"><a title="Patient Cart"
+                                        href="{{ url_for('patientProfilePage', patient_id=data2, role=data) }}">
+                                        <span class="mini-sub-pro">Profile</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </nav>
+    </div>
+    <!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+        <div class="product-cart-area mg-b-30">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="product-cart-inner" style="background-color: #b0e0e6;">
+                            <div id="example-basic">
+                                <section>
+                                    <div class="product-list-cart" style="background-color: #b0e0e6;">
+                                        <div class="product-status-wrap border-pdt-ct">
+                                            {% if patient_data[0]|length > 1 %}
+                                            <table style="background-color: #e5eeff;">
+                                                <tr style="background-color: #70c99d">
+                                                    <th>Prescription ID</th>
+                                                    <th>Doctor ID</th>
+                                                    <th>Doctor Name</th>
+                                                    <th>Doctor's Phone</th>
+                                                    <th>Description</th>
+                                                    <th></th>
+                                                </tr>
+                                                {% for presc in patient_data %}
+                                                <!-- [(<patient 1>, <prescription 1>, <doctor 1>)] -->
+                                                <tr>
+                                                    <td>
+                                                        <h3>{{ presc[1].prescription_id }}</h3>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{ presc[1].doctor_id }}</p>
+                                                    </td>
+                                                    <td>
+                                                        <h3>{{ presc[2].doctor_name.title() }}</h3>
+                                                        <p>{{ presc[2].speciality.title() }}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{ presc[2].phone }}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{ presc[1].additional_instruction[:100] }}</p>
+                                                    </td>
+                                                    <td>
+                                                        <form
+                                                            action="{{ url_for('patientPresciptionPage', patient_id=data2, prescription_id=presc[1].prescription_id ) }}"
+                                                            method="get">
+                                                            <button type="submit" class="btn btn-primary">View
+                                                                Here</button></a>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </table>
+                                            {% else %}
+                                            <h2 class='text-center' style='color: black; background-color: #b0e0e6;'>There are no prescriptions
+                                                available.
+                                            </h2>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- jquery -->
+    <!-- bootstrap JS -->
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <script src="../../static/js/tab.js"></script>
+    <script src="../../static/js/plugins.js"></script>
+    <!-- main JS -->
+    <script src="../../static/js/main.js"></script>
+</body>
+
+</html>

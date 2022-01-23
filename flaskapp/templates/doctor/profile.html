@@ -1,0 +1,182 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Doctor Profile</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../../static/doctorcss/bootstrap.min.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../../static/doctorcss/font-awesome.min.css">
+  <link rel="stylesheet" href="../../static/doctorcss/main.css">
+  <!-- metisMenu CSS -->
+  <link rel="stylesheet" href="../../static/doctorcss/metisMenu/metisMenu.min.css">
+  <link rel="stylesheet" href="../../static/doctorcss/metisMenu/metisMenu-vertical.css">
+  <!-- style CSS -->
+  <link rel="stylesheet" href="../../static/doctorcss/style.css">
+  <link rel="stylesheet" href="../../static/doctorcss/profile.css">
+  <link rel="stylesheet" href="../../static/css/style.css">
+  <!-- responsive CSS -->
+  <link rel="stylesheet" href="../../static/doctorcss/responsive.css">
+  <!-- Bootstrap -->
+  <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
+  <style>
+    .submenu-angle li:hover {
+      background-color: rgb(7, 164, 175) !important;
+    }
+
+    .mini-sub-pro,
+    span {
+      color: black !important;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="l-header" id="header">
+    <nav class="nav bd-container">
+      <a class="nav__logo">EAPR</a>
+      <div class="nav__menu" id="nav-menu">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="{{ url_for('userHomePage', role='doctor', user_id=doctor_info.doctor_id) }}"
+              class="nav__link">Home</a></li>
+          <li class="nav__item"><a href="{{ url_for('doctorUsersPage', doctor_id=doctor_info.doctor_id) }}"
+              class="nav__link">Patients</a></li>
+          <li class="nav__item"><a href="{{ url_for('doctorPrescribePage', doctor_id=doctor_info.doctor_id) }}"
+              class="nav__link">Prescribe</a></li>
+          <li class="nav__item"><a href="{{ url_for('doctorProfilePage', doctor_id=data2) }}"
+              class="nav__link">Profile</a></li>
+          <li class="nav__item"><a href="/" class="nav__link">Logout</a></li>
+        </ul>
+      </div>
+      <div class="nav__toggle" id="nav-toggle">
+        <i class='bx bx-menu'></i>
+      </div>
+    </nav>
+  </header><br><br><br>
+  <div class="left-sidebar-pro">
+    <nav id="sidebar" class="" style="background-color: #70c99d">
+      <div class="sidebar-header" style="background-color: #70c99d">
+        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+        <strong><img src="img/logo/logosn.png" alt="" /></strong>
+      </div>
+      <div class="nalika-profile" style="background-color: #70c99d">
+        <div class="profile-dtl">
+          <a href="#"><img src="/static/prescribe-img/demo.png" alt="" /></a>
+          <h2 style="color:black">Doctor</h2>
+        </div>
+      </div>
+      <div class="left-custom-menu-adp-wrap comment-scrollbar">
+        <nav class="sidebar-nav left-sidebar-menu-pro">
+          <ul class="metismenu" id="menu1">
+            <li class="active">
+              <ul class="submenu-angle" aria-expanded="true" style="background-color: #70c99d">
+                <li style="border-top: 1px solid #5c8774;"><a title="Patient List"
+                    href="{{ url_for('userHomePage', role='doctor', user_id=doctor_info.doctor_id) }}"><span
+                      class="mini-sub-pro">Home</span></a></li>
+                <li><a title="Patient Cart"
+                    href="{{ url_for('doctorUsersPage', doctor_id=doctor_info.doctor_id) }}"><span
+                      class="mini-sub-pro">Patients</span></a></li>
+                <li><a title="Patient Cart"
+                    href="{{ url_for('doctorProfilePage', doctor_id=doctor_info.doctor_id) }}"><span
+                      class="mini-sub-pro">Profile</span></a></li>
+                <li style="border-bottom: 1px solid #5c8774;"><a title="Patient Cart"
+                    href="{{ url_for('doctorPrescribePage', doctor_id=doctor_info.doctor_id) }}"><span
+                      class="mini-sub-pro">Prescribe</span></a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </nav>
+  </div>
+  <div class="all-content-wrapper">
+    <!-- Mobile Menu end -->
+    <div class="student-profile py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card shadow-sm">
+              <div class="card-header bg-transparent text-center">
+                <img class="profile_img" src="https://cdn4.iconfinder.com/data/icons/professions-1-2/151/3-512.png"
+                  alt="student dp">
+                <h3>{{ doctor_info.doctor_name.title() }}</h3>
+              </div>
+              <div class="card-body">
+                <p class="mb-0"><strong class="pr-1">Doctor ID:</strong>{{ doctor_info.doctor_id }}</p>
+                <p class="mb-0"><strong class="pr-1">Specialist:</strong>{{ doctor_info.speciality.title() }}</p>
+                <p class="mb-0"><strong class="pr-1">Year Of Experience:</strong>{{ doctor_info.year_exp }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="card shadow-sm">
+              <div class="card-header bg-transparent border-0">
+                <h3 class="mb-0"><i class="far fa-clone pr-1"></i>General Information</h3>
+              </div>
+              <div class="card-body pt-0">
+                <table class="table table-bordered">
+                  <tr>
+                    <th width="30%">Fees</th>
+                    <td width="2%">:</td>
+                    <td>{{ doctor_info.fee }}</td>
+                  </tr>
+                  <tr>
+                    <th width="30%">Year Of Experience </th>
+                    <td width="2%">:</td>
+                    <td>{{ doctor_info.year_exp }}</td>
+                  </tr>
+                  <tr>
+                    <th width="30%">Gender</th>
+                    <td width="2%">:</td>
+                    <td>Male</td>
+                  </tr>
+                  <tr>
+                    <th width="30%">Specialist</th>
+                    <td width="2%">:</td>
+                    <td>{{ doctor_info.speciality.title() }}</td>
+                  </tr>
+                  <tr>
+                    <th width="30%">Phone No.</th>
+                    <td width="2%">:</td>
+                    <td>{{ doctor_info.phone }}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div style="height: 26px"></div>
+            <div class="card shadow-sm">
+              <div class="card-header bg-transparent border-0">
+                <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Other Information</h3>
+              </div>
+              <div class="card-body pt-0">
+                <p>{{ doctor_info.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- jquery -->
+  <!-- bootstrap JS -->
+  <script src="../../static/js/bootstrap.min.js"></script>
+  <script src="../../static/js/tab.js"></script>
+  <script src="../../static/js/plugins.js"></script>
+  <!-- main JS -->
+  <script src="../../static/js/main.js"></script>
+</body>
+
+</html>

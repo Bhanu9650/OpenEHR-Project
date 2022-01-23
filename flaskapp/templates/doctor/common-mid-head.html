@@ -1,0 +1,51 @@
+<header class="l-header" id="header">
+  <nav class="nav bd-container">
+    <a class="nav__logo">EAPR</a>
+    <div class="nav__menu" id="nav-menu">
+      <ul class="nav__list">
+        <li class="nav__item"><a href="{{ url_for('userHomePage', role=data, user_id=data2) }}"
+            class="nav__link">Home</a></li>
+        <li class="nav__item"><a href="{{ url_for('doctorUsersPage', doctor_id=data2) }}" class="nav__link">Patients</a>
+        </li>
+        <li class="nav__item"><a href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}"
+            class="nav__link">Prescribe</a></li>
+        <li class="nav__item"><a href="/" class="nav__link">Logout</a></li>
+      </ul>
+    </div>
+    <div class="nav__toggle" id="nav-toggle">
+      <i class='bx bx-menu'></i>
+    </div>
+  </nav>
+</header><br><br><br>
+<div class="left-sidebar-pro">
+  <nav id="sidebar" class="" style="background-color: #70c99d">
+    <div class="sidebar-header" style="background-color: #70c99d">
+      <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+      <strong><img src="img/logo/logosn.png" alt="" /></strong>
+    </div>
+    <div class="nalika-profile" style="background-color: #70c99d">
+      <div class="profile-dtl">
+        <a href="#"><img src="/static/prescribe-img/demo.png" alt="" /></a>
+        <h2 style="color: black;">Doctor</h2>
+      </div>
+    </div>
+    <div class="left-custom-menu-adp-wrap comment-scrollbar">
+      <nav class="sidebar-nav left-sidebar-menu-pro">
+        <ul class="metismenu" id="menu1">
+          <li class="active">
+            <ul class="submenu-angle" aria-expanded="true" style="background-color: #70c99d">
+              <li style="border-top: 1px solid #5c8774;"><a title="Patient List"
+                  href="{{ url_for('userHomePage', role=data, user_id=data2) }}"><span
+                    class="mini-sub-pro">Home</span></a></li>
+              <li><a title="Patient Cart" href="{{ url_for('doctorUsersPage', doctor_id=data2) }}"><span
+                    class="mini-sub-pro">Patients</span></a></li>
+              <li><a title="Patient Cart" href="{{ url_for('doctorProfilePage', doctor_id=data2) }}"><span
+                    class="mini-sub-pro">Profile</span></a></li>
+              <li style="border-bottom: 1px solid #5c8774;"><a title="Patient Cart"
+                  href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}"><span
+                    class="mini-sub-pro">Prescribe</span></a></li>
+            </ul>
+      </nav>
+    </div>
+  </nav>
+</div>

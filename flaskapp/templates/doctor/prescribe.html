@@ -1,0 +1,155 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Doctor Prescribe</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../static/doctorcss/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../static/doctorcss/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/doctorcss/main.css">
+    <!-- metisMenu CSS -->
+    <link rel="stylesheet" href="../../static/doctorcss/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="../../static/doctorcss/metisMenu/metisMenu-vertical.css">
+    <!-- style CSS -->
+    <link rel="stylesheet" href="../../static/doctorcss/style.css">
+    <link rel="stylesheet" href="../../static/doctorcss/prescribe.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <!-- responsive CSS -->
+    <link rel="stylesheet" href="../../static/doctorcss/responsive.css">
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <style>
+        .submenu-angle li:hover {
+            background-color: rgb(7, 164, 175) !important;
+        }
+
+        .mini-sub-pro,
+        span {
+            color: black !important;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="l-header" id="header">
+        <nav class="nav bd-container">
+            <a class="nav__logo">EAPR</a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="{{ url_for('userHomePage', role='doctor', user_id=data2) }}"
+                            class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="{{ url_for('doctorUsersPage', doctor_id=data2) }}"
+                            class="nav__link">Patients</a></li>
+                    <li class="nav__item"><a href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}"
+                            class="nav__link">Prescribe</a></li>
+                    <li class="nav__item"><a href="{{ url_for('doctorProfilePage', doctor_id=data2) }}"
+                            class="nav__link">Profile</a></li>
+                    <li class="nav__item"><a href="/" class="nav__link">Logout</a></li>
+                </ul>
+            </div>
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+        </nav>
+    </header>
+    <br><br>
+    <div class="left-sidebar-pro">
+        <nav id="sidebar" class="" style="background-color: #70c99d; margin-top: 19px;">
+            <div class="sidebar-header" style="background-color: #70c99d">
+                <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                <strong><img src="img/logo/logosn.png" alt="" /></strong>
+            </div>
+            <div class="nalika-profile" style="background-color: #70c99d">
+                <div class="profile-dtl">
+                    <a href="#"><img src="/static/prescribe-img/demo.png" alt="" /></a>
+                    <h2 style="color:black">Doctor</span></h2>
+                </div>
+            </div>
+            <div class="left-custom-menu-adp-wrap comment-scrollbar">
+                <nav class="sidebar-nav left-sidebar-menu-pro">
+                    <ul class="metismenu" id="menu1">
+                        <li class="active">
+                            <ul class="submenu-angle" aria-expanded="true" style="background-color: #70c99d">
+                                <li style="border-top: 1px solid #5c8774;"><a title="Patient List"
+                                        href="{{ url_for('userHomePage', role='doctor', user_id=data2) }}"><span
+                                            class="mini-sub-pro">Home</span></a></li>
+                                <li><a title="Patient Cart"
+                                        href="{{ url_for('doctorUsersPage', doctor_id=data2) }}"><span
+                                            class="mini-sub-pro">Patients</span></a></li>
+                                <li><a title="Patient Cart"
+                                        href="{{ url_for('doctorProfilePage', doctor_id=data2) }}"><span
+                                            class="mini-sub-pro">Profile</span></a></li>
+                                <li style="border-bottom: 1px solid #5c8774;"><a title="Patient Cart"
+                                        href="{{ url_for('doctorPrescribePage', doctor_id=data2) }}"><span
+                                            class="mini-sub-pro">Prescribe</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </nav>
+    </div>
+    <div class="all-content-wrapper">
+        <div style="background-color: #b0e0e6;" class="main-container">
+            <div style="padding: 20px;" class="cards">
+                <div class="card card-1">
+                    <a href="{{ url_for('doctorPastIllnessPage', doctor_id=data2) }}">
+                        <button type="button" class="btn btn-primary">
+                            <img src="/static/prescribe-img/2.png" alt="past history">
+                            <p>Past Illness History</p>
+                        </button></a>
+                </div>
+                <div class="card card-1">
+                    <a href="{{ url_for('doctorAllergyIntolerance', doctor_id=data2) }}">
+                        <button type="button" class="btn btn-primary">
+                            <img src="/static/prescribe-img/3.png" alt="Allergy">
+                            <p>Allergy Intolerance</p>
+                        </button></a>
+                </div>
+                <div class="card card-1">
+                    <a href="{{ url_for('doctorDiagnosisPage', doctor_id=data2) }}">
+                        <button type="button" class="btn btn-primary">
+                            <img src="/static/prescribe-img/4.png" alt="Diagnosis">
+                            <p>Problems/Diagnosis</p>
+                        </button></a>
+                </div>
+                <div class="card card-1">
+                    <a href="{{ url_for('doctorPrescriptionPage', doctor_id=data2) }}">
+                        <button type="button" class="btn btn-primary">
+                            <img src="/static/prescribe-img/1.png" alt="e-prescription">
+                            <p>E-Prescription</p>
+                        </button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery -->
+    <!-- bootstrap JS -->
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <script src="../../static/js/tab.js"></script>
+    <script src="../../static/js/plugins.js"></script>
+    <!-- main JS -->
+    <script src="../../static/js/main.js"></script>
+    <script src="../../static/js/prescribe.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+</body>
+
+</html>

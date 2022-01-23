@@ -92,12 +92,14 @@ jobs:
               git fetch --all &&
               git reset --hard origin/master &&
               git pull origin master
+              flask db migrate && flask db upgrade
               sudo docker-compose up -d --build
 
             else
               echo "NOT EXISTS"
               git clone https://github.com/Bhanu9650/OpenEHR-Project.git
               cd OpenEHR-Project
+              flask db migrate && flask db upgrade
               sudo docker-compose up -d --build
             fi
             '

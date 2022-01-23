@@ -3,7 +3,7 @@ version: '3.6'
 services:
   pythonapp:
     container_name: pythonapp
-    image: pythonapp
+    image: 921079650/eapr.group.c
     build: .
     environment:
       - JWT_SECRET_KEY=qazwsxedc&mac

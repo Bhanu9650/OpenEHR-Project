@@ -13,7 +13,7 @@ from selenium.webdriver.firefox.options import Options
 CHROME_PATH = '/usr/local/bin/chromedriver'
 
 
-BASE_URL = 'http://127.0.0.1:4005/'
+BASE_URL = 'http://15.207.115.222/'
 USER_Email = 'adi@gmail.com'
 USER_PASSWORD = '123'
 INVALID_USER_Email = 'adi2@gmail.com'

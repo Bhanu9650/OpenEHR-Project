@@ -712,10 +712,10 @@ def doctorPresciptionPage(current_user, doctor_id, prescription_id):
 
 
 # Renders Error Handling Page
-# @app.errorhandler(Exception)
-# def handle_error(e):
-#     code = 404
-#     if isinstance(e, HTTPException):
-#         code = e.code
-#     return render_template("homepage/error404.html")
+@app.errorhandler(Exception)
+def handle_error(e):
+    code = 404
+    if isinstance(e, HTTPException):
+        code = e.code
+    return render_template("homepage/error404.html")
 

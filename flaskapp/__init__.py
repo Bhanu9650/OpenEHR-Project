@@ -24,7 +24,7 @@ from inspect import signature
 
 app = Flask(__name__)
 print(os.environ.get('POSTGRES_USER'))
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://" + str(os.environ.get("POSTGRES_USER")) + ":" + str(os.environ.get("POSTGRES_PASSWORD")) + "@" + "db:5432/" + str(os.environ.get("POSTGRES_DB"))
+app.config["SQLALCHEMY_DATABASE_URI"] =  "postgresql://postgres:postgres@db:5432/eapr"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 db = SQLAlchemy(app)
 

@@ -1,14 +1,18 @@
 import pytest
-from models import *
+from flaskapp.models import userdata, patient, doctor, prescription
+from flaskapp.models import doseDirection, orderDetails, pastHistoryIllness
+from flaskapp.models import allergyIntolerance, problemList
+from flaskapp import app, db
 from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
 
 
 @pytest.fixture(scope="module")
 def test_client():
-
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test_db.db"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["TESTING"] = True
+
     # Creating test client
     with app.test_client() as testing_client:
         with app.app_context():

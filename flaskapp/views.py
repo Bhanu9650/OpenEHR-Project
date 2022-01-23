@@ -1,13 +1,16 @@
+from flaskapp import app, db
 from crypt import methods
 from ctypes import addressof
 from os import uname
 import re
-from flask import Flask, app, request, jsonify, redirect, url_for, Response
+from flask import Flask, request, jsonify, redirect, url_for, Response
 from flask.templating import render_template
 from sqlalchemy.sql.functions import user
-from models import patient, problemList, prescription
-from models import userdata
-from models import *
+
+from flaskapp.models import patient, problemList, prescription
+from flaskapp.models import userdata
+from flaskapp.models import *
+
 from werkzeug.exceptions import HTTPException
 from datetime import datetime, timedelta
 import hashlib, jwt
@@ -16,11 +19,6 @@ from functools import wraps
 from sqlalchemy import func
 import json, os
 from inspect import signature
-
-db.create_all()
-db.session.commit()
-
-app.config["SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
 
 
 def require_api_token(func):
@@ -721,6 +719,3 @@ def handle_error(e):
         code = e.code
     return render_template("homepage/error404.html")
 
-
-if __name__ == "__main__":
-    app.run(debug=True, port=4005)

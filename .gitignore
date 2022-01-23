@@ -2,6 +2,7 @@ notes.txt
 *try*.*
 .config.json
 eapr/
+test_db.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -57,7 +57,7 @@ direction and order details
 <strong>EAPR</strong> uses
 
 <strong>Frontend</strong>:
-1. HTML/CSS
+1. HTML,CSS,JS
 2. Bootstrap
 3. Jinja Templating Language
 
